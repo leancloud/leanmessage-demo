@@ -1,0 +1,512 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		4CE9797B9937C5C062258E79 /* libPods-LeanMessageDemo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AC68B1AE58AE132334393CD3 /* libPods-LeanMessageDemo.a */; };
+		5CFD3D031B05CE7100DD9A93 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CFD3D021B05CE7100DD9A93 /* main.m */; };
+		5CFD3D061B05CE7100DD9A93 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CFD3D051B05CE7100DD9A93 /* AppDelegate.m */; };
+		5CFD3D0C1B05CE7100DD9A93 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5CFD3D0A1B05CE7100DD9A93 /* Main.storyboard */; };
+		5CFD3D0E1B05CE7100DD9A93 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5CFD3D0D1B05CE7100DD9A93 /* Images.xcassets */; };
+		5CFD3D111B05CE7100DD9A93 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5CFD3D0F1B05CE7100DD9A93 /* LaunchScreen.xib */; };
+		5CFD3D1D1B05CE7100DD9A93 /* LeanMessageDemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CFD3D1C1B05CE7100DD9A93 /* LeanMessageDemoTests.m */; };
+		5CFD3D2E1B05CF7C00DD9A93 /* ChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CFD3D271B05CF7C00DD9A93 /* ChatViewController.m */; };
+		5CFD3D2F1B05CF7C00DD9A93 /* LeanMessageManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CFD3D291B05CF7C00DD9A93 /* LeanMessageManager.m */; };
+		5CFD3D301B05CF7C00DD9A93 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CFD3D2B1B05CF7C00DD9A93 /* LoginViewController.m */; };
+		5CFD3D311B05CF7C00DD9A93 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CFD3D2D1B05CF7C00DD9A93 /* MainViewController.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		5CFD3D171B05CE7100DD9A93 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5CFD3CF51B05CE7100DD9A93 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 5CFD3CFC1B05CE7100DD9A93;
+			remoteInfo = LeanMessageDemo;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		5CFD3CFD1B05CE7100DD9A93 /* LeanMessageDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LeanMessageDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		5CFD3D011B05CE7100DD9A93 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		5CFD3D021B05CE7100DD9A93 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		5CFD3D041B05CE7100DD9A93 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		5CFD3D051B05CE7100DD9A93 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		5CFD3D0B1B05CE7100DD9A93 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		5CFD3D0D1B05CE7100DD9A93 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		5CFD3D101B05CE7100DD9A93 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
+		5CFD3D161B05CE7100DD9A93 /* LeanMessageDemoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LeanMessageDemoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		5CFD3D1B1B05CE7100DD9A93 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		5CFD3D1C1B05CE7100DD9A93 /* LeanMessageDemoTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LeanMessageDemoTests.m; sourceTree = "<group>"; };
+		5CFD3D261B05CF7C00DD9A93 /* ChatViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatViewController.h; sourceTree = "<group>"; };
+		5CFD3D271B05CF7C00DD9A93 /* ChatViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatViewController.m; sourceTree = "<group>"; };
+		5CFD3D281B05CF7C00DD9A93 /* LeanMessageManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeanMessageManager.h; sourceTree = "<group>"; };
+		5CFD3D291B05CF7C00DD9A93 /* LeanMessageManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeanMessageManager.m; sourceTree = "<group>"; };
+		5CFD3D2A1B05CF7C00DD9A93 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
+		5CFD3D2B1B05CF7C00DD9A93 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
+		5CFD3D2C1B05CF7C00DD9A93 /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
+		5CFD3D2D1B05CF7C00DD9A93 /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
+		AC68B1AE58AE132334393CD3 /* libPods-LeanMessageDemo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-LeanMessageDemo.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		DF0A5963552C26D0D12DA4BD /* Pods-LeanMessageDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LeanMessageDemo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-LeanMessageDemo/Pods-LeanMessageDemo.debug.xcconfig"; sourceTree = "<group>"; };
+		F58CB5C0E75A1C8FD246846C /* Pods-LeanMessageDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LeanMessageDemo.release.xcconfig"; path = "Pods/Target Support Files/Pods-LeanMessageDemo/Pods-LeanMessageDemo.release.xcconfig"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		5CFD3CFA1B05CE7100DD9A93 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4CE9797B9937C5C062258E79 /* libPods-LeanMessageDemo.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5CFD3D131B05CE7100DD9A93 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		4D6CFEA2C9A72B992745A231 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				DF0A5963552C26D0D12DA4BD /* Pods-LeanMessageDemo.debug.xcconfig */,
+				F58CB5C0E75A1C8FD246846C /* Pods-LeanMessageDemo.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		5CFD3CF41B05CE7100DD9A93 = {
+			isa = PBXGroup;
+			children = (
+				5CFD3CFF1B05CE7100DD9A93 /* LeanMessageDemo */,
+				5CFD3D191B05CE7100DD9A93 /* LeanMessageDemoTests */,
+				5CFD3CFE1B05CE7100DD9A93 /* Products */,
+				4D6CFEA2C9A72B992745A231 /* Pods */,
+				B70DEED526DE9240B0E0B910 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		5CFD3CFE1B05CE7100DD9A93 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				5CFD3CFD1B05CE7100DD9A93 /* LeanMessageDemo.app */,
+				5CFD3D161B05CE7100DD9A93 /* LeanMessageDemoTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		5CFD3CFF1B05CE7100DD9A93 /* LeanMessageDemo */ = {
+			isa = PBXGroup;
+			children = (
+				5CFD3D261B05CF7C00DD9A93 /* ChatViewController.h */,
+				5CFD3D271B05CF7C00DD9A93 /* ChatViewController.m */,
+				5CFD3D281B05CF7C00DD9A93 /* LeanMessageManager.h */,
+				5CFD3D291B05CF7C00DD9A93 /* LeanMessageManager.m */,
+				5CFD3D2A1B05CF7C00DD9A93 /* LoginViewController.h */,
+				5CFD3D2B1B05CF7C00DD9A93 /* LoginViewController.m */,
+				5CFD3D2C1B05CF7C00DD9A93 /* MainViewController.h */,
+				5CFD3D2D1B05CF7C00DD9A93 /* MainViewController.m */,
+				5CFD3D041B05CE7100DD9A93 /* AppDelegate.h */,
+				5CFD3D051B05CE7100DD9A93 /* AppDelegate.m */,
+				5CFD3D0A1B05CE7100DD9A93 /* Main.storyboard */,
+				5CFD3D0D1B05CE7100DD9A93 /* Images.xcassets */,
+				5CFD3D0F1B05CE7100DD9A93 /* LaunchScreen.xib */,
+				5CFD3D001B05CE7100DD9A93 /* Supporting Files */,
+			);
+			path = LeanMessageDemo;
+			sourceTree = "<group>";
+		};
+		5CFD3D001B05CE7100DD9A93 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				5CFD3D011B05CE7100DD9A93 /* Info.plist */,
+				5CFD3D021B05CE7100DD9A93 /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		5CFD3D191B05CE7100DD9A93 /* LeanMessageDemoTests */ = {
+			isa = PBXGroup;
+			children = (
+				5CFD3D1C1B05CE7100DD9A93 /* LeanMessageDemoTests.m */,
+				5CFD3D1A1B05CE7100DD9A93 /* Supporting Files */,
+			);
+			path = LeanMessageDemoTests;
+			sourceTree = "<group>";
+		};
+		5CFD3D1A1B05CE7100DD9A93 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				5CFD3D1B1B05CE7100DD9A93 /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		B70DEED526DE9240B0E0B910 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				AC68B1AE58AE132334393CD3 /* libPods-LeanMessageDemo.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		5CFD3CFC1B05CE7100DD9A93 /* LeanMessageDemo */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 5CFD3D201B05CE7100DD9A93 /* Build configuration list for PBXNativeTarget "LeanMessageDemo" */;
+			buildPhases = (
+				F03427B9CE8FF40D528A1391 /* Check Pods Manifest.lock */,
+				5CFD3CF91B05CE7100DD9A93 /* Sources */,
+				5CFD3CFA1B05CE7100DD9A93 /* Frameworks */,
+				5CFD3CFB1B05CE7100DD9A93 /* Resources */,
+				1EF9F77FC98B7FF81EECF86E /* Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = LeanMessageDemo;
+			productName = LeanMessageDemo;
+			productReference = 5CFD3CFD1B05CE7100DD9A93 /* LeanMessageDemo.app */;
+			productType = "com.apple.product-type.application";
+		};
+		5CFD3D151B05CE7100DD9A93 /* LeanMessageDemoTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 5CFD3D231B05CE7100DD9A93 /* Build configuration list for PBXNativeTarget "LeanMessageDemoTests" */;
+			buildPhases = (
+				5CFD3D121B05CE7100DD9A93 /* Sources */,
+				5CFD3D131B05CE7100DD9A93 /* Frameworks */,
+				5CFD3D141B05CE7100DD9A93 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				5CFD3D181B05CE7100DD9A93 /* PBXTargetDependency */,
+			);
+			name = LeanMessageDemoTests;
+			productName = LeanMessageDemoTests;
+			productReference = 5CFD3D161B05CE7100DD9A93 /* LeanMessageDemoTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		5CFD3CF51B05CE7100DD9A93 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0630;
+				ORGANIZATIONNAME = LeanCloud;
+				TargetAttributes = {
+					5CFD3CFC1B05CE7100DD9A93 = {
+						CreatedOnToolsVersion = 6.3.1;
+					};
+					5CFD3D151B05CE7100DD9A93 = {
+						CreatedOnToolsVersion = 6.3.1;
+						TestTargetID = 5CFD3CFC1B05CE7100DD9A93;
+					};
+				};
+			};
+			buildConfigurationList = 5CFD3CF81B05CE7100DD9A93 /* Build configuration list for PBXProject "LeanMessageDemo" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 5CFD3CF41B05CE7100DD9A93;
+			productRefGroup = 5CFD3CFE1B05CE7100DD9A93 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				5CFD3CFC1B05CE7100DD9A93 /* LeanMessageDemo */,
+				5CFD3D151B05CE7100DD9A93 /* LeanMessageDemoTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		5CFD3CFB1B05CE7100DD9A93 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5CFD3D0C1B05CE7100DD9A93 /* Main.storyboard in Resources */,
+				5CFD3D111B05CE7100DD9A93 /* LaunchScreen.xib in Resources */,
+				5CFD3D0E1B05CE7100DD9A93 /* Images.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5CFD3D141B05CE7100DD9A93 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		1EF9F77FC98B7FF81EECF86E /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-LeanMessageDemo/Pods-LeanMessageDemo-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F03427B9CE8FF40D528A1391 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		5CFD3CF91B05CE7100DD9A93 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5CFD3D061B05CE7100DD9A93 /* AppDelegate.m in Sources */,
+				5CFD3D311B05CF7C00DD9A93 /* MainViewController.m in Sources */,
+				5CFD3D031B05CE7100DD9A93 /* main.m in Sources */,
+				5CFD3D2E1B05CF7C00DD9A93 /* ChatViewController.m in Sources */,
+				5CFD3D2F1B05CF7C00DD9A93 /* LeanMessageManager.m in Sources */,
+				5CFD3D301B05CF7C00DD9A93 /* LoginViewController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5CFD3D121B05CE7100DD9A93 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5CFD3D1D1B05CE7100DD9A93 /* LeanMessageDemoTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		5CFD3D181B05CE7100DD9A93 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 5CFD3CFC1B05CE7100DD9A93 /* LeanMessageDemo */;
+			targetProxy = 5CFD3D171B05CE7100DD9A93 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		5CFD3D0A1B05CE7100DD9A93 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				5CFD3D0B1B05CE7100DD9A93 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		5CFD3D0F1B05CE7100DD9A93 /* LaunchScreen.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				5CFD3D101B05CE7100DD9A93 /* Base */,
+			);
+			name = LaunchScreen.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		5CFD3D1E1B05CE7100DD9A93 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		5CFD3D1F1B05CE7100DD9A93 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		5CFD3D211B05CE7100DD9A93 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = DF0A5963552C26D0D12DA4BD /* Pods-LeanMessageDemo.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = LeanMessageDemo/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		5CFD3D221B05CE7100DD9A93 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = F58CB5C0E75A1C8FD246846C /* Pods-LeanMessageDemo.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = LeanMessageDemo/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		5CFD3D241B05CE7100DD9A93 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = LeanMessageDemoTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/LeanMessageDemo.app/LeanMessageDemo";
+			};
+			name = Debug;
+		};
+		5CFD3D251B05CE7100DD9A93 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = LeanMessageDemoTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/LeanMessageDemo.app/LeanMessageDemo";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		5CFD3CF81B05CE7100DD9A93 /* Build configuration list for PBXProject "LeanMessageDemo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5CFD3D1E1B05CE7100DD9A93 /* Debug */,
+				5CFD3D1F1B05CE7100DD9A93 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		5CFD3D201B05CE7100DD9A93 /* Build configuration list for PBXNativeTarget "LeanMessageDemo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5CFD3D211B05CE7100DD9A93 /* Debug */,
+				5CFD3D221B05CE7100DD9A93 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		5CFD3D231B05CE7100DD9A93 /* Build configuration list for PBXNativeTarget "LeanMessageDemoTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5CFD3D241B05CE7100DD9A93 /* Debug */,
+				5CFD3D251B05CE7100DD9A93 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 5CFD3CF51B05CE7100DD9A93 /* Project object */;
+}

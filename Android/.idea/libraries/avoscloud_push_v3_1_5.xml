@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="avoscloud-push-v3.1.5">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/app/build/intermediates/exploded-aar/cn.leancloud.android/avoscloud-push/v3.1.5/classes.jar!/" />
+      <root url="file://$PROJECT_DIR$/app/build/intermediates/exploded-aar/cn.leancloud.android/avoscloud-push/v3.1.5/res" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">LeanMessageDemo</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="client_id_title">clientId</string>
+    <string name="client_id_desc">每一个终端称为一个 client。\n Client 拥有一个在应用内唯一标识自己的 id。\n 这个 id 由应用自己定义</string>
+    <string name="conversation_desc">开始聊天之前，需要先创建或者加入一个对话，然后再邀请其他人进来，之后所有参与者在这个对话内进行交流。</string>
+    <string name="welcome">您好 </string>
+    <string name="create_conversation">创建一个和机器人的对话</string>
+    <string name="join_conversation">加入一个已有对话</string>
+    <string name="title_activity_login">LoginActivity</string>
+    <string name="logout">注销</string>
+    <string name="begin_chat">开始聊天</string>
+    <string name="otherId_input_hint">请输入对方的 ID</string>
+
+</resources>
