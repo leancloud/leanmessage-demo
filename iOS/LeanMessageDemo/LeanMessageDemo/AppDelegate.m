@@ -17,15 +17,15 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-	[LeanMessageManager setupApplication];
+    [LeanMessageManager setupApplication];
 #ifdef DEBUG
-	[AVAnalytics setAnalyticsEnabled:NO];
-	[AVOSCloud setVerbosePolicy:kAVVerboseShow];
-	[AVLogger addLoggerDomain:AVLoggerDomainIM];
-	[AVLogger addLoggerDomain:AVLoggerDomainCURL];
-	[AVLogger setLoggerLevelMask:AVLoggerLevelAll];
+    [AVAnalytics setAnalyticsEnabled:NO];
+    [AVOSCloud setVerbosePolicy:kAVVerboseShow];
+    [AVLogger addLoggerDomain:AVLoggerDomainIM];
+    [AVLogger addLoggerDomain:AVLoggerDomainCURL];
+    [AVLogger setLoggerLevelMask:AVLoggerLevelAll];
 #endif
-	return YES;
+    return YES;
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {

@@ -15,8 +15,8 @@
 #define kDidReceiveTypedMessageNotification @"didReceiveTypedMessageNotification"
 
 typedef enum : NSInteger {
-	ConversationTypeOneToOne = 0,
-	ConversationTypeGroup = 1,
+    ConversationTypeOneToOne = 0,
+    ConversationTypeGroup = 1,
 } ConversationType;
 
 typedef void (^DidReceiveTypedMessageBlock)(AVIMConversation *conversation, AVIMTypedMessage *message);
