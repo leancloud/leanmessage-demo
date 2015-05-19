@@ -31,6 +31,10 @@ public class MessageAdapter extends BaseAdapter {
     this.messageList = messageList;
   }
 
+  public List<AVIMTypedMessage> getMessageList() {
+    return messageList;
+  }
+
   @Override
   public int getCount() {
     return messageList.size();

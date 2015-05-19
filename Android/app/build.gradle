@@ -28,7 +28,7 @@ android {
 
 dependencies {
     compile 'com.android.support:appcompat-v7:22.0.0'
-    compile 'cn.leancloud.android:avoscloud-sdk:v3.1+'
-    compile 'cn.leancloud.android:avoscloud-push:v3.1+@aar'
+    compile 'cn.leancloud.android:avoscloud-sdk:v3.2+'
+    compile 'cn.leancloud.android:avoscloud-push:v3.2+@aar'
     compile 'cn.leancloud.android:Java-WebSocket:1.2.0-leancloud'
 }
