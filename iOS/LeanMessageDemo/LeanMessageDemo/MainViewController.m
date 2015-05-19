@@ -9,12 +9,14 @@
 #import "MainViewController.h"
 #import "LeanMessageManager.h"
 #import "ChatViewController.h"
+#import "LoginViewController.h"
 
 #define kConversationId @"551a2847e4b04d688d73dc54"
 
 @interface MainViewController ()
 
 @property (weak, nonatomic) IBOutlet UITextField *otherIdTextField;
+@property (weak, nonatomic) IBOutlet UILabel *welcomeLabel;
 
 @end
 
@@ -22,7 +24,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"主页";
+    self.title = @"选择操作";
+    self.welcomeLabel.text = [NSString stringWithFormat:@"%@  %@", self.welcomeLabel.text, [LeanMessageManager manager].selfClientID];
     //	self.otherIdTextField.text = @"b";
 }
 
@@ -50,6 +53,12 @@
             [self performSegueWithIdentifier:@"toChat" sender:conversation];
         }
     }];
+}
+
+- (IBAction)onLogoutButtonClicked:(id)sender {
+    [[NSUserDefaults standardUserDefaults] setObject:nil forKey:kLoginSelfIdKey];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {

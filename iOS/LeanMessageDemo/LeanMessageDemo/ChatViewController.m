@@ -7,6 +7,8 @@
 //
 
 #import "ChatViewController.h"
+#define RGB(R, G, B) [UIColor colorWithRed : (R) / 255.0f green : (G) / 255.0f blue : (B) / 255.0f alpha : 1.0f]
+#define COMMON_BLUE RGB(102, 187, 255)
 
 @interface ChatViewController () <UITableViewDataSource, UITableViewDelegate>
 
@@ -36,15 +38,25 @@
 }
 
 - (void)initTableView {
+    
+
+    [self.messageTableView setBackgroundColor:COMMON_BLUE];
+    
     [self.messageTableView addSubview:self.refreshControl];
     self.messageTableView.dataSource = self;
     self.messageTableView.delegate = self;
+}
+
+- (void)initInputView {
+    self.inputTextField.backgroundColor = [UIColor whiteColor];
+    self.inputTextField.tintColor = [UIColor whiteColor];
 }
 
 - (UIRefreshControl *)refreshControl {
     if (_refreshControl == nil) {
         _refreshControl = [[UIRefreshControl alloc] init];
         [_refreshControl addTarget:self action:@selector(loadOldMessages:) forControlEvents:UIControlEventValueChanged];
+        [_refreshControl setTintColor:[UIColor whiteColor]];
     }
     return _refreshControl;
 }
@@ -79,6 +91,7 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
+        cell.backgroundColor = [UIColor clearColor];
     }
     AVIMTypedMessage *message = self.messages[indexPath.row];
     NSString *text;
@@ -91,14 +104,18 @@
         text = @"其它格式的消息";
     }
     if ([message.clientId isEqualToString:[LeanMessageManager manager].selfClientID]) {
-        fontColor = [UIColor blackColor];
+        fontColor = [UIColor whiteColor];
     }
     else {
-        fontColor = [UIColor orangeColor];
+        fontColor = [UIColor yellowColor];
     }
     cell.textLabel.textColor = fontColor;
     cell.textLabel.text = [NSString stringWithFormat:@"%@ : %@", message.clientId, text];
     return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 #pragma mark - message

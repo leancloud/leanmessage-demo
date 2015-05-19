@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7702" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="jXC-d4-tbU">
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7701"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
@@ -33,36 +34,57 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="请输入你的 ID" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dBc-dV-73a">
-                                <rect key="frame" x="202" y="285" width="196" height="30"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="196" id="8po-Ae-Q0g"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fCi-dn-A0K">
-                                <rect key="frame" x="292" y="333" width="30" height="30"/>
+                                <rect key="frame" x="292" y="295" width="30" height="30"/>
                                 <state key="normal" title="登录">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
                                     <action selector="onLoginButtonClicked:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="c5L-bP-agI"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="每一个终端称为一个 client。Client 拥有一个在应用内唯一标识自己的 id。这个 id 由应用自己定义。" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HAc-du-UIR">
+                                <rect key="frame" x="155" y="136" width="304" height="61"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="304" id="wAu-6J-W09"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="clientId" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cBz-qJ-8Kd">
+                                <rect key="frame" x="253" y="92" width="95" height="36"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0bw-pF-srv">
                                 <rect key="frame" x="0.0" y="0.0" width="607" height="44"/>
                                 <items>
                                     <navigationItem title="登录" id="q21-gL-IiJ"/>
                                 </items>
                             </navigationBar>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="请输入你的 clientId" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dBc-dV-73a">
+                                <rect key="frame" x="202" y="247" width="196" height="30"/>
+                                <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="196" id="8po-Ae-Q0g"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.40000000000000002" green="0.73333333333333328" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="dBc-dV-73a" firstAttribute="top" secondItem="HAc-du-UIR" secondAttribute="bottom" constant="50" id="0vK-bR-fH7"/>
+                            <constraint firstItem="cBz-qJ-8Kd" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" constant="28" id="3db-9A-Qkb"/>
+                            <constraint firstItem="HAc-du-UIR" firstAttribute="top" secondItem="cBz-qJ-8Kd" secondAttribute="bottom" constant="8" id="I9k-Vk-nBF"/>
+                            <constraint firstAttribute="centerX" secondItem="HAc-du-UIR" secondAttribute="centerX" constant="-7" id="IhR-6A-0Oc"/>
                             <constraint firstItem="fCi-dn-A0K" firstAttribute="top" secondItem="dBc-dV-73a" secondAttribute="bottom" constant="18" id="SC4-D1-488"/>
                             <constraint firstAttribute="centerX" secondItem="dBc-dV-73a" secondAttribute="centerX" id="UtY-D9-4Sa"/>
                             <constraint firstAttribute="centerX" secondItem="fCi-dn-A0K" secondAttribute="centerX" constant="-7" id="X2F-rZ-gJ7"/>
-                            <constraint firstAttribute="centerY" secondItem="dBc-dV-73a" secondAttribute="centerY" id="fPb-of-lBz"/>
+                            <constraint firstAttribute="centerX" secondItem="cBz-qJ-8Kd" secondAttribute="centerX" constant="-0.5" id="gKj-5K-Hat"/>
                         </constraints>
                         <variation key="default">
                             <mask key="subviews">
@@ -91,8 +113,10 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="请输入对方的 ID" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="e9H-pD-4Ae">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="请输入对方的 clientId" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="e9H-pD-4Ae">
                                 <rect key="frame" x="189" y="144" width="223" height="30"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="223" id="j78-f4-7Ob"/>
                                 </constraints>
@@ -102,6 +126,7 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ffJ-A7-iK4">
                                 <rect key="frame" x="270" y="199" width="60" height="30"/>
                                 <state key="normal" title="开始聊天">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
@@ -109,27 +134,49 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Za2-dd-s8G">
-                                <rect key="frame" x="263" y="285" width="75" height="30"/>
+                                <rect key="frame" x="263" y="259" width="75" height="30"/>
                                 <state key="normal" title="进入聊天室">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
                                     <action selector="onStartGroupConversationButtonClicked:" destination="yBv-Io-kTP" eventType="touchUpInside" id="nBX-B4-ITc"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NAL-XU-dJv">
+                                <rect key="frame" x="285" y="319" width="30" height="30"/>
+                                <state key="normal" title="注销">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="onLogoutButtonClicked:" destination="yBv-Io-kTP" eventType="touchUpInside" id="aGa-MP-LTY"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="您好" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PBR-wK-Wja">
+                                <rect key="frame" x="274" y="99" width="50" height="30"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="25"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.40000000000000002" green="0.73333333329999995" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="PBR-wK-Wja" firstAttribute="top" secondItem="D2E-N7-qYF" secondAttribute="bottom" constant="35" id="0gI-XY-Vvv"/>
+                            <constraint firstItem="NAL-XU-dJv" firstAttribute="top" secondItem="Za2-dd-s8G" secondAttribute="bottom" constant="30" id="4Zi-T4-HgJ"/>
+                            <constraint firstAttribute="centerX" secondItem="PBR-wK-Wja" secondAttribute="centerX" constant="1.5" id="9m7-33-L7G"/>
                             <constraint firstAttribute="centerX" secondItem="Za2-dd-s8G" secondAttribute="centerX" id="H0u-GC-lgb"/>
+                            <constraint firstAttribute="centerX" secondItem="NAL-XU-dJv" secondAttribute="centerX" id="de5-C4-mXF"/>
                             <constraint firstItem="e9H-pD-4Ae" firstAttribute="top" secondItem="D2E-N7-qYF" secondAttribute="bottom" constant="80" id="fQH-dU-PZo"/>
                             <constraint firstAttribute="centerX" secondItem="ffJ-A7-iK4" secondAttribute="centerX" id="idF-Z1-if5"/>
                             <constraint firstItem="ffJ-A7-iK4" firstAttribute="top" secondItem="e9H-pD-4Ae" secondAttribute="bottom" constant="25" id="kzi-zt-q6z"/>
-                            <constraint firstItem="Za2-dd-s8G" firstAttribute="top" secondItem="ffJ-A7-iK4" secondAttribute="bottom" constant="56" id="rMf-Kn-a49"/>
+                            <constraint firstItem="Za2-dd-s8G" firstAttribute="top" secondItem="ffJ-A7-iK4" secondAttribute="bottom" constant="30" id="rMf-Kn-a49"/>
                             <constraint firstAttribute="centerX" secondItem="e9H-pD-4Ae" secondAttribute="centerX" id="uiL-jr-BPK"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="otherIdTextField" destination="e9H-pD-4Ae" id="ZJO-DJ-x5Y"/>
+                        <outlet property="welcomeLabel" destination="PBR-wK-Wja" id="L98-WG-QHd"/>
                         <segue destination="LKo-Vt-yon" kind="show" identifier="toChat" id="uwT-wa-TOr"/>
                     </connections>
                 </viewController>
@@ -166,7 +213,10 @@
                                     </button>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="fQT-4n-zxV">
                                         <rect key="frame" x="15" y="5" width="524" height="30"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="textColor"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
                                 </subviews>
@@ -185,7 +235,6 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </tableView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="trailingMargin" secondItem="pnh-cp-uKq" secondAttribute="trailing" constant="-16" id="WuL-Vc-xUj"/>
                             <constraint firstAttribute="trailingMargin" secondItem="xHM-Pa-f0L" secondAttribute="trailing" constant="-16" id="Y1h-GE-hz4"/>
