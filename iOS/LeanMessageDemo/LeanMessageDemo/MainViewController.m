@@ -56,9 +56,11 @@
 }
 
 - (IBAction)onLogoutButtonClicked:(id)sender {
-    [[NSUserDefaults standardUserDefaults] setObject:nil forKey:kLoginSelfIdKey];
-    [[NSUserDefaults standardUserDefaults] synchronize];
-    [self.navigationController popViewControllerAnimated:YES];
+    [[LeanMessageManager manager] closeSessionWithBlock:^(BOOL succeeded, NSError *error) {
+        [[NSUserDefaults standardUserDefaults] setObject:nil forKey:kLoginSelfIdKey];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+        [self.navigationController popViewControllerAnimated:YES];
+    }];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {

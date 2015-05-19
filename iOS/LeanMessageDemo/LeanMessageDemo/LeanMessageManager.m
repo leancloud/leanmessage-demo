@@ -64,7 +64,7 @@
 }
 
 - (void)openSessionWithClientID:(NSString *)clientID
-                     completion:(void (^)(BOOL succeeded, NSError *error))completion {
+                     completion:(AVBooleanResultBlock)completion {
     self.selfClientID = clientID;
     if (self.leanClient.status == AVIMClientStatusNone) {
         [self.leanClient openWithClientId:clientID callback:completion];
@@ -74,6 +74,10 @@
             [self.leanClient openWithClientId:clientID callback:completion];
         }];
     }
+}
+
+- (void)closeSessionWithBlock:(AVBooleanResultBlock)block{
+    [self.leanClient closeWithCallback:block];
 }
 
 - (void)createConversationsWithClientIDs:(NSArray *)clientIDs

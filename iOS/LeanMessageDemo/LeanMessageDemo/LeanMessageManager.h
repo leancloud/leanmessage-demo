@@ -32,7 +32,9 @@ typedef void (^DidReceiveTypedMessageBlock)(AVIMConversation *conversation, AVIM
 - (void)setupDidReceiveTypedMessageCompletion:(DidReceiveTypedMessageBlock)didReceiveTypedMessageCompletion;
 
 - (void)openSessionWithClientID:(NSString *)clientID
-                     completion:(void (^)(BOOL succeeded, NSError *error))completion;
+                     completion:(AVBooleanResultBlock)completion;
+
+- (void)closeSessionWithBlock:(AVBooleanResultBlock)block;
 
 - (void)createConversationsWithClientIDs:(NSArray *)clientIDs
                         conversationType:(ConversationType)conversationType
