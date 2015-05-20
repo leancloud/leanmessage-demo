@@ -1,31 +1,32 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:tools="http://schemas.android.com/tools"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:background="@color/leancloud_blue"
-              android:orientation="vertical"
-              android:paddingBottom="@dimen/activity_vertical_margin"
-              android:paddingLeft="@dimen/activity_horizontal_margin"
-              android:paddingRight="@dimen/activity_horizontal_margin"
-              android:paddingTop="@dimen/activity_vertical_margin"
-              tools:context=".MainActivity">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/leancloud_blue"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context=".MainActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
         <TextView
             android:id="@+id/client_id"
             style="@style/BigFont"
             android:layout_weight="1"
-            android:text="@string/welcome"/>
+            android:text="@string/welcome" />
 
         <TextView
             android:id="@+id/logout"
+            style="@style/SmallFont"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/logout"
             android:padding="20dp"
-            style="@style/SmallFont"/>
+            android:text="@string/logout" />
 
     </LinearLayout>
 
@@ -34,42 +35,58 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:orientation="vertical"
-        >
+        android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:orientation="vertical"
-            android:gravity="center">
+            android:gravity="center"
+            android:orientation="vertical">
 
             <EditText
                 android:id="@+id/otherIdEditText"
+                style="@style/SmallFont"
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                style="@style/SmallFont"
-                android:textColorHint="#dcdcdc"
-                android:hint="@string/otherId_input_hint"/>
+                android:hint="@string/otherId_input_hint"
+                android:textColorHint="#dcdcdc" />
 
             <TextView
                 android:id="@+id/chat_with_other"
+                style="@style/SmallFont"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="10dp"
-                style="@style/SmallFont"
-                android:text="@string/begin_chat"/>
+                android:text="@string/begin_chat" />
 
         </LinearLayout>
 
-        <TextView
-            android:id="@+id/join_conversation"
-            style="@style/SmallFont"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="@string/join_conversation"/>
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/join_conversation"
+                style="@style/SmallFont"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/join_conversation" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/SmallFont"
+                android:textSize="13sp"
+                android:gravity="center"
+                android:textColor="#E1E1E1"
+                android:text="@string/online_site"/>
+        </LinearLayout>
+
+
     </LinearLayout>
 </LinearLayout>

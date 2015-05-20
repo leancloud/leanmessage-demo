@@ -174,7 +174,7 @@
                                     <constraint firstAttribute="width" constant="241" id="bdE-zU-6w6"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                <color key="textColor" red="0.88163957774798929" green="0.88163957774798929" blue="0.88163957774798929" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="textColor" red="0.88235294117647056" green="0.88235294117647056" blue="0.88235294117647056" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>

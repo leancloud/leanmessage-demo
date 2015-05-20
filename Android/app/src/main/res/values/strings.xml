@@ -10,9 +10,10 @@
     <string name="welcome">您好 </string>
     <string name="create_conversation">创建一个和机器人的对话</string>
     <string name="join_conversation">加入一个已有对话</string>
+    <string name="online_site">http://leancloud.github.io/js-realtime-sdk/demo/demo2/</string>
     <string name="title_activity_login">LoginActivity</string>
     <string name="logout">注销</string>
     <string name="begin_chat">开始聊天</string>
-    <string name="otherId_input_hint">请输入对方的 ID</string>
+    <string name="otherId_input_hint">请输入对方的 clientId</string>
 
 </resources>
