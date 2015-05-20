@@ -9,8 +9,9 @@
 ## iOS app 运行
 
 ```
+   cd iOS/LeanMessageDemo
    pod install
-   open SimpleChat.xcworkspace
+   open LeanMessageDemo.xcworkspace
 ```
 
 ## Android app 运行
@@ -25,4 +26,4 @@
   avoscloud
 ```
 
-`avoscloud` 是[云代码命令行工具](https://leancloud.cn/docs/cloud_code_commandline.html)。
+`avoscloud` 是[云代码命令行工具](https://leancloud.cn/docs/cloud_code_commandline.html)。若 `git submodule` 使用有困惑，可直接前往 [相关项目](https://github.com/leancloud/js-realtime-sdk) 。
