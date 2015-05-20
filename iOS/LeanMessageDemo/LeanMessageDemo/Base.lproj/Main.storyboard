@@ -114,7 +114,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="请输入对方的 clientId" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="e9H-pD-4Ae">
-                                <rect key="frame" x="189" y="164" width="223" height="30"/>
+                                <rect key="frame" x="189" y="179" width="223" height="30"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
@@ -124,7 +124,7 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ffJ-A7-iK4">
-                                <rect key="frame" x="270" y="204" width="60" height="30"/>
+                                <rect key="frame" x="270" y="219" width="60" height="30"/>
                                 <state key="normal" title="开始聊天">
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -134,7 +134,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="Za2-dd-s8G">
-                                <rect key="frame" x="263" y="264" width="75" height="30"/>
+                                <rect key="frame" x="263" y="279" width="75" height="30"/>
                                 <state key="normal" title="进入聊天室">
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -144,7 +144,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NAL-XU-dJv">
-                                <rect key="frame" x="285" y="354" width="30" height="30"/>
+                                <rect key="frame" x="285" y="369" width="30" height="30"/>
                                 <state key="normal" title="注销">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -154,13 +154,22 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="您好" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PBR-wK-Wja">
-                                <rect key="frame" x="274" y="99" width="50" height="30"/>
+                                <rect key="frame" x="274" y="74" width="50" height="30"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="25"/>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="无论单聊还是群聊，都是一个 Conversation ，其中的 members 表示成员，attributes 表示 Conversation 的附加属性" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Q4H-W6-azF">
+                                <rect key="frame" x="150" y="112" width="300" height="47"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="300" id="Dv3-rO-dQS"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                <color key="textColor" red="0.88163957770000001" green="0.88163957770000001" blue="0.88163957770000001" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="http://leancloud.github.io/js-realtime-sdk/demo/demo2/" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="axO-LP-16J">
-                                <rect key="frame" x="179" y="290" width="241" height="32"/>
+                                <rect key="frame" x="179" y="305" width="241" height="32"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="241" id="bdE-zU-6w6"/>
                                 </constraints>
@@ -171,14 +180,16 @@
                         </subviews>
                         <color key="backgroundColor" red="0.40000000000000002" green="0.73333333329999995" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="PBR-wK-Wja" firstAttribute="top" secondItem="D2E-N7-qYF" secondAttribute="bottom" constant="35" id="0gI-XY-Vvv"/>
+                            <constraint firstItem="PBR-wK-Wja" firstAttribute="top" secondItem="D2E-N7-qYF" secondAttribute="bottom" constant="10" id="0gI-XY-Vvv"/>
                             <constraint firstItem="NAL-XU-dJv" firstAttribute="top" secondItem="Za2-dd-s8G" secondAttribute="bottom" constant="60" id="4Zi-T4-HgJ"/>
                             <constraint firstAttribute="centerX" secondItem="PBR-wK-Wja" secondAttribute="centerX" constant="1.5" id="9m7-33-L7G"/>
+                            <constraint firstAttribute="centerX" secondItem="Q4H-W6-azF" secondAttribute="centerX" id="E4U-vr-QYw"/>
                             <constraint firstAttribute="centerX" secondItem="Za2-dd-s8G" secondAttribute="centerX" id="H0u-GC-lgb"/>
                             <constraint firstAttribute="centerX" secondItem="axO-LP-16J" secondAttribute="centerX" constant="0.5" id="OKT-If-usC"/>
+                            <constraint firstItem="Q4H-W6-azF" firstAttribute="top" secondItem="PBR-wK-Wja" secondAttribute="bottom" constant="8" id="OWZ-NU-bU9"/>
                             <constraint firstItem="axO-LP-16J" firstAttribute="top" secondItem="Za2-dd-s8G" secondAttribute="bottom" constant="-4" id="TfL-wK-ch9"/>
                             <constraint firstAttribute="centerX" secondItem="NAL-XU-dJv" secondAttribute="centerX" id="de5-C4-mXF"/>
-                            <constraint firstItem="e9H-pD-4Ae" firstAttribute="top" secondItem="D2E-N7-qYF" secondAttribute="bottom" constant="100" id="fQH-dU-PZo"/>
+                            <constraint firstItem="e9H-pD-4Ae" firstAttribute="top" secondItem="Q4H-W6-azF" secondAttribute="bottom" constant="20" id="fcL-aq-3Rd"/>
                             <constraint firstAttribute="centerX" secondItem="ffJ-A7-iK4" secondAttribute="centerX" id="idF-Z1-if5"/>
                             <constraint firstItem="ffJ-A7-iK4" firstAttribute="top" secondItem="e9H-pD-4Ae" secondAttribute="bottom" constant="10" id="kzi-zt-q6z"/>
                             <constraint firstItem="Za2-dd-s8G" firstAttribute="top" secondItem="ffJ-A7-iK4" secondAttribute="bottom" constant="30" id="rMf-Kn-a49"/>

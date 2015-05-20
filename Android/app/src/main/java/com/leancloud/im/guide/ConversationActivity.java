@@ -42,7 +42,7 @@ public class ConversationActivity extends ActionBarActivity implements View.OnCl
     clientIdTextView = (TextView) findViewById(R.id.client_id);
     otherIdEditText = (EditText) findViewById(R.id.otherIdEditText);
 
-    clientIdTextView.setText(getString(R.string.welcome) + Application.getClientIdFromPre());
+    clientIdTextView.setText(getString(R.string.welcome) + " "+Application.getClientIdFromPre());
 
     findViewById(R.id.join_conversation).setOnClickListener(this);
 
