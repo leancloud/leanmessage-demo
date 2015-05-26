@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>3C245897-1617-4113-883E-21C1C5463309</string>
+	<key>IDESourceControlProjectName</key>
+	<string>LeanMessageDemo</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>555E115840A5BD020707DDF8B57D29999195A71C</key>
+		<string>github.com:lzwjava/LeanMessage-Demo.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>iOS/LeanMessageDemo/LeanMessageDemo.xcodeproj</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>555E115840A5BD020707DDF8B57D29999195A71C</key>
+		<string>../../../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>github.com:lzwjava/LeanMessage-Demo.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>555E115840A5BD020707DDF8B57D29999195A71C</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>555E115840A5BD020707DDF8B57D29999195A71C</string>
+			<key>IDESourceControlWCCName</key>
+			<string>LeanMessage-Demo</string>
+		</dict>
+	</array>
+</dict>
+</plist>
