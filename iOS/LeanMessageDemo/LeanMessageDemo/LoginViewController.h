@@ -1,5 +1,5 @@
 //
-//  ViewController.h
+//  LoginViewController.h
 //  LeanMessageDemo
 //
 //  Created by lzw on 15/5/13.
