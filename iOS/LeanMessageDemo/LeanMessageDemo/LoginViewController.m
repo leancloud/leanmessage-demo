@@ -57,8 +57,7 @@
     ((AppDelegate *)[UIApplication sharedApplication].delegate).imClient = imClient;
     if (imClient.status == AVIMClientStatusNone) {
         [imClient openWithClientId:clientId callback:completion];
-    }
-    else {
+    } else {
         [imClient closeWithCallback: ^(BOOL succeeded, NSError *error) {
             [imClient openWithClientId:clientId callback:completion];
         }];

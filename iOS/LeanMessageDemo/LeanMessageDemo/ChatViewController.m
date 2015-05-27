@@ -96,14 +96,12 @@
     if (message.mediaType == kAVIMMessageMediaTypeText) {
         AVIMTextMessage *textMessage = (AVIMTextMessage *)message;
         text = textMessage.text;
-    }
-    else {
+    } else {
         text = @"其它格式的消息";
     }
     if ([message.clientId isEqualToString:self.imClient.clientId]) {
         fontColor = [UIColor whiteColor];
-    }
-    else {
+    } else {
         fontColor = [UIColor yellowColor];
     }
     cell.textLabel.textColor = fontColor;
@@ -187,8 +185,7 @@
     if (self.messages.count == 0) {
         [refreshControl endRefreshing];
         return;
-    }
-    else {
+    } else {
         AVIMTypedMessage *firstMessage = self.messages[0];
         WEAKSELF
         [self.conversation queryMessagesBeforeId:nil timestamp:firstMessage.sendTimestamp limit:20 callback: ^(NSArray *objects, NSError *error) {

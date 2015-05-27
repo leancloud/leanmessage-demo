@@ -102,12 +102,10 @@
         if (error) {
             // 出错了，请稍候重试
             completion(nil, error);
-        }
-        else if (!objects || [objects count] < 1) {
+        } else if (!objects || [objects count] < 1) {
             // 新建一个对话
             [self.imClient createConversationWithName:nil clientIds:queryClientIDs callback:completion];
-        }
-        else {
+        } else {
             // 已经有一个对话存在，继续在这一对话中聊天
             AVIMConversation *conversation = [objects lastObject];
             completion(conversation, nil);
