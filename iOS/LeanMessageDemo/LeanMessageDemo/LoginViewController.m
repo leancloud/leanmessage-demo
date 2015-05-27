@@ -27,7 +27,7 @@
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     NSString *selfId = [userDefaults objectForKey:kLoginSelfIdKey];
     if (selfId) {
-        [self openClientWithClientId:selfId completion:^(BOOL succeeded, NSError *error) {
+        [self openClientWithClientId:selfId completion: ^(BOOL succeeded, NSError *error) {
             if (!error) {
                 [self performSegueWithIdentifier:@"toMain" sender:self];
             }
@@ -44,7 +44,7 @@
     NSString *selfId = self.selfIdTextField.text;
     if (selfId.length > 0) {
         WEAKSELF
-        [self openClientWithClientId:selfId completion:^(BOOL succeeded, NSError *error) {
+        [self openClientWithClientId : selfId completion : ^(BOOL succeeded, NSError *error) {
             if (!error) {
                 [[NSUserDefaults standardUserDefaults] setObject:selfId forKey:kLoginSelfIdKey];
                 [[NSUserDefaults standardUserDefaults] synchronize];
@@ -59,7 +59,8 @@
     ((AppDelegate *)[UIApplication sharedApplication].delegate).imClient = imClient;
     if (imClient.status == AVIMClientStatusNone) {
         [imClient openWithClientId:clientId callback:completion];
-    } else {
+    }
+    else {
         [imClient closeWithCallback: ^(BOOL succeeded, NSError *error) {
             [imClient openWithClientId:clientId callback:completion];
         }];
