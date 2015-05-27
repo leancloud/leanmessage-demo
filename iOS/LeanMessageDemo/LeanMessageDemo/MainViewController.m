@@ -30,7 +30,6 @@
     self.imClient = ((AppDelegate *)[UIApplication sharedApplication].delegate).imClient;;
     
     self.welcomeLabel.text = [NSString stringWithFormat:@"%@  %@", self.welcomeLabel.text, self.imClient.clientId];
-    //	self.otherIdTextField.text = @"b";
 }
 
 - (void)didReceiveMemoryWarning {

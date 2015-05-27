@@ -20,8 +20,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"LeanMessageDemo";
-    //	self.selfIdTextField.text = @"a";
-    
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     NSString *selfId = [userDefaults objectForKey:kLoginSelfIdKey];
     if (selfId) {
