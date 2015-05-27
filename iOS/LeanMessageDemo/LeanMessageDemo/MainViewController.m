@@ -42,11 +42,29 @@
 - (IBAction)onChatButtonClicked:(id)sender {
     NSString *otherId = self.otherIdTextField.text;
     if (otherId.length > 0) {
-        [self createConversationsWithClientIds:@[otherId] completion:^(AVIMConversation *conversation, NSError *error) {
+        AVIMConversationResultBlock completion = ^(AVIMConversation *conversation, NSError *error) {
             if (error) {
                 NSLog(@"%@", error);
             } else {
                 [self performSegueWithIdentifier:@"toChat" sender:conversation];
+            }
+        };
+        
+        AVIMConversationQuery *query = [self.imClient conversationQuery];
+        NSMutableArray *queryClientIDs = [[NSMutableArray alloc] initWithArray:@[otherId,self.imClient.clientId]];
+        [query whereKey:kAVIMKeyMember sizeEqualTo:queryClientIDs.count];
+        [query whereKey:kAVIMKeyMember containsAllObjectsInArray:queryClientIDs];
+        [query findConversationsWithCallback: ^(NSArray *objects, NSError *error) {
+            if (error) {
+                // 出错了，请稍候重试
+                completion(nil, error);
+            } else if (!objects || [objects count] < 1) {
+                // 新建一个对话
+                [self.imClient createConversationWithName:nil clientIds:queryClientIDs callback:completion];
+            } else {
+                // 已经有一个对话存在，继续在这一对话中聊天
+                AVIMConversation *conversation = [objects lastObject];
+                completion(conversation, nil);
             }
         }];
     }
@@ -87,31 +105,5 @@
     ChatViewController *chatViewController = (ChatViewController *)segue.destinationViewController;
     chatViewController.conversation = sender;
 }
-
-#pragma mark - IM
-
-- (void)createConversationsWithClientIds:(NSArray *)clientIds completion:(AVIMConversationResultBlock)completion{
-    AVIMConversationQuery *query = [self.imClient conversationQuery];
-    NSMutableArray *queryClientIDs = [[NSMutableArray alloc] initWithArray:clientIds];
-    if ([queryClientIDs containsObject:self.imClient.clientId] == NO) {
-        [queryClientIDs addObject:self.imClient.clientId];
-    }
-    [query whereKey:kAVIMKeyMember sizeEqualTo:queryClientIDs.count];
-    [query whereKey:kAVIMKeyMember containsAllObjectsInArray:queryClientIDs];
-    [query findConversationsWithCallback: ^(NSArray *objects, NSError *error) {
-        if (error) {
-            // 出错了，请稍候重试
-            completion(nil, error);
-        } else if (!objects || [objects count] < 1) {
-            // 新建一个对话
-            [self.imClient createConversationWithName:nil clientIds:queryClientIDs callback:completion];
-        } else {
-            // 已经有一个对话存在，继续在这一对话中聊天
-            AVIMConversation *conversation = [objects lastObject];
-            completion(conversation, nil);
-        }
-    }];
-}
-
 
 @end
