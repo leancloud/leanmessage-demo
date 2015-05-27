@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "LeanMessageManager.h"
+#import "AppDelegate.h"
 
 @interface ChatViewController : UIViewController
 

@@ -7,16 +7,19 @@
 //
 
 #import "ChatViewController.h"
+#import "AppDelegate.h"
 #define RGB(R, G, B) [UIColor colorWithRed : (R) / 255.0f green : (G) / 255.0f blue : (B) / 255.0f alpha : 1.0f]
 #define COMMON_BLUE RGB(102, 187, 255)
 
-@interface ChatViewController () <UITableViewDataSource, UITableViewDelegate>
+@interface ChatViewController () <UITableViewDataSource, UITableViewDelegate, AVIMClientDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *messageTableView;
 @property (weak, nonatomic) IBOutlet UITextField *inputTextField;
 @property (nonatomic, strong) NSMutableArray *messages;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *keyboardHeight;
 @property (nonatomic, strong) UIRefreshControl *refreshControl;
+
+@property (nonatomic, strong) AVIMClient *imClient;
 
 @end
 
@@ -30,35 +33,12 @@
     
     self.title = @"Chat";
     
+    self.imClient = ((AppDelegate *)[UIApplication sharedApplication].delegate).imClient;
+    self.imClient.delegate = self;
+    
     [self initTableView];
     
-    [self setupReceiveMessageBlock];
-    
     [self loadMessagesWhenInit];
-}
-
-- (void)initTableView {
-    
-
-    [self.messageTableView setBackgroundColor:COMMON_BLUE];
-    
-    [self.messageTableView addSubview:self.refreshControl];
-    self.messageTableView.dataSource = self;
-    self.messageTableView.delegate = self;
-}
-
-- (void)initInputView {
-    self.inputTextField.backgroundColor = [UIColor whiteColor];
-    self.inputTextField.tintColor = [UIColor whiteColor];
-}
-
-- (UIRefreshControl *)refreshControl {
-    if (_refreshControl == nil) {
-        _refreshControl = [[UIRefreshControl alloc] init];
-        [_refreshControl addTarget:self action:@selector(loadOldMessages:) forControlEvents:UIControlEventValueChanged];
-        [_refreshControl setTintColor:[UIColor whiteColor]];
-    }
-    return _refreshControl;
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -77,10 +57,27 @@
 }
 
 - (void)dealloc {
-    [[LeanMessageManager manager] setupDidReceiveTypedMessageCompletion:nil];
 }
 
-#pragma mark - tableview
+#pragma mark - tableView init
+
+- (void)initTableView {
+    [self.messageTableView setBackgroundColor:COMMON_BLUE];
+    [self.messageTableView addSubview:self.refreshControl];
+    self.messageTableView.dataSource = self;
+    self.messageTableView.delegate = self;
+}
+
+- (UIRefreshControl *)refreshControl {
+    if (_refreshControl == nil) {
+        _refreshControl = [[UIRefreshControl alloc] init];
+        [_refreshControl addTarget:self action:@selector(loadOldMessages:) forControlEvents:UIControlEventValueChanged];
+        [_refreshControl setTintColor:[UIColor whiteColor]];
+    }
+    return _refreshControl;
+}
+
+#pragma mark - tableView Delegate
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return self.messages.count;
@@ -103,7 +100,7 @@
     else {
         text = @"其它格式的消息";
     }
-    if ([message.clientId isEqualToString:[LeanMessageManager manager].selfClientID]) {
+    if ([message.clientId isEqualToString:self.imClient.clientId]) {
         fontColor = [UIColor whiteColor];
     }
     else {
@@ -118,97 +115,13 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
-#pragma mark - message
-
-- (NSMutableArray *)filterMessages:(NSArray *)messages {
-    NSMutableArray *typedMessages = [NSMutableArray array];
-    for (AVIMTypedMessage *message in messages) {
-        if ([message isKindOfClass:[AVIMTypedMessage class]]) {
-            [typedMessages addObject:message];
-        }
-    }
-    return typedMessages;
-}
-
-- (void)loadMessagesWhenInit {
-    WEAKSELF
-    [self.conversation queryMessagesBeforeId : nil timestamp :[[NSDate distantFuture] timeIntervalSince1970] * 1000 limit : 15 callback : ^(NSArray *objects, NSError *error) {
-        if ([weakSelf filterError:error]) {
-            weakSelf.messages = [weakSelf filterMessages:objects];
-            [weakSelf.messageTableView reloadData];
-            [weakSelf scrollToLast];
-        }
-    }];
-}
-
-- (void)loadOldMessages:(UIRefreshControl *)refreshControl {
-    if (self.messages.count == 0) {
-        [refreshControl endRefreshing];
-        return;
-    }
-    else {
-        AVIMTypedMessage *typedMessage = self.messages[0];
-        WEAKSELF
-        [self.conversation queryMessagesBeforeId : nil timestamp : typedMessage.sendTimestamp limit : 20 callback : ^(NSArray *objects, NSError *error) {
-            [refreshControl endRefreshing];
-            if ([weakSelf filterError:error]) {
-                NSMutableArray *typedMessages = [weakSelf filterMessages:objects];
-                NSMutableArray *messages = [NSMutableArray arrayWithArray:typedMessages];
-                [messages addObjectsFromArray:weakSelf.messages];
-                weakSelf.messages = messages;
-                NSInteger count = typedMessages.count;
-                if (count > 0) {
-                    [weakSelf.messageTableView reloadData];
-                    if (weakSelf.messages.count > count) {
-                        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:count inSection:0];
-                        [weakSelf.messageTableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionTop animated:NO];
-                    }
-                }
-            }
-        }];
-    }
-}
+#pragma mark - action
 
 - (IBAction)onSendButtonClicked:(id)sender {
     NSString *text = self.inputTextField.text;
     if (text.length > 0) {
-        AVIMTextMessage *textMessage = [[AVIMTextMessage alloc] init];
-        textMessage.text = text;
-        WEAKSELF
-        [self.conversation sendMessage : textMessage callback : ^(BOOL succeeded, NSError *error) {
-            if ([weakSelf filterError:error]) {
-                [weakSelf addMessage:textMessage];
-                weakSelf.inputTextField.text = nil;
-            }
-        }];
+        [self sendText:text];
     }
-}
-
-- (void)setupReceiveMessageBlock {
-    [[LeanMessageManager manager] setupDidReceiveTypedMessageCompletion: ^(AVIMConversation *conversation, AVIMTypedMessage *message) {
-        if ([conversation.conversationId isEqualToString:self.conversation.conversationId]) {
-            [self addMessage:message];
-        }
-    }];
-}
-
-- (void)addMessage:(AVIMTypedMessage *)message {
-    [self.messages addObject:message];
-    [self.messageTableView reloadData];
-    [self scrollToLast];
-}
-
-#pragma mark - util
-
-- (BOOL)filterError:(NSError *)error {
-    if (error) {
-        UIAlertView *alertView = [[UIAlertView alloc]
-                                  initWithTitle:nil message:error.description delegate:nil
-                                  cancelButtonTitle   :@"确定" otherButtonTitles:nil];
-        [alertView show];
-        return NO;
-    }
-    return YES;
 }
 
 #pragma mark - keyboard
@@ -234,6 +147,7 @@
 }
 
 #pragma mark - scroll
+
 - (void)scrollToLast {
     if (self.messages.count > 0) {
         [self.messageTableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:self.messages.count - 1 inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:NO];
@@ -244,6 +158,95 @@
     if ([self.inputTextField isFirstResponder]) {
         [self.inputTextField resignFirstResponder];
     }
+}
+
+#pragma mark - message
+// 过滤消息，避免非法的消息导致 Crash
+- (NSMutableArray *)filterMessages:(NSArray *)messages {
+    NSMutableArray *typedMessages = [NSMutableArray array];
+    for (AVIMTypedMessage *message in messages) {
+        if ([message isKindOfClass:[AVIMTypedMessage class]]) {
+            [typedMessages addObject:message];
+        }
+    }
+    return typedMessages;
+}
+
+- (void)loadMessagesWhenInit {
+    WEAKSELF
+    [self.conversation queryMessagesBeforeId:nil timestamp:[[NSDate distantFuture] timeIntervalSince1970] * 1000 limit:15 callback: ^(NSArray *objects, NSError *error) {
+        if ([weakSelf filterError:error]) {
+            weakSelf.messages = [weakSelf filterMessages:objects];
+            [weakSelf.messageTableView reloadData];
+            [weakSelf scrollToLast];
+        }
+    }];
+}
+
+- (void)loadOldMessages:(UIRefreshControl *)refreshControl {
+    if (self.messages.count == 0) {
+        [refreshControl endRefreshing];
+        return;
+    }
+    else {
+        AVIMTypedMessage *firstMessage = self.messages[0];
+        WEAKSELF
+        [self.conversation queryMessagesBeforeId:nil timestamp:firstMessage.sendTimestamp limit:20 callback: ^(NSArray *objects, NSError *error) {
+            [refreshControl endRefreshing];
+            if ([weakSelf filterError:error]) {
+                NSMutableArray *typedMessages = [weakSelf filterMessages:objects];
+                NSMutableArray *messages = [NSMutableArray arrayWithArray:typedMessages];
+                [messages addObjectsFromArray:weakSelf.messages];
+                weakSelf.messages = messages;
+                NSInteger count = typedMessages.count;
+                if (count > 0) {
+                    [weakSelf.messageTableView reloadData];
+                    if (weakSelf.messages.count > count) {
+                        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:count inSection:0];
+                        [weakSelf.messageTableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionTop animated:NO];
+                    }
+                }
+            }
+        }];
+    }
+}
+
+- (void)sendText:(NSString *)text {
+    AVIMTextMessage *textMessage = [AVIMTextMessage messageWithText:text attributes:nil];
+    WEAKSELF
+    [self.conversation sendMessage:textMessage callback: ^(BOOL succeeded, NSError *error) {
+        if ([weakSelf filterError:error]) {
+            [weakSelf addMessage:textMessage];
+            weakSelf.inputTextField.text = nil;
+        }
+    }];
+}
+
+- (void)addMessage:(AVIMTypedMessage *)message {
+    [self.messages addObject:message];
+    [self.messageTableView reloadData];
+    [self scrollToLast];
+}
+
+#pragma mark - AVIMClientDelegate
+
+- (void)conversation:(AVIMConversation *)conversation didReceiveTypedMessage:(AVIMTypedMessage *)message {
+    if ([conversation.conversationId isEqualToString:self.conversation.conversationId]) {
+        [self addMessage:message];
+    }
+}
+
+#pragma mark - util
+
+- (BOOL)filterError:(NSError *)error {
+    if (error) {
+        UIAlertView *alertView = [[UIAlertView alloc]
+                                  initWithTitle:nil message:error.description delegate:nil
+                                  cancelButtonTitle   :@"确定" otherButtonTitles:nil];
+        [alertView show];
+        return NO;
+    }
+    return YES;
 }
 
 @end
