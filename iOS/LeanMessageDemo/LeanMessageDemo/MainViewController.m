@@ -39,7 +39,10 @@
 #pragma mark - actions
 
 - (IBAction)onChatButtonClicked:(id)sender {
+    // 获取用户输入的被邀请加入对话的 client id
     NSString *otherId = self.otherIdTextField.text;
+    
+    // 判断用户是否输入的是一个有效的字符串
     if (otherId.length > 0) {
         AVIMConversationResultBlock completion = ^(AVIMConversation *conversation, NSError *error) {
             if (error) {
@@ -49,15 +52,21 @@
             }
         };
         
+        // 新建一个 AVIMConversationQuery 实例
         AVIMConversationQuery *query = [self.imClient conversationQuery];
+        // 构建一个数组，数组包含了当前 client 的 id 以及被邀请加入对话的 client id
         NSMutableArray *queryClientIDs = [[NSMutableArray alloc] initWithArray:@[otherId,self.imClient.clientId]];
+        // 构建查询条件：AVIMConversation 中的成员数量为 2
         [query whereKey:kAVIMKeyMember sizeEqualTo:queryClientIDs.count];
+        // 构建查询条件：AVIMConversation 中成员同时包含当前 client 的 id 以及被邀请加入对话的 client id
         [query whereKey:kAVIMKeyMember containsAllObjectsInArray:queryClientIDs];
         [query findConversationsWithCallback: ^(NSArray *objects, NSError *error) {
             if (error) {
                 // 出错了，请稍候重试
                 completion(nil, error);
-            } else if (!objects || [objects count] < 1) {
+            }
+            // 如果未查询到符合条件的对话
+            else if (!objects || [objects count] < 1) {
                 // 新建一个对话
                 [self.imClient createConversationWithName:nil clientIds:queryClientIDs callback:completion];
             } else {

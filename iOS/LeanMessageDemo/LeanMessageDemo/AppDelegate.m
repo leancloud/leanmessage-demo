@@ -19,6 +19,7 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    // 初始化 LeanCloud SDK 
     [AVOSCloud setApplicationId:kApplicationId clientKey:kClientKey];
 #ifdef DEBUG
     [AVAnalytics setAnalyticsEnabled:NO];
