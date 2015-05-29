@@ -10,7 +10,7 @@ import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.im.v2.AVIMClient;
 import com.avos.avoscloud.im.v2.callback.AVIMClientCallback;
 
-public class MainActivity extends ActionBarActivity {
+public class MainActivity extends BaseActivity{
   EditText clientIdEditText;
 
   @Override
@@ -40,9 +40,11 @@ public class MainActivity extends ActionBarActivity {
     imClient.open(new AVIMClientCallback() {
       @Override
       public void done(AVIMClient avimClient, AVException e) {
-        Intent intent = new Intent(MainActivity.this, ConversationActivity.class);
-        startActivity(intent);
-        finish();
+        if (filterException(e)) {
+          Intent intent = new Intent(MainActivity.this, ConversationActivity.class);
+          startActivity(intent);
+          finish();
+        }
       }
     });
   }
