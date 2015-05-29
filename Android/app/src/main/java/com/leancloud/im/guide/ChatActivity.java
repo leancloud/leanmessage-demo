@@ -3,7 +3,6 @@ package com.leancloud.im.guide;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.AbsListView;
@@ -23,7 +22,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 /**
  * Created by zhangxiaobo on 15/4/16.
  */
-public class ChatActivity extends ActionBarActivity implements View.OnClickListener, AbsListView.OnScrollListener {
+public class ChatActivity extends BaseActivity implements View.OnClickListener, AbsListView.OnScrollListener {
   private static final String EXTRA_CONVERSATION_ID = "conversation_id";
   private static final String TAG = ChatActivity.class.getSimpleName();
   public static final int FIRST_PAGE_SIZE = 15;
@@ -125,18 +124,6 @@ public class ChatActivity extends ActionBarActivity implements View.OnClickListe
         }
       });
     }
-  }
-
-  private void toast(String s) {
-    Toast.makeText(this, s, Toast.LENGTH_SHORT).show();
-  }
-
-  private boolean filterException(Exception e) {
-    if (e != null) {
-      toast(e.getMessage());
-      return false;
-    }
-    return true;
   }
 
   private void scrollToLast() {

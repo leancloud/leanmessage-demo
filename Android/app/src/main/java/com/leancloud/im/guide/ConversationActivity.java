@@ -15,6 +15,7 @@ import com.avos.avoscloud.im.v2.AVIMConversation;
 import com.avos.avoscloud.im.v2.AVIMConversationQuery;
 import com.avos.avoscloud.im.v2.Conversation;
 import com.avos.avoscloud.im.v2.callback.AVIMClientCallback;
+import com.avos.avoscloud.im.v2.callback.AVIMConversationCallback;
 import com.avos.avoscloud.im.v2.callback.AVIMConversationCreatedCallback;
 import com.avos.avoscloud.im.v2.callback.AVIMConversationQueryCallback;
 
@@ -23,7 +24,7 @@ import java.util.*;
 /**
  * Created by zhangxiaobo on 15/4/16.
  */
-public class ConversationActivity extends ActionBarActivity implements View.OnClickListener {
+public class ConversationActivity extends BaseActivity implements View.OnClickListener {
   // 这是使用中国节点时使用的 对话 id。如果不使用美国节点，请 uncomment 这一行。
   public static final String CONVERSATION_ID = "551a2847e4b04d688d73dc54";
   private static final String TAG = ConversationActivity.class.getSimpleName();
@@ -58,8 +59,16 @@ public class ConversationActivity extends ActionBarActivity implements View.OnCl
         finish();
         break;
       case R.id.join_conversation:
-        ChatActivity.startActivity(ConversationActivity.this,
-            CONVERSATION_ID);
+        AVIMConversation conversation = Application.getIMClient().getConversation(CONVERSATION_ID);
+        conversation.join(new AVIMConversationCallback() {
+          @Override
+          public void done(AVException e) {
+            if (filterException(e)) {
+              ChatActivity.startActivity(ConversationActivity.this,
+                  CONVERSATION_ID);
+            }
+          }
+        });
         break;
       case R.id.chat_with_other:
         String otherId = otherIdEditText.getText().toString();
@@ -69,9 +78,7 @@ public class ConversationActivity extends ActionBarActivity implements View.OnCl
                   () {
                 @Override
                 public void done(AVIMConversation conversation, AVException e) {
-                  if (e != null) {
-                    Toast.makeText(ConversationActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
-                  } else {
+                  if (filterException(e)) {
                     ChatActivity.startActivity(ConversationActivity.this, conversation.getConversationId());
                   }
                 }
