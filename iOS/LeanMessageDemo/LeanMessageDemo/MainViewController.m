@@ -51,7 +51,7 @@
         NSMutableArray *queryClientIDs = [[NSMutableArray alloc] initWithArray:@[otherId,self.imClient.clientId]];
         // 构建查询条件：AVIMConversation 中的成员数量为 2
         [query whereKey:kAVIMKeyMember sizeEqualTo:queryClientIDs.count];
-        // 构建查询条件：AVIMConversation 中成员同时包含当前 client 的 id 以及被邀请加入对话的 client id
+        // 构建查询条件：AVIMConversation 中成员同时包含当前 clientId 以及被邀请加入对话的 clientId
         [query whereKey:kAVIMKeyMember containsAllObjectsInArray:queryClientIDs];
         [query findConversationsWithCallback: ^(NSArray *objects, NSError *error) {
             if (error) {
