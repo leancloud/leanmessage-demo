@@ -9,7 +9,12 @@ import android.widget.AbsListView;
 import android.widget.EditText;
 import android.widget.ListView;
 import com.avos.avoscloud.AVException;
-import com.avos.avoscloud.im.v2.*;
+import com.avos.avoscloud.im.v2.AVIMClient;
+import com.avos.avoscloud.im.v2.AVIMConversation;
+import com.avos.avoscloud.im.v2.AVIMMessage;
+import com.avos.avoscloud.im.v2.AVIMMessageManager;
+import com.avos.avoscloud.im.v2.AVIMTypedMessage;
+import com.avos.avoscloud.im.v2.AVIMTypedMessageHandler;
 import com.avos.avoscloud.im.v2.callback.AVIMConversationCallback;
 import com.avos.avoscloud.im.v2.callback.AVIMMessagesQueryCallback;
 import com.avos.avoscloud.im.v2.messages.AVIMTextMessage;
@@ -53,7 +58,7 @@ public class ChatActivity extends BaseActivity implements View.OnClickListener, 
 
     // register callback
     handler = new ChatHandler(adapter);
-    AVIMMessageManager.registerMessageHandler(AVIMTypedMessage.class, handler);
+    MessageHandler.setActivityMessageHandler(handler);
 
     conversation = Application.getIMClient().getConversation(conversationId);
 
@@ -181,7 +186,7 @@ public class ChatActivity extends BaseActivity implements View.OnClickListener, 
 
   }
 
-  public class ChatHandler extends AVIMTypedMessageHandler<AVIMTextMessage> {
+  public class ChatHandler extends AVIMTypedMessageHandler<AVIMTypedMessage> {
     private MessageAdapter adapter;
 
     public ChatHandler(MessageAdapter adapter) {
@@ -189,11 +194,13 @@ public class ChatActivity extends BaseActivity implements View.OnClickListener, 
     }
 
     @Override
-    public void onMessage(AVIMTextMessage message, AVIMConversation conversation,
-                          AVIMClient client) {
+    public void onMessage(AVIMTypedMessage message, AVIMConversation conversation, AVIMClient client) {
+      if (!(message instanceof AVIMTextMessage)) {
+        return;
+      }
       if (client.getClientId().equals(Application.getClientIdFromPre())) {
         if (conversation.getConversationId().equals(ChatActivity.this.conversation.getConversationId())) {
-          adapter.addMessage(message);
+          adapter.addMessage((AVIMTextMessage) message);
           scrollToLast();
         }
       } else {

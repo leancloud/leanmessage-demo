@@ -2,14 +2,10 @@ package com.leancloud.im.guide;
 
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
-import android.util.Log;
 import com.avos.avoscloud.AVOSCloud;
-import com.avos.avoscloud.AVUser;
-import com.avos.avoscloud.AVUtils;
 import com.avos.avoscloud.im.v2.AVIMClient;
 import com.avos.avoscloud.im.v2.AVIMMessageManager;
-
-import java.util.logging.Logger;
+import com.avos.avoscloud.im.v2.AVIMTypedMessage;
 
 /**
  * Created by zhangxiaobo on 15/4/15.
@@ -34,7 +30,9 @@ public class Application extends android.app.Application {
         "nhqqc1x7r7r89kp8pggrme57i374h3vyd0ukr2z3ayojpvf4");
     preferences = PreferenceManager.getDefaultSharedPreferences(this);
 
-    AVIMMessageManager.registerDefaultMessageHandler(new CustomMessageHandler());
+    // 必须在启动的时候注册 MessageHandler
+    // 应用一启动就会重连，服务器会推送离线消息过来，需要 MessageHandler 来处理
+    AVIMMessageManager.registerMessageHandler(AVIMTypedMessage.class, new MessageHandler(this));
   }
 
 
@@ -46,8 +44,7 @@ public class Application extends android.app.Application {
     preferences.edit().putString(KEY_CLIENT_ID, id).apply();
   }
 
-  public static AVIMClient getIMClient(){
+  public static AVIMClient getIMClient() {
     return AVIMClient.getInstance(getClientIdFromPre());
   }
-
 }

@@ -12,6 +12,11 @@
 
 #define kConversationId @"551a2847e4b04d688d73dc54"
 
+typedef enum : NSUInteger {
+    ConversationTypeOneToOne = 0,
+    ConversatinoTypeGroup
+}ConversationType;
+
 @interface MainViewController ()
 
 @property (weak, nonatomic) IBOutlet UITextField *otherIdTextField;
@@ -46,6 +51,9 @@
         NSMutableArray *queryClientIDs = [[NSMutableArray alloc] initWithArray:@[otherId, [AVIMClient defaultClient].clientId]];
         // 按照创建时间逆序排序
         [query orderByDescending:@"createdAt"];
+        // 构建查询条件: AVIMConversation 中的附加属性 type 为一对一单聊
+        // 为了区分两个人的单聊与两个人的群聊
+        [query whereKey:AVIMAttr(@"type") equalTo:@(ConversationTypeOneToOne)];
         // 构建查询条件：AVIMConversation 中的成员数量为 2
         [query whereKey:kAVIMKeyMember sizeEqualTo:queryClientIDs.count];
         // 构建查询条件：AVIMConversation 中成员同时包含当前 clientId 以及被邀请加入对话的 clientId
