@@ -44,6 +44,8 @@
         AVIMConversationQuery *query = [[AVIMClient defaultClient] conversationQuery];
         // 构建一个数组，数组包含了当前 client 的 id 以及被邀请加入对话的 client id
         NSMutableArray *queryClientIDs = [[NSMutableArray alloc] initWithArray:@[otherId, [AVIMClient defaultClient].clientId]];
+        // 按照创建时间逆序排序
+        [query orderByDescending:@"createdAt"];
         // 构建查询条件：AVIMConversation 中的成员数量为 2
         [query whereKey:kAVIMKeyMember sizeEqualTo:queryClientIDs.count];
         // 构建查询条件：AVIMConversation 中成员同时包含当前 clientId 以及被邀请加入对话的 clientId
@@ -70,7 +72,7 @@
                 }];
             } else {
                 // 已经有一个对话存在，获取这个对话
-                AVIMConversation *conversation = [objects lastObject];
+                AVIMConversation *conversation = [objects firstObject];
                 // 跳转到 ChatView 页面进行聊天
                 [self performSegueWithIdentifier:@"toChat" sender:conversation];
             }

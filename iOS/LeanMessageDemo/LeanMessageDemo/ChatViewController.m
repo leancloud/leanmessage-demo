@@ -35,6 +35,8 @@ static NSInteger kPageSize = 15;
     
     self.title = @"Chat";
     
+    NSLog(@"conversation id = %@", self.conversation.conversationId);
+    
     [AVIMClient defaultClient].delegate = self;
     
     [self initTableView];
