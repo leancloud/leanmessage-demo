@@ -198,13 +198,9 @@ public class ChatActivity extends BaseActivity implements View.OnClickListener, 
       if (!(message instanceof AVIMTextMessage)) {
         return;
       }
-      if (client.getClientId().equals(Application.getClientIdFromPre())) {
-        if (conversation.getConversationId().equals(ChatActivity.this.conversation.getConversationId())) {
-          adapter.addMessage((AVIMTextMessage) message);
-          scrollToLast();
-        }
-      } else {
-        client.close(null);
+      if (conversation.getConversationId().equals(ChatActivity.this.conversation.getConversationId())) {
+        adapter.addMessage((AVIMTextMessage) message);
+        scrollToLast();
       }
     }
   }

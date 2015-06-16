@@ -28,15 +28,19 @@ class MessageHandler extends AVIMTypedMessageHandler<AVIMTypedMessage> {
 
   @Override
   public void onMessage(AVIMTypedMessage message, AVIMConversation conversation, AVIMClient client) {
-    if (activityMessageHandler != null) {
-      // 正在聊天时，分发消息，刷新界面
-      activityMessageHandler.onMessage(message, conversation, client);
-    } else {
-      // 没有打开聊天界面，这里简单地 Toast 一下。实际中可以刷新最近消息页面，增加小红点
-      if (message instanceof AVIMTextMessage) {
-        AVIMTextMessage textMessage = (AVIMTextMessage) message;
-        Toast.makeText(context, "新消息 " +message.getFrom()+" : " + textMessage.getText(), Toast.LENGTH_SHORT).show();
+    if (client.getClientId().equals(Application.getClientIdFromPre())) {
+      if (activityMessageHandler != null) {
+        // 正在聊天时，分发消息，刷新界面
+        activityMessageHandler.onMessage(message, conversation, client);
+      } else {
+        // 没有打开聊天界面，这里简单地 Toast 一下。实际中可以刷新最近消息页面，增加小红点
+        if (message instanceof AVIMTextMessage) {
+          AVIMTextMessage textMessage = (AVIMTextMessage) message;
+          Toast.makeText(context, "新消息 " + message.getFrom() + " : " + textMessage.getText(), Toast.LENGTH_SHORT).show();
+        }
       }
+    } else {
+      client.close(null);
     }
   }
 
