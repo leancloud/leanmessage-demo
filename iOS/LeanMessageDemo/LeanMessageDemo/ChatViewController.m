@@ -11,6 +11,8 @@
 #define RGB(R, G, B) [UIColor colorWithRed : (R) / 255.0f green : (G) / 255.0f blue : (B) / 255.0f alpha : 1.0f]
 #define COMMON_BLUE RGB(102, 187, 255)
 
+static NSInteger kPageSize = 15;
+
 @interface ChatViewController () <UITableViewDataSource, UITableViewDelegate, AVIMClientDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *messageTableView;
@@ -33,8 +35,7 @@
     
     self.title = @"Chat";
     
-    self.imClient = ((AppDelegate *)[UIApplication sharedApplication].delegate).imClient;
-    self.imClient.delegate = self;
+    [AVIMClient defaultClient].delegate = self;
     
     [self initTableView];
     
@@ -172,7 +173,7 @@
 
 - (void)loadMessagesWhenInit {
     WEAKSELF
-    [self.conversation queryMessagesBeforeId:nil timestamp:[[NSDate distantFuture] timeIntervalSince1970] * 1000 limit:15 callback: ^(NSArray *objects, NSError *error) {
+    [self.conversation queryMessagesWithLimit:kPageSize callback:^(NSArray *objects, NSError *error) {
         if ([weakSelf filterError:error]) {
             weakSelf.messages = [weakSelf filterMessages:objects];
             [weakSelf.messageTableView reloadData];
@@ -188,7 +189,7 @@
     } else {
         AVIMTypedMessage *firstMessage = self.messages[0];
         WEAKSELF
-        [self.conversation queryMessagesBeforeId:nil timestamp:firstMessage.sendTimestamp limit:20 callback: ^(NSArray *objects, NSError *error) {
+        [self.conversation queryMessagesBeforeId:nil timestamp:firstMessage.sendTimestamp limit:kPageSize callback: ^(NSArray *objects, NSError *error) {
             [refreshControl endRefreshing];
             if ([weakSelf filterError:error]) {
                 NSMutableArray *typedMessages = [weakSelf filterMessages:objects];

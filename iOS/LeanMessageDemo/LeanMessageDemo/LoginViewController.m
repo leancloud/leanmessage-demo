@@ -55,8 +55,7 @@
 }
 
 - (void)openClientWithClientId:(NSString *)clientId completion:(AVBooleanResultBlock)completion {
-    AVIMClient *imClient = [[AVIMClient alloc] init];
-    ((AppDelegate *)[UIApplication sharedApplication].delegate).imClient = imClient;
+    AVIMClient *imClient = [AVIMClient defaultClient];
     if (imClient.status == AVIMClientStatusNone) {
         [imClient openWithClientId:clientId callback:completion];
     }

@@ -15,6 +15,5 @@
 
 @property (strong, nonatomic) UIWindow *window;
 
-@property (nonatomic, strong) AVIMClient *imClient;
 
 @end

@@ -103,12 +103,12 @@
 		5CFD3CFF1B05CE7100DD9A93 /* LeanMessageDemo */ = {
 			isa = PBXGroup;
 			children = (
-				5CFD3D261B05CF7C00DD9A93 /* ChatViewController.h */,
-				70146D231B05DD89000E32B4 /* ChatViewController.m */,
 				5CFD3D2A1B05CF7C00DD9A93 /* LoginViewController.h */,
 				5CFD3D2B1B05CF7C00DD9A93 /* LoginViewController.m */,
 				5CFD3D2C1B05CF7C00DD9A93 /* MainViewController.h */,
 				5CFD3D2D1B05CF7C00DD9A93 /* MainViewController.m */,
+				5CFD3D261B05CF7C00DD9A93 /* ChatViewController.h */,
+				70146D231B05DD89000E32B4 /* ChatViewController.m */,
 				5CFD3D041B05CE7100DD9A93 /* AppDelegate.h */,
 				5CFD3D051B05CE7100DD9A93 /* AppDelegate.m */,
 				5CFD3D0A1B05CE7100DD9A93 /* Main.storyboard */,
