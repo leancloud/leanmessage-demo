@@ -63,9 +63,7 @@
                 // callback -> 创建结果的回调函数
                 NSMutableArray *queryClientIDsTest = [[NSMutableArray alloc] initWithArray:@[otherId]];
                 [[AVIMClient defaultClient] createConversationWithName:nil clientIds:queryClientIDsTest callback:^(AVIMConversation *conversation, NSError *error) {
-                    if (error) {
-                        NSLog(@"%@", error);
-                    } else {
+                    if ([self filterError:error]) {
                         // 创建一个新的对话成功之后，跳转到 ChatView 页面进行聊天
                         [self performSegueWithIdentifier:@"toChat" sender:conversation];
                     }
