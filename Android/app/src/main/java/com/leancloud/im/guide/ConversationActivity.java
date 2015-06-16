@@ -60,15 +60,20 @@ public class ConversationActivity extends BaseActivity implements View.OnClickLi
         break;
       case R.id.join_conversation:
         AVIMConversation conversation = Application.getIMClient().getConversation(CONVERSATION_ID);
-        conversation.join(new AVIMConversationCallback() {
-          @Override
-          public void done(AVException e) {
-            if (filterException(e)) {
-              ChatActivity.startActivity(ConversationActivity.this,
-                  CONVERSATION_ID);
+        if (conversation.getMembers().contains(Application.getClientIdFromPre())) {
+          ChatActivity.startActivity(ConversationActivity.this,
+              CONVERSATION_ID);
+        } else{
+          conversation.join(new AVIMConversationCallback() {
+            @Override
+            public void done(AVException e) {
+              if (filterException(e)) {
+                ChatActivity.startActivity(ConversationActivity.this,
+                    CONVERSATION_ID);
+              }
             }
-          }
-        });
+          });
+        }
         break;
       case R.id.chat_with_other:
         String otherId = otherIdEditText.getText().toString();
@@ -92,7 +97,7 @@ public class ConversationActivity extends BaseActivity implements View.OnClickLi
   AVIMConversationCreatedCallback
       callback) {
     final AVIMClient imClient = Application.getIMClient();
-    final List<String> queryClientIds = new ArrayList<>();
+    final List<String> queryClientIds = new ArrayList<String>();
     queryClientIds.addAll(clientIds);
     if (!clientIds.contains(imClient.getClientId())) {
       queryClientIds.add(imClient.getClientId());
@@ -107,7 +112,7 @@ public class ConversationActivity extends BaseActivity implements View.OnClickLi
           callback.done(null, e);
         } else {
           if (list == null || list.size() == 0) {
-            Map<String, Object> attributes = new HashMap<>();
+            Map<String, Object> attributes = new HashMap<String, Object>();
             attributes.put(ConversationType.KEY_ATTRIBUTE_TYPE, type.getValue());
             imClient.createConversation(queryClientIds, attributes, callback);
           } else {

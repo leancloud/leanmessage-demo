@@ -2,9 +2,14 @@ package com.leancloud.im.guide;
 
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import com.avos.avoscloud.AVOSCloud;
+import com.avos.avoscloud.AVUser;
+import com.avos.avoscloud.AVUtils;
 import com.avos.avoscloud.im.v2.AVIMClient;
 import com.avos.avoscloud.im.v2.AVIMMessageManager;
+
+import java.util.logging.Logger;
 
 /**
  * Created by zhangxiaobo on 15/4/15.
