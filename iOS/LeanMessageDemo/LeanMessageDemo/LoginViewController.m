@@ -7,7 +7,6 @@
 //
 
 #import "LoginViewController.h"
-#import "AppDelegate.h"
 
 @interface LoginViewController ()
 
@@ -43,12 +42,11 @@
 - (IBAction)onLoginButtonClicked:(id)sender {
     NSString *selfId = self.selfIdTextField.text;
     if (selfId.length > 0) {
-        WEAKSELF
         [self openClientWithClientId : selfId completion : ^(BOOL succeeded, NSError *error) {
             if (!error) {
                 [[NSUserDefaults standardUserDefaults] setObject:selfId forKey:kLoginSelfIdKey];
                 [[NSUserDefaults standardUserDefaults] synchronize];
-                [weakSelf performSegueWithIdentifier:@"toMain" sender:self];
+                [self performSegueWithIdentifier:@"toMain" sender:self];
             }
         }];
     }

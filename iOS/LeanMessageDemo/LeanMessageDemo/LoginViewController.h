@@ -7,9 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BaseViewController.h"
 
 static NSString *kLoginSelfIdKey = @"selfId";
 
-@interface LoginViewController : UIViewController
+@interface LoginViewController : BaseViewController
 
 @end

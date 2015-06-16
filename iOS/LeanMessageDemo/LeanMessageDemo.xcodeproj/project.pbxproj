@@ -17,6 +17,7 @@
 		5CFD3D301B05CF7C00DD9A93 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CFD3D2B1B05CF7C00DD9A93 /* LoginViewController.m */; };
 		5CFD3D311B05CF7C00DD9A93 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CFD3D2D1B05CF7C00DD9A93 /* MainViewController.m */; };
 		70146D241B05DD89000E32B4 /* ChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 70146D231B05DD89000E32B4 /* ChatViewController.m */; };
+		706E09801B2FD57800F9C891 /* BaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 706E097F1B2FD57800F9C891 /* BaseViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,6 +48,8 @@
 		5CFD3D2C1B05CF7C00DD9A93 /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
 		5CFD3D2D1B05CF7C00DD9A93 /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
 		70146D231B05DD89000E32B4 /* ChatViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatViewController.m; sourceTree = "<group>"; };
+		706E097E1B2FD57800F9C891 /* BaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseViewController.h; sourceTree = "<group>"; };
+		706E097F1B2FD57800F9C891 /* BaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseViewController.m; sourceTree = "<group>"; };
 		AC68B1AE58AE132334393CD3 /* libPods-LeanMessageDemo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-LeanMessageDemo.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DF0A5963552C26D0D12DA4BD /* Pods-LeanMessageDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LeanMessageDemo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-LeanMessageDemo/Pods-LeanMessageDemo.debug.xcconfig"; sourceTree = "<group>"; };
 		F58CB5C0E75A1C8FD246846C /* Pods-LeanMessageDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LeanMessageDemo.release.xcconfig"; path = "Pods/Target Support Files/Pods-LeanMessageDemo/Pods-LeanMessageDemo.release.xcconfig"; sourceTree = "<group>"; };
@@ -103,6 +106,8 @@
 		5CFD3CFF1B05CE7100DD9A93 /* LeanMessageDemo */ = {
 			isa = PBXGroup;
 			children = (
+				706E097E1B2FD57800F9C891 /* BaseViewController.h */,
+				706E097F1B2FD57800F9C891 /* BaseViewController.m */,
 				5CFD3D2A1B05CF7C00DD9A93 /* LoginViewController.h */,
 				5CFD3D2B1B05CF7C00DD9A93 /* LoginViewController.m */,
 				5CFD3D2C1B05CF7C00DD9A93 /* MainViewController.h */,
@@ -289,6 +294,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5CFD3D061B05CE7100DD9A93 /* AppDelegate.m in Sources */,
+				706E09801B2FD57800F9C891 /* BaseViewController.m in Sources */,
 				5CFD3D311B05CF7C00DD9A93 /* MainViewController.m in Sources */,
 				70146D241B05DD89000E32B4 /* ChatViewController.m in Sources */,
 				5CFD3D031B05CE7100DD9A93 /* main.m in Sources */,

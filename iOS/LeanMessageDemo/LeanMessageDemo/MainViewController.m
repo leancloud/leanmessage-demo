@@ -9,7 +9,6 @@
 #import "MainViewController.h"
 #import "ChatViewController.h"
 #import "LoginViewController.h"
-#import "AppDelegate.h"
 
 #define kConversationId @"551a2847e4b04d688d73dc54"
 
@@ -42,9 +41,7 @@
     // 判断用户是否输入的是一个有效的字符串
     if (otherId.length > 0) {
         AVIMConversationResultBlock completion = ^(AVIMConversation *conversation, NSError *error) {
-            if (error) {
-                NSLog(@"%@", error);
-            } else {
+            if ([self filterError:error]) {
                 [self performSegueWithIdentifier:@"toChat" sender:conversation];
             }
         };
@@ -79,20 +76,18 @@
     AVIMConversationQuery *query = [[AVIMClient defaultClient] conversationQuery];
     [query whereKey:@"objectId" equalTo:kConversationId];
     [query findConversationsWithCallback: ^(NSArray *conversations, NSError *error) {
-        if (error) {
-            NSLog(@"error = %@",error);
-        } else {
+        if ([self filterError:error]) {
             if (conversations.count == 0) {
                 NSLog(@"聊天室不存在");
             } else {
                 AVIMConversation *conversation = conversations[0];
                 if ([conversation.members containsObject:[AVIMClient defaultClient].clientId]) {
+                    //已经在对话里了，直接开始聊天
                     [self performSegueWithIdentifier:@"toChat" sender:conversation];
                 } else {
+                    // 加入对话
                     [conversation joinWithCallback:^(BOOL succeeded, NSError *error) {
-                        if (error) {
-                            NSLog(@"error : %@",error);
-                        } else {
+                        if ([self filterError:error]) {
                             [self performSegueWithIdentifier:@"toChat" sender:conversation];
                         }
                     }];
