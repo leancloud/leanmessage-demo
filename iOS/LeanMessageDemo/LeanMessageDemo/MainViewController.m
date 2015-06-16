@@ -72,7 +72,7 @@ typedef enum : NSUInteger {
                 // clientIds-> 对话参与的人员，默认包含了当前 Client Id
                 // callback -> 创建结果的回调函数
                 NSMutableArray *queryClientIDsTest = [[NSMutableArray alloc] initWithArray:@[otherId]];
-                [[AVIMClient defaultClient] createConversationWithName:nil clientIds:queryClientIDsTest callback:^(AVIMConversation *conversation, NSError *error) {
+                [[AVIMClient defaultClient] createConversationWithName:nil clientIds:queryClientIDsTest attributes:@{@"type":@(ConversationTypeOneToOne)} options:0 callback:^(AVIMConversation *conversation, NSError *error) {
                     if ([self filterError:error]) {
                         // 创建一个新的对话成功之后，跳转到 ChatView 页面进行聊天
                         [self performSegueWithIdentifier:@"toChat" sender:conversation];
