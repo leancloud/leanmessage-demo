@@ -1,6 +1,7 @@
 package com.leancloud.im.guide;
 
 import android.content.Context;
+import android.util.Log;
 import android.widget.Toast;
 import com.avos.avoscloud.im.v2.AVIMClient;
 import com.avos.avoscloud.im.v2.AVIMConversation;
@@ -14,6 +15,7 @@ import com.avos.avoscloud.im.v2.messages.AVIMTextMessage;
 class MessageHandler extends AVIMTypedMessageHandler<AVIMTypedMessage> {
   private static AVIMTypedMessageHandler<AVIMTypedMessage> activityMessageHandler;
   private Context context;
+  private String TAG = MessageHandler.this.getClass().getSimpleName();
 
   public MessageHandler(Context context) {
     this.context = context;
@@ -21,7 +23,7 @@ class MessageHandler extends AVIMTypedMessageHandler<AVIMTypedMessage> {
 
   @Override
   public void onMessageReceipt(AVIMTypedMessage message, AVIMConversation conversation, AVIMClient client) {
-
+    Log.d(TAG, "消息已到达对方" + message.getContent());
   }
 
   @Override
@@ -33,7 +35,7 @@ class MessageHandler extends AVIMTypedMessageHandler<AVIMTypedMessage> {
       // 没有打开聊天界面，这里简单地 Toast 一下。实际中可以刷新最近消息页面，增加小红点
       if (message instanceof AVIMTextMessage) {
         AVIMTextMessage textMessage = (AVIMTextMessage) message;
-        Toast.makeText(context, "收到一条消息: " + textMessage.getText(), Toast.LENGTH_SHORT).show();
+        Toast.makeText(context, "新消息 " +message.getFrom()+" : " + textMessage.getText(), Toast.LENGTH_SHORT).show();
       }
     }
   }
