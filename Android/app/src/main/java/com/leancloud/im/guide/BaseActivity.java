@@ -1,6 +1,5 @@
 package com.leancloud.im.guide;
 
-import android.app.Activity;
 import android.support.v7.app.ActionBarActivity;
 import android.widget.Toast;
 

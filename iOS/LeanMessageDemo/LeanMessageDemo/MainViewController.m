@@ -9,16 +9,18 @@
 #import "MainViewController.h"
 #import "ChatViewController.h"
 #import "LoginViewController.h"
-#import "AppDelegate.h"
 
 #define kConversationId @"551a2847e4b04d688d73dc54"
+
+typedef enum : NSUInteger {
+    ConversationTypeOneToOne = 0,
+    ConversatinoTypeGroup
+}ConversationType;
 
 @interface MainViewController ()
 
 @property (weak, nonatomic) IBOutlet UITextField *otherIdTextField;
 @property (weak, nonatomic) IBOutlet UILabel *welcomeLabel;
-
-@property (nonatomic, strong) AVIMClient *imClient;
 
 @end
 
@@ -27,9 +29,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"选择操作";
-    self.imClient = ((AppDelegate *)[UIApplication sharedApplication].delegate).imClient;;
     
-    self.welcomeLabel.text = [NSString stringWithFormat:@"%@  %@", self.welcomeLabel.text, self.imClient.clientId];
+    self.welcomeLabel.text = [NSString stringWithFormat:@"%@  %@", self.welcomeLabel.text, [AVIMClient defaultClient].clientId];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -44,11 +45,15 @@
     
     // 判断用户是否输入的是一个有效的字符串，如果有效，则进入程序逻辑运行
     if (otherId.length > 0) {
-        
         // 新建一个 AVIMConversationQuery 实例
-        AVIMConversationQuery *query = [self.imClient conversationQuery];
+        AVIMConversationQuery *query = [[AVIMClient defaultClient] conversationQuery];
         // 构建一个数组，数组包含了当前 client 的 id 以及被邀请加入对话的 client id
-        NSMutableArray *queryClientIDs = [[NSMutableArray alloc] initWithArray:@[otherId,self.imClient.clientId]];
+        NSMutableArray *queryClientIDs = [[NSMutableArray alloc] initWithArray:@[otherId, [AVIMClient defaultClient].clientId]];
+        // 按照创建时间逆序排序
+        [query orderByDescending:@"createdAt"];
+        // 构建查询条件: AVIMConversation 中的附加属性 type 为一对一单聊
+        // 为了区分两个人的单聊与两个人的群聊
+        [query whereKey:AVIMAttr(@"type") equalTo:@(ConversationTypeOneToOne)];
         // 构建查询条件：AVIMConversation 中的成员数量为 2
         [query whereKey:kAVIMKeyMember sizeEqualTo:queryClientIDs.count];
         // 构建查询条件：AVIMConversation 中成员同时包含当前 clientId 以及被邀请加入对话的 clientId
@@ -67,18 +72,15 @@
                 // clientIds-> 对话参与的人员，默认包含了当前 Client Id
                 // callback -> 创建结果的回调函数
                 NSMutableArray *queryClientIDsTest = [[NSMutableArray alloc] initWithArray:@[otherId]];
-
-                [self.imClient createConversationWithName:nil clientIds:queryClientIDsTest callback:^(AVIMConversation *conversation, NSError *error) {
-                    if (error) {
-                        NSLog(@"%@", error);
-                    } else {
+                [[AVIMClient defaultClient] createConversationWithName:nil clientIds:queryClientIDsTest callback:^(AVIMConversation *conversation, NSError *error) {
+                    if ([self filterError:error]) {
                         // 创建一个新的对话成功之后，跳转到 ChatView 页面进行聊天
                         [self performSegueWithIdentifier:@"toChat" sender:conversation];
                     }
                 }];
             } else {
                 // 已经有一个对话存在，获取这个对话
-                AVIMConversation *conversation = [objects lastObject];
+                AVIMConversation *conversation = [objects firstObject];
                 // 跳转到 ChatView 页面进行聊天
                 [self performSegueWithIdentifier:@"toChat" sender:conversation];
             }
@@ -87,30 +89,32 @@
 }
 
 - (IBAction)onStartGroupConversationButtonClicked:(id)sender {
-    AVIMConversationQuery *query = [self.imClient conversationQuery];
+    AVIMConversationQuery *query = [[AVIMClient defaultClient] conversationQuery];
     [query whereKey:@"objectId" equalTo:kConversationId];
     [query findConversationsWithCallback: ^(NSArray *conversations, NSError *error) {
-        if (error) {
-            NSLog(@"error = %@",error);
-        } else {
+        if ([self filterError:error]) {
             if (conversations.count == 0) {
                 NSLog(@"聊天室不存在");
             } else {
                 AVIMConversation *conversation = conversations[0];
-                [conversation joinWithCallback:^(BOOL succeeded, NSError *error) {
-                    if (error) {
-                        NSLog(@"error : %@",error);
-                    } else {
-                        [self performSegueWithIdentifier:@"toChat" sender:conversation];
-                    }
-                }];
+                if ([conversation.members containsObject:[AVIMClient defaultClient].clientId]) {
+                    //已经在对话里了，直接开始聊天
+                    [self performSegueWithIdentifier:@"toChat" sender:conversation];
+                } else {
+                    // 加入对话
+                    [conversation joinWithCallback:^(BOOL succeeded, NSError *error) {
+                        if ([self filterError:error]) {
+                            [self performSegueWithIdentifier:@"toChat" sender:conversation];
+                        }
+                    }];
+                }
             }
         }
     }];
 }
 
 - (IBAction)onLogoutButtonClicked:(id)sender {
-    [self.imClient closeWithCallback: ^(BOOL succeeded, NSError *error) {
+    [[AVIMClient defaultClient] closeWithCallback: ^(BOOL succeeded, NSError *error) {
         [[NSUserDefaults standardUserDefaults] setObject:nil forKey:kLoginSelfIdKey];
         [[NSUserDefaults standardUserDefaults] synchronize];
         [self.navigationController popViewControllerAnimated:YES];

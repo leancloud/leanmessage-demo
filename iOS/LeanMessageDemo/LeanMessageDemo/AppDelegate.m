@@ -8,8 +8,12 @@
 
 #import "AppDelegate.h"
 
-#define kApplicationId @"uay57kigwe0b6f5n0e1d4z4xhydsml3dor24bzwvzr57wdap"
-#define kClientKey @"kfgz7jjfsk55r5a8a3y4ttd3je1ko11bkibcikonk32oozww"
+//#define kApplicationId @"uay57kigwe0b6f5n0e1d4z4xhydsml3dor24bzwvzr57wdap"
+//#define kClientKey @"kfgz7jjfsk55r5a8a3y4ttd3je1ko11bkibcikonk32oozww"
+
+#define kApplicationId @"9p6hyhh60av3ukkni3i9z53q1l8yy3cijj6sie3cewft18vm"
+#define kClientKey @"nhqqc1x7r7r89kp8pggrme57i374h3vyd0ukr2z3ayojpvf4"
+
 
 @interface AppDelegate ()
 

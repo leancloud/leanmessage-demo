@@ -7,7 +7,6 @@
 //
 
 #import "LoginViewController.h"
-#import "AppDelegate.h"
 
 @interface LoginViewController ()
 
@@ -20,10 +19,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"LeanMessageDemo";
-}
-
-- (void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     NSString *selfId = [userDefaults objectForKey:kLoginSelfIdKey];
     if (selfId) {
@@ -35,6 +30,10 @@
     }
 }
 
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -43,20 +42,18 @@
 - (IBAction)onLoginButtonClicked:(id)sender {
     NSString *selfId = self.selfIdTextField.text;
     if (selfId.length > 0) {
-        WEAKSELF
         [self openClientWithClientId : selfId completion : ^(BOOL succeeded, NSError *error) {
             if (!error) {
                 [[NSUserDefaults standardUserDefaults] setObject:selfId forKey:kLoginSelfIdKey];
                 [[NSUserDefaults standardUserDefaults] synchronize];
-                [weakSelf performSegueWithIdentifier:@"toMain" sender:self];
+                [self performSegueWithIdentifier:@"toMain" sender:self];
             }
         }];
     }
 }
 
 - (void)openClientWithClientId:(NSString *)clientId completion:(AVBooleanResultBlock)completion {
-    AVIMClient *imClient = [[AVIMClient alloc] init];
-    ((AppDelegate *)[UIApplication sharedApplication].delegate).imClient = imClient;
+    AVIMClient *imClient = [AVIMClient defaultClient];
     if (imClient.status == AVIMClientStatusNone) {
         [imClient openWithClientId:clientId callback:completion];
     }

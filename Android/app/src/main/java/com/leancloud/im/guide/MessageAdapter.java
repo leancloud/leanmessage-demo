@@ -19,7 +19,7 @@ import java.util.List;
  */
 public class MessageAdapter extends BaseAdapter {
   private Context context;
-  List<AVIMTypedMessage> messageList = new LinkedList<>();
+  List<AVIMTypedMessage> messageList = new LinkedList<AVIMTypedMessage>();
   private String selfId;
 
   public MessageAdapter(Context context, String selfId) {
