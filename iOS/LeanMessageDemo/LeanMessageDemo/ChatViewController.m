@@ -136,6 +136,7 @@ static NSInteger kPageSize = 15;
     self.keyboardHeight.constant = height;
     [UIView animateWithDuration:animationDuration animations: ^{
         [self.view layoutIfNeeded];
+        [self scrollToLast];
     }];
 }
 
