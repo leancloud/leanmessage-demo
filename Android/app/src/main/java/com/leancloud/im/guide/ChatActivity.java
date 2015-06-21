@@ -108,12 +108,14 @@ public class ChatActivity extends BaseActivity implements View.OnClickListener, 
         public void done(List<AVIMMessage> list, AVException e) {
           if (filterException(e)) {
             List<AVIMTypedMessage> typedMessages = filterMessages(list);
-            List<AVIMTypedMessage> newMessages = new ArrayList<AVIMTypedMessage>();
-            newMessages.addAll(typedMessages);
-            newMessages.addAll(adapter.getMessageList());
-            adapter.setMessageList(newMessages);
-            adapter.notifyDataSetChanged();
-            if (typedMessages.size() > 0) {
+            if (typedMessages.size() == 0) {
+              toast("无更早的消息了");
+            } else {
+              List<AVIMTypedMessage> newMessages = new ArrayList<AVIMTypedMessage>();
+              newMessages.addAll(typedMessages);
+              newMessages.addAll(adapter.getMessageList());
+              adapter.setMessageList(newMessages);
+              adapter.notifyDataSetChanged();
               listView.setSelection(typedMessages.size() - 1);
             }
           }

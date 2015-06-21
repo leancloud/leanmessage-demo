@@ -196,11 +196,13 @@ static NSInteger kPageSize = 15;
             [refreshControl endRefreshing];
             if ([weakSelf filterError:error]) {
                 NSMutableArray *typedMessages = [weakSelf filterMessages:objects];
-                NSMutableArray *messages = [NSMutableArray arrayWithArray:typedMessages];
-                [messages addObjectsFromArray:weakSelf.messages];
-                weakSelf.messages = messages;
                 NSInteger count = typedMessages.count;
-                if (count > 0) {
+                if (count == 0) {
+                    NSLog(@"no more old message");
+                } else {
+                    NSMutableArray *messages = [NSMutableArray arrayWithArray:typedMessages];
+                    [messages addObjectsFromArray:weakSelf.messages];
+                    weakSelf.messages = messages;
                     [weakSelf.messageTableView reloadData];
                     if (weakSelf.messages.count > count) {
                         NSIndexPath *indexPath = [NSIndexPath indexPathForRow:count inSection:0];
