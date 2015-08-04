@@ -2,10 +2,15 @@ package com.leancloud.im.guide;
 
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
+import android.util.Log;
+import com.alibaba.fastjson.JSON;
 import com.avos.avoscloud.AVOSCloud;
 import com.avos.avoscloud.im.v2.AVIMClient;
 import com.avos.avoscloud.im.v2.AVIMMessageManager;
 import com.avos.avoscloud.im.v2.AVIMTypedMessage;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by zhangxiaobo on 15/4/15.

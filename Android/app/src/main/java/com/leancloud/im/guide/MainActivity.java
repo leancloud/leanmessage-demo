@@ -2,15 +2,14 @@ package com.leancloud.im.guide;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
-import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.im.v2.AVIMClient;
+import com.avos.avoscloud.im.v2.AVIMException;
 import com.avos.avoscloud.im.v2.callback.AVIMClientCallback;
 
-public class MainActivity extends BaseActivity{
+public class MainActivity extends BaseActivity {
   EditText clientIdEditText;
 
   @Override
@@ -39,7 +38,7 @@ public class MainActivity extends BaseActivity{
     AVIMClient imClient = AVIMClient.getInstance(selfId);
     imClient.open(new AVIMClientCallback() {
       @Override
-      public void done(AVIMClient avimClient, AVException e) {
+      public void done(AVIMClient avimClient, AVIMException e) {
         if (filterException(e)) {
           Intent intent = new Intent(MainActivity.this, ConversationActivity.class);
           startActivity(intent);

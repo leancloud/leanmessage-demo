@@ -1,25 +1,27 @@
 package com.leancloud.im.guide;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.im.v2.AVIMClient;
 import com.avos.avoscloud.im.v2.AVIMConversation;
 import com.avos.avoscloud.im.v2.AVIMConversationQuery;
+import com.avos.avoscloud.im.v2.AVIMException;
 import com.avos.avoscloud.im.v2.Conversation;
 import com.avos.avoscloud.im.v2.callback.AVIMClientCallback;
 import com.avos.avoscloud.im.v2.callback.AVIMConversationCallback;
 import com.avos.avoscloud.im.v2.callback.AVIMConversationCreatedCallback;
 import com.avos.avoscloud.im.v2.callback.AVIMConversationQueryCallback;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Created by zhangxiaobo on 15/4/16.
@@ -43,7 +45,7 @@ public class ConversationActivity extends BaseActivity implements View.OnClickLi
     clientIdTextView = (TextView) findViewById(R.id.client_id);
     otherIdEditText = (EditText) findViewById(R.id.otherIdEditText);
 
-    clientIdTextView.setText(getString(R.string.welcome) + " "+Application.getClientIdFromPre());
+    clientIdTextView.setText(getString(R.string.welcome) + " " + Application.getClientIdFromPre());
 
     findViewById(R.id.join_conversation).setOnClickListener(this);
 
@@ -63,10 +65,10 @@ public class ConversationActivity extends BaseActivity implements View.OnClickLi
         if (conversation.getMembers().contains(Application.getClientIdFromPre())) {
           ChatActivity.startActivity(ConversationActivity.this,
               CONVERSATION_ID);
-        } else{
+        } else {
           conversation.join(new AVIMConversationCallback() {
             @Override
-            public void done(AVException e) {
+            public void done(AVIMException e) {
               if (filterException(e)) {
                 ChatActivity.startActivity(ConversationActivity.this,
                     CONVERSATION_ID);
@@ -78,16 +80,14 @@ public class ConversationActivity extends BaseActivity implements View.OnClickLi
       case R.id.chat_with_other:
         String otherId = otherIdEditText.getText().toString();
         if (!TextUtils.isEmpty(otherId)) {
-          fetchConversationWithClientIds(Arrays.asList(otherId), ConversationType.OneToOne, new
-              AVIMConversationCreatedCallback
-                  () {
-                @Override
-                public void done(AVIMConversation conversation, AVException e) {
-                  if (filterException(e)) {
-                    ChatActivity.startActivity(ConversationActivity.this, conversation.getConversationId());
-                  }
-                }
-              });
+          fetchConversationWithClientIds(Arrays.asList(otherId), ConversationType.OneToOne, new AVIMConversationCreatedCallback() {
+            @Override
+            public void done(AVIMConversation avimConversation, AVIMException e) {
+              if (filterException(e)) {
+                ChatActivity.startActivity(ConversationActivity.this, avimConversation.getConversationId());
+              }
+            }
+          });
         }
         break;
     }
@@ -107,7 +107,7 @@ public class ConversationActivity extends BaseActivity implements View.OnClickLi
     query.whereContainsAll(Conversation.COLUMN_MEMBERS, queryClientIds);
     query.findInBackground(new AVIMConversationQueryCallback() {
       @Override
-      public void done(List<AVIMConversation> list, AVException e) {
+      public void done(List<AVIMConversation> list, AVIMException e) {
         if (e != null) {
           callback.done(null, e);
         } else {
@@ -128,7 +128,7 @@ public class ConversationActivity extends BaseActivity implements View.OnClickLi
     super.onDestroy();
     Application.getIMClient().close(new AVIMClientCallback() {
       @Override
-      public void done(AVIMClient avimClient, AVException e) {
+      public void done(AVIMClient avimClient, AVIMException e) {
         if (e == null) {
           Log.d(TAG, "退出连接");
         } else {
