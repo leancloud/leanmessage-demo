@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="leancloud_blue">#66BBFF</color>
+
+    <color name="login_activity_bg">#efefef</color>
 </resources>
