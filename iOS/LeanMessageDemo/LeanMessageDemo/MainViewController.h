@@ -7,8 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "BaseViewController.h"
+#import <AVOSCloudIM.h>
 
-@interface MainViewController : BaseViewController
+@class MainViewController;
+
+@interface MainViewController :UIViewController
 
 @end

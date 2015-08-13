@@ -35,8 +35,6 @@ static NSInteger kPageSize = 15;
     
     self.title = @"Chat";
     
-    NSLog(@"conversation id = %@", self.conversation.conversationId);
-    
     [AVIMClient defaultClient].delegate = self;
     
     [self initTableView];
@@ -175,59 +173,16 @@ static NSInteger kPageSize = 15;
 }
 
 - (void)loadMessagesWhenInit {
-    WEAKSELF
-    [self.conversation queryMessagesWithLimit:kPageSize callback:^(NSArray *objects, NSError *error) {
-        if ([weakSelf filterError:error]) {
-            weakSelf.messages = [weakSelf filterMessages:objects];
-            [weakSelf.messageTableView reloadData];
-            [weakSelf scrollToLast];
-        }
-    }];
+   
 }
 
 - (void)loadOldMessages:(UIRefreshControl *)refreshControl {
-    if (self.messages.count == 0) {
-        [refreshControl endRefreshing];
-        return;
-    } else {
-        AVIMTypedMessage *firstMessage = self.messages[0];
-        WEAKSELF
-        [self.conversation queryMessagesBeforeId:nil timestamp:firstMessage.sendTimestamp limit:kPageSize callback: ^(NSArray *objects, NSError *error) {
-            [refreshControl endRefreshing];
-            if ([weakSelf filterError:error]) {
-                NSMutableArray *typedMessages = [weakSelf filterMessages:objects];
-                NSInteger count = typedMessages.count;
-                if (count == 0) {
-                    NSLog(@"no more old message");
-                } else {
-                    NSMutableArray *messages = [NSMutableArray arrayWithArray:typedMessages];
-                    [messages addObjectsFromArray:weakSelf.messages];
-                    weakSelf.messages = messages;
-                    [weakSelf.messageTableView reloadData];
-                    if (weakSelf.messages.count > count) {
-                        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:count inSection:0];
-                        [weakSelf.messageTableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionTop animated:NO];
-                    }
-                }
-            }
-        }];
-    }
+   
 }
 
 // 本方法演示如何把一个 NSString 对象封装成 LeanCloud SDK 中的 AVIMTextMessage 对象，并将该 AVIMTextMessage 实例发送到当前对话中
 - (void)sendText:(NSString *)text {
-    // 构建一个 AVIMTextMessage 对象
-    AVIMTextMessage *textMessage = [AVIMTextMessage messageWithText:text attributes:nil];
-    
-    WEAKSELF
-    // 调用 SDK 中的 sendMessage 方法将 textMessage 发送到当前对话中，对话中其他成员将会收到这个消息
-    [self.conversation sendMessage:textMessage callback: ^(BOOL succeeded, NSError *error) {
-        if ([weakSelf filterError:error]) {
-            // 将该条消息记录插入到当前的消息记录列表中
-            [weakSelf addMessage:textMessage];
-            weakSelf.inputTextField.text = nil;
-        }
-    }];
+   
 }
 
 // 将发送或者接收到的消息插入到消息记录列表中，并刷新控件
@@ -238,14 +193,5 @@ static NSInteger kPageSize = 15;
 }
 
 #pragma mark - AVIMClientDelegate
-
-// 接收消息时触发的代理
-- (void)conversation:(AVIMConversation *)conversation didReceiveTypedMessage:(AVIMTypedMessage *)message {
-    // 判断收到消息的对话是否为当前对话
-    if ([conversation.conversationId isEqualToString:self.conversation.conversationId]) {
-        // 把收到的消息添加到消息记录列表中
-        [self addMessage:message];
-    }
-}
 
 @end

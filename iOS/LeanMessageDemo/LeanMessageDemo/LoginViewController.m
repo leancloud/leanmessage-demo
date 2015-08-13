@@ -7,10 +7,9 @@
 //
 
 #import "LoginViewController.h"
+#import <QuartzCore/QuartzCore.h>
 
 @interface LoginViewController ()
-
-@property (weak, nonatomic) IBOutlet UITextField *selfIdTextField;
 
 @end
 
@@ -18,16 +17,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"LeanMessageDemo";
-    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    NSString *selfId = [userDefaults objectForKey:kLoginSelfIdKey];
-    if (selfId) {
-        [self openClientWithClientId:selfId completion: ^(BOOL succeeded, NSError *error) {
-            if (!error) {
-                [self performSegueWithIdentifier:@"toMain" sender:self];
-            }
-        }];
-    }
+    //[self.loginButton setBackgroundColor:[UIColor colorWithRed:44 green:151 blue:235 alpha:1]];
+    self.fruitIconImage.clipsToBounds = YES;
+    self.fruitIconImage.layer.cornerRadius=5;
+   
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -40,28 +33,24 @@
 }
 
 - (IBAction)onLoginButtonClicked:(id)sender {
-    NSString *selfId = self.selfIdTextField.text;
-    if (selfId.length > 0) {
-        [self openClientWithClientId : selfId completion : ^(BOOL succeeded, NSError *error) {
-            if (!error) {
-                [[NSUserDefaults standardUserDefaults] setObject:selfId forKey:kLoginSelfIdKey];
-                [[NSUserDefaults standardUserDefaults] synchronize];
-                [self performSegueWithIdentifier:@"toMain" sender:self];
-            }
-        }];
-    }
+    // 创建一个 AVIMClient 实例
+    AVIMClient *imClient = [[AVIMClient alloc] init];
+    
+    [imClient openWithClientId:self.clientIdTextFiled.text callback:^(BOOL succeeded, NSError *error){
+        if (error) {
+            // 出错了，可能是网络问题无法连接 LeanCloud 云端，请检查网络之后重试。
+            // 此时聊天服务不可用。
+            UIAlertView *view = [[UIAlertView alloc] initWithTitle:@"聊天不可用！" message:[error description] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+            [view show];
+        } else {
+            // 成功登录，可以进入聊天主界面了。
+          [self performSegueWithIdentifier:@"toChatroom" sender:self];
+        }
+    }];
+    
 }
 
-- (void)openClientWithClientId:(NSString *)clientId completion:(AVBooleanResultBlock)completion {
-    AVIMClient *imClient = [AVIMClient defaultClient];
-    if (imClient.status == AVIMClientStatusNone) {
-        [imClient openWithClientId:clientId callback:completion];
-    }
-    else {
-        [imClient closeWithCallback: ^(BOOL succeeded, NSError *error) {
-            [imClient openWithClientId:clientId callback:completion];
-        }];
-    }
+- (IBAction)inputingClientId:(id)sender {
+    
 }
-
 @end

@@ -7,9 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "BaseViewController.h"
+#import <AVOSCloudIM.h>
 
-@interface ChatViewController : BaseViewController
+@interface ChatViewController:UIViewController
 
 @property (nonatomic, strong) AVIMConversation *conversation;
 
