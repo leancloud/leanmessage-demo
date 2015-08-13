@@ -11,6 +11,7 @@ import android.widget.ListView;
 import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.im.v2.AVIMClient;
 import com.avos.avoscloud.im.v2.AVIMConversation;
+import com.avos.avoscloud.im.v2.AVIMException;
 import com.avos.avoscloud.im.v2.AVIMMessage;
 import com.avos.avoscloud.im.v2.AVIMMessageManager;
 import com.avos.avoscloud.im.v2.AVIMTypedMessage;
@@ -58,13 +59,24 @@ public class ChatActivity extends BaseActivity implements View.OnClickListener, 
 
     // register callback
     handler = new ChatHandler(adapter);
-    MessageHandler.setActivityMessageHandler(handler);
 
     conversation = Application.getIMClient().getConversation(conversationId);
 
     findViewById(R.id.send).setOnClickListener(this);
 
     loadMessagesWhenInit();
+  }
+
+  @Override
+  protected void onResume() {
+    super.onResume();
+    MessageHandler.setActivityMessageHandler(handler);
+  }
+
+  @Override
+  protected void onPause() {
+    super.onPause();
+    MessageHandler.setActivityMessageHandler(null);
   }
 
   private List<AVIMTypedMessage> filterMessages(List<AVIMMessage> messages) {
@@ -84,9 +96,9 @@ public class ChatActivity extends BaseActivity implements View.OnClickListener, 
     isLoadingMessages.set(true);
     conversation.queryMessages(PAGE_SIZE, new AVIMMessagesQueryCallback() {
       @Override
-      public void done(List<AVIMMessage> messages, AVException e) {
+      public void done(List<AVIMMessage> list, AVIMException e) {
         if (filterException(e)) {
-          List<AVIMTypedMessage> typedMessages = filterMessages(messages);
+          List<AVIMTypedMessage> typedMessages = filterMessages(list);
           adapter.setMessageList(typedMessages);
           adapter.notifyDataSetChanged();
           scrollToLast();
@@ -105,7 +117,7 @@ public class ChatActivity extends BaseActivity implements View.OnClickListener, 
       long time = firstMsg.getTimestamp();
       conversation.queryMessages(null, time, PAGE_SIZE, new AVIMMessagesQueryCallback() {
         @Override
-        public void done(List<AVIMMessage> list, AVException e) {
+        public void done(List<AVIMMessage> list, AVIMException e) {
           if (filterException(e)) {
             List<AVIMTypedMessage> typedMessages = filterMessages(list);
             if (typedMessages.size() == 0) {
@@ -155,7 +167,7 @@ public class ChatActivity extends BaseActivity implements View.OnClickListener, 
     message.setText(messageEditText.getText().toString());
     conversation.sendMessage(message, new AVIMConversationCallback() {
       @Override
-      public void done(AVException e) {
+      public void done(AVIMException e) {
         if (null != e) {
           e.printStackTrace();
         } else {

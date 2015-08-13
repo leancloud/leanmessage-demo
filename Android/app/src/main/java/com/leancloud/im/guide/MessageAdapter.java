@@ -11,6 +11,8 @@ import com.avos.avoscloud.im.v2.AVIMReservedMessageType;
 import com.avos.avoscloud.im.v2.AVIMTypedMessage;
 import com.avos.avoscloud.im.v2.messages.AVIMTextMessage;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -57,7 +59,6 @@ public class MessageAdapter extends BaseAdapter {
       convertView = LayoutInflater.from(context).inflate(R.layout.message, null);
       holder = new ViewHolder();
       holder.message = (TextView) convertView.findViewById(R.id.message);
-      holder.sender = (TextView) convertView.findViewById(R.id.sender);
       convertView.setTag(holder);
     } else {
       holder = (ViewHolder) convertView.getTag();
@@ -70,14 +71,15 @@ public class MessageAdapter extends BaseAdapter {
     } else {
       text = message.getContent();
     }
-    holder.message.setText(text);
-    holder.sender.setText(message.getFrom());
+    Date date = new Date(message.getTimestamp());
+    SimpleDateFormat dateFormat = new SimpleDateFormat("MM-dd HH:mm:ss");
+    String time = dateFormat.format(date);
+    String messageText = "(" + time + ") " + message.getFrom() +":" +text;
+    holder.message.setText(messageText);
     if (message.getFrom().equals(selfId)) {
       holder.message.setTextColor(Color.BLACK);
-      holder.sender.setTextColor(Color.BLACK);
     } else {
       holder.message.setTextColor(Color.YELLOW);
-      holder.sender.setTextColor(Color.YELLOW);
     }
     return convertView;
   }
@@ -89,6 +91,5 @@ public class MessageAdapter extends BaseAdapter {
 
   private class ViewHolder {
     TextView message;
-    TextView sender;
   }
 }
