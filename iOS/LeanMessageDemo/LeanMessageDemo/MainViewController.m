@@ -100,15 +100,17 @@ typedef enum : NSUInteger {
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     /**
-     *
+     * 绘画 Tabel View Cell 控件
      */
     AVIMMessage *message= self.messages[indexPath.row];
     if ([message isKindOfClass:[AVIMTypedMessage class]]) {
         AVIMTypedMessage *typedMessage=(AVIMTypedMessage*)message;
         switch (typedMessage.mediaType) {
             case  kAVIMMessageMediaTypeText: {
+                AVIMTextMessage *textMessage=(AVIMTextMessage*)typedMessage;
                 TextMessageTableViewCell  *textCellView = [[TextMessageTableViewCell alloc]init];
-                textCellView.messageSenderClientIdLabel.text=@"ww";
+                textCellView.messageSenderClientIdLabel.text=textMessage.clientId;
+                textCellView.textMessageContentTextView.text=textMessage.text;
                 return textCellView;
             }
                 break;
