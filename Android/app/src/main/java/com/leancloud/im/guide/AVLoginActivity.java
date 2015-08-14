@@ -9,8 +9,10 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.avos.avoscloud.im.v2.AVIMClient;
+import com.avos.avoscloud.im.v2.AVIMConversation;
 import com.avos.avoscloud.im.v2.AVIMException;
 import com.avos.avoscloud.im.v2.callback.AVIMClientCallback;
+import com.avos.avoscloud.im.v2.callback.AVIMConversationMemberCountCallback;
 
 /**
  * Created by wli on 15/8/13.
@@ -36,6 +38,8 @@ public class AVLoginActivity extends AVBaseActivity {
         openClient(userNameView.getText().toString().trim());
       }
     });
+
+//    getOnLineNum();
   }
 
   private void openClient(String selfId) {
@@ -54,4 +58,22 @@ public class AVLoginActivity extends AVBaseActivity {
       }
     });
   }
+
+//  private void getOnLineNum() {
+//    final AVIMClient client = AVIMClient.getInstance("admin");
+//    client.open(new AVIMClientCallback() {
+//      @Override
+//      public void done(AVIMClient avimClient, AVIMException e) {
+//        AVIMConversation conversation = client.getConversation("551a2847e4b04d688d73dc54");
+//        conversation.getMemberCount(new AVIMConversationMemberCountCallback() {
+//          @Override
+//          public void done(Integer integer, AVIMException e) {
+//            onlineNumView.setText(integer + "");
+//            client.close(null);
+//          }
+//        });
+//      }
+//    });
+
+//  }
 }

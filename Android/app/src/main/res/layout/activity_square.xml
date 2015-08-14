@@ -1,37 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-    <android.support.v4.widget.SwipeRefreshLayout
-        android:id="@+id/activity_square_rv_srl_pullrefresh"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_above="@+id/activity_square_layout_input">
+    <include layout="@layout/tool_bar"/>
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/activity_square_rv_chat"
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <android.support.v4.widget.SwipeRefreshLayout
+            android:id="@+id/activity_square_rv_srl_pullrefresh"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
-    </android.support.v4.widget.SwipeRefreshLayout>
+            android:layout_height="match_parent"
+            android:layout_above="@+id/activity_square_layout_input">
 
-    <LinearLayout
-        android:id="@+id/activity_square_layout_input"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:orientation="horizontal">
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/activity_square_rv_chat"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+        </android.support.v4.widget.SwipeRefreshLayout>
 
-        <EditText
-            android:id="@+id/activity_square_et_content"
-            android:layout_width="0dp"
+        <LinearLayout
+            android:id="@+id/activity_square_layout_input"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"/>
+            android:layout_alignParentBottom="true"
+            android:orientation="horizontal">
 
-        <Button
-            android:id="@+id/activity_square_btn_send"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-    </LinearLayout>
+            <EditText
+                android:id="@+id/activity_square_et_content"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"/>
 
-</RelativeLayout>
+            <Button
+                android:id="@+id/activity_square_btn_send"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+    </RelativeLayout>
+</LinearLayout>

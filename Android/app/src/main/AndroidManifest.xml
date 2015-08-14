@@ -17,7 +17,7 @@
 
         <activity
             android:name="com.leancloud.im.guide.AVLoginActivity"
-            android:theme="@style/AVTheme.NoActionBar.FullScreen">
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
@@ -25,6 +25,8 @@
         </activity>
 
         <activity android:name="com.leancloud.im.guide.AVSquareActivity"/>
+        <activity android:name="com.leancloud.im.guide.AVSquareMembersActivity"/>
+        <activity android:name="com.leancloud.im.guide.AVSingleChatActivity"/>
 
 
         <activity android:name=".ConversationActivity">

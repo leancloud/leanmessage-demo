@@ -19,12 +19,9 @@ import com.avos.avoscloud.im.v2.callback.AVIMMessagesQueryCallback;
 import java.util.List;
 
 /**
- * Created by wli on 15/8/13.
- * 流程：1、根据 clientId 获得 AVIMClient 实例
- * 2、根据 conversationId 获得 AVIMConversation 实例
- * 3、必须要加入 conversation 后才能拉取消息
+ * Created by wli on 15/8/14.
  */
-public class AVSquareActivity extends AVBaseActivity {
+public class AVSingleChatActivity extends AVBaseActivity {
   private static final String SQUARE_CONVERSATION_ID = "551a2847e4b04d688d73dc54";
   private AVIMConversation squareConversation;
   private MultipleItemAdapter itemAdapter;

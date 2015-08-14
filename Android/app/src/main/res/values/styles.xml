@@ -1,8 +1,11 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
+        <item name="colorPrimary">#009688</item>
+        <item name="colorPrimaryDark">#009688</item>
+        <item name="colorAccent">#009688</item>
     </style>
 
     <style name="BigFont">
@@ -22,13 +25,13 @@
 
     <style name="AVTheme" parent="Theme.AppCompat.Light"/>
 
-    <style name="AVTheme.NoActionBar">
-        <item name="windowNoTitle">true</item>
-        <item name="windowActionBar">false</item>
-    </style>
+    <!--<style name="AVTheme.NoActionBar">-->
+        <!--&lt;!&ndash;<item name="windowNoTitle">true</item>&ndash;&gt;-->
+        <!--&lt;!&ndash;<item name="windowActionBar">false</item>&ndash;&gt;-->
+    <!--</style>-->
 
-    <style name="AVTheme.NoActionBar.FullScreen">
-        <item name="android:windowFullscreen">true</item>
-    </style>
+    <!--<style name="AVTheme.NoActionBar.FullScreen">-->
+        <!--<item name="android:windowFullscreen">true</item>-->
+    <!--</style>-->
 
 </resources>
