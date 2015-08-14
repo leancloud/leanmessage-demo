@@ -11,7 +11,7 @@
 #define RGB(R, G, B) [UIColor colorWithRed : (R) / 255.0f green : (G) / 255.0f blue : (B) / 255.0f alpha : 1.0f]
 #define COMMON_BLUE RGB(102, 187, 255)
 
-static NSInteger kPageSize = 15;
+static NSInteger kPageSize = 10;
 
 @interface ChatViewController () <UITableViewDataSource, UITableViewDelegate, AVIMClientDelegate>
 
@@ -182,7 +182,7 @@ static NSInteger kPageSize = 15;
 
 // 本方法演示如何把一个 NSString 对象封装成 LeanCloud SDK 中的 AVIMTextMessage 对象，并将该 AVIMTextMessage 实例发送到当前对话中
 - (void)sendText:(NSString *)text {
-   
+
 }
 
 // 将发送或者接收到的消息插入到消息记录列表中，并刷新控件

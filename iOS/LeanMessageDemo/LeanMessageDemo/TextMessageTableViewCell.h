@@ -9,5 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface TextMessageTableViewCell : UITableViewCell
+@property (strong, nonatomic) IBOutlet UITextView *textMessageContentTextView;
+@property (strong, nonatomic) IBOutlet UILabel *messageSenderClientIdLabel;
 
 @end

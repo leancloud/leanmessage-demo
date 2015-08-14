@@ -34,7 +34,7 @@
 
 - (IBAction)onLoginButtonClicked:(id)sender {
     // 创建一个 AVIMClient 实例
-    AVIMClient *imClient = [[AVIMClient alloc] init];
+    AVIMClient *imClient = [AVIMClient defaultClient];
     
     [imClient openWithClientId:self.clientIdTextFiled.text callback:^(BOOL succeeded, NSError *error){
         if (error) {

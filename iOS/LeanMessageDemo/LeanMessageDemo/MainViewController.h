@@ -13,4 +13,7 @@
 
 @interface MainViewController :UIViewController
 
+- (IBAction)sendMessage:(id)sender;
+@property (strong, nonatomic) IBOutlet UITableView *messageTableView;
+@property (strong, nonatomic) IBOutlet UITextField *messageInputTextField;
 @end

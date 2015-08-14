@@ -116,6 +116,9 @@
                                 <state key="normal" title="发送">
                                     <color key="titleColor" red="0.53725490200000003" green="0.53725490200000003" blue="0.53725490200000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
+                                <connections>
+                                    <action selector="sendMessage:" destination="yBv-Io-kTP" eventType="touchUpInside" id="knT-rw-baX"/>
+                                </connections>
                             </button>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="说点什么" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="QOi-Zn-BtB">
                                 <rect key="frame" x="12" y="526" width="253" height="30"/>
@@ -166,6 +169,10 @@
                                                 </textView>
                                             </subviews>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="messageSenderClientIdLabel" destination="med-o0-URX" id="6rJ-Bu-tpP"/>
+                                            <outlet property="textMessageContentTextView" destination="SLs-3F-18m" id="MR1-pB-mns"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
@@ -184,6 +191,8 @@
                     </view>
                     <navigationItem key="navigationItem" title="水果群英会" prompt="聊天室" id="aMu-Ag-QSn"/>
                     <connections>
+                        <outlet property="messageInputTextField" destination="QOi-Zn-BtB" id="Ybp-eb-DI5"/>
+                        <outlet property="messageTableView" destination="Crz-74-kpH" id="aVN-gj-ygX"/>
                         <segue destination="LKo-Vt-yon" kind="push" identifier="toChat" id="uwT-wa-TOr"/>
                     </connections>
                 </viewController>
