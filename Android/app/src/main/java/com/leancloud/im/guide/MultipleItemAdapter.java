@@ -12,6 +12,8 @@ import com.leancloud.im.guide.viewholder.LeftTextHolder;
 import com.leancloud.im.guide.viewholder.RightTextHolder;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -25,7 +27,7 @@ public class MultipleItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
   private final LayoutInflater mLayoutInflater;
   private final Context mContext;
-  private List<AVIMMessage> messageList = new LinkedList<AVIMMessage>();
+  private List<AVIMMessage> messageList = new ArrayList<AVIMMessage>();
 
   public MultipleItemAdapter(Context context) {
     mContext = context;
@@ -33,7 +35,10 @@ public class MultipleItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
   }
 
   public void setMessageList(List<AVIMMessage> messages) {
-    messageList = messages;
+    messageList.clear();
+    if (null != messages) {
+      messageList.addAll(messages);
+    }
   }
 
 
@@ -41,10 +46,16 @@ public class MultipleItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     messageList.addAll(0, messages);
   }
 
+  public void addMessage(AVIMMessage message) {
+    messageList.addAll(Arrays.asList(message));
+  }
 
-  //TODO null 判断
   public AVIMMessage getFirstMessage() {
-    return messageList.get(0);
+    if (null != messageList && messageList.size() > 0) {
+      return messageList.get(0);
+    } else {
+      return null;
+    }
   }
 
   @Override
@@ -61,14 +72,19 @@ public class MultipleItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
   @Override
   public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-    AVIMTextMessage message = (AVIMTextMessage) messageList.get(position);
+    AVIMMessage message = messageList.get(position);
     SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm 1969-12-31 16:00");
     String time = dateFormat.format(message.getTimestamp());
-    String content = message.getText() + "   " + time;
+
+    String content = "暂不支持此消息类型";
+    if (message instanceof AVIMTextMessage) {
+      content = ((AVIMTextMessage)message).getText() + "   " + message.getMessageStatus();
+    }
+
     if (holder instanceof LeftTextHolder) {
-      ((LeftTextHolder) holder).mTextView.setText(message.getText());
+      ((LeftTextHolder) holder).mTextView.setText(content);
     } else if (holder instanceof RightTextHolder) {
-      ((RightTextHolder) holder).mTextView.setText(message.getText());
+      ((RightTextHolder) holder).mTextView.setText(content);
     }
   }
 

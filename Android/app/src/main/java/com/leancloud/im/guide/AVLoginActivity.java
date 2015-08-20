@@ -39,6 +39,8 @@ public class AVLoginActivity extends AVBaseActivity {
       }
     });
 
+    userNameView.setText("daweibayu");
+
 //    getOnLineNum();
   }
 

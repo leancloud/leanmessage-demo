@@ -5,9 +5,14 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 
 import com.avos.avoscloud.im.v2.AVIMClient;
 import com.avos.avoscloud.im.v2.AVIMConversation;
@@ -15,6 +20,7 @@ import com.avos.avoscloud.im.v2.AVIMException;
 import com.avos.avoscloud.im.v2.AVIMMessage;
 import com.avos.avoscloud.im.v2.callback.AVIMConversationCallback;
 import com.avos.avoscloud.im.v2.callback.AVIMMessagesQueryCallback;
+import com.avos.avoscloud.im.v2.messages.AVIMTextMessage;
 
 import java.util.List;
 
@@ -30,6 +36,8 @@ public class AVSquareActivity extends AVBaseActivity {
   private MultipleItemAdapter itemAdapter;
   private RecyclerView recyclerView;
   private SwipeRefreshLayout refreshLayout;
+  private EditText contentView;
+  private Button sendButton;
   private Toolbar toolbar;
 
   @Override
@@ -41,6 +49,9 @@ public class AVSquareActivity extends AVBaseActivity {
 
     recyclerView = (RecyclerView) findViewById(R.id.activity_square_rv_chat);
     refreshLayout = (SwipeRefreshLayout) findViewById(R.id.activity_square_rv_srl_pullrefresh);
+    contentView = (EditText) findViewById(R.id.activity_square_et_content);
+    sendButton = (Button) findViewById(R.id.activity_square_btn_send);
+
     setSupportActionBar(toolbar);
 
     toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
@@ -67,6 +78,30 @@ public class AVSquareActivity extends AVBaseActivity {
           }
         });
 
+      }
+    });
+
+    contentView.addTextChangedListener(new TextWatcher() {
+      @Override
+      public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+      }
+
+      @Override
+      public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+      }
+
+      @Override
+      public void afterTextChanged(Editable s) {
+
+      }
+    });
+
+    sendButton.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        sendMessage();
       }
     });
 
@@ -106,6 +141,20 @@ public class AVSquareActivity extends AVBaseActivity {
             fetchMessages();
           }
         }
+      }
+    });
+  }
+
+  private void sendMessage() {
+    String content = contentView.getText().toString();
+    AVIMTextMessage message = new AVIMTextMessage();
+    message.setText(content);
+    itemAdapter.addMessage(message);
+    itemAdapter.notifyDataSetChanged();
+    squareConversation.sendMessage(message, new AVIMConversationCallback() {
+      @Override
+      public void done(AVIMException e) {
+        itemAdapter.notifyDataSetChanged();
       }
     });
   }
