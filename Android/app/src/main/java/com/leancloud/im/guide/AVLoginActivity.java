@@ -1,6 +1,5 @@
 package com.leancloud.im.guide;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -9,10 +8,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.avos.avoscloud.im.v2.AVIMClient;
-import com.avos.avoscloud.im.v2.AVIMConversation;
 import com.avos.avoscloud.im.v2.AVIMException;
 import com.avos.avoscloud.im.v2.callback.AVIMClientCallback;
-import com.avos.avoscloud.im.v2.callback.AVIMConversationMemberCountCallback;
 
 /**
  * Created by wli on 15/8/13.
