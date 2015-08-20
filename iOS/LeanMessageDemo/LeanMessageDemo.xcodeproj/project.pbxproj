@@ -15,10 +15,13 @@
 		5CFD3D111B05CE7100DD9A93 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5CFD3D0F1B05CE7100DD9A93 /* LaunchScreen.xib */; };
 		5CFD3D1D1B05CE7100DD9A93 /* LeanMessageDemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CFD3D1C1B05CE7100DD9A93 /* LeanMessageDemoTests.m */; };
 		5CFD3D301B05CF7C00DD9A93 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CFD3D2B1B05CF7C00DD9A93 /* LoginViewController.m */; };
-		5CFD3D311B05CF7C00DD9A93 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CFD3D2D1B05CF7C00DD9A93 /* MainViewController.m */; };
+		5CFD3D311B05CF7C00DD9A93 /* BaseChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CFD3D2D1B05CF7C00DD9A93 /* BaseChatViewController.m */; };
+		6A6EBB3A1B8471D900109FC5 /* DemoTextMessageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A6EBB381B8471D900109FC5 /* DemoTextMessageTableViewCell.m */; };
+		6A6EBB3B1B8471D900109FC5 /* DemoTextMessageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6A6EBB391B8471D900109FC5 /* DemoTextMessageTableViewCell.xib */; };
+		6A6EBB411B84913200109FC5 /* MessageToolBarView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6A6EBB3F1B84913200109FC5 /* MessageToolBarView.xib */; };
+		6A6EBB441B8578AF00109FC5 /* ChatRoomViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A6EBB431B8578AF00109FC5 /* ChatRoomViewController.m */; };
+		6A6EBB471B858CF300109FC5 /* MessageToolBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A6EBB461B858CF300109FC5 /* MessageToolBarView.m */; };
 		6A7481061B7B415A001AFF9D /* SampleData.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A7481051B7B415A001AFF9D /* SampleData.m */; };
-		6A74810A1B7CA2BC001AFF9D /* TextMessageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A7481091B7CA2BC001AFF9D /* TextMessageTableViewCell.m */; };
-		70146D241B05DD89000E32B4 /* ChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 70146D231B05DD89000E32B4 /* ChatViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -43,16 +46,20 @@
 		5CFD3D161B05CE7100DD9A93 /* LeanMessageDemoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LeanMessageDemoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		5CFD3D1B1B05CE7100DD9A93 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5CFD3D1C1B05CE7100DD9A93 /* LeanMessageDemoTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LeanMessageDemoTests.m; sourceTree = "<group>"; };
-		5CFD3D261B05CF7C00DD9A93 /* ChatViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatViewController.h; sourceTree = "<group>"; };
 		5CFD3D2A1B05CF7C00DD9A93 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		5CFD3D2B1B05CF7C00DD9A93 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
-		5CFD3D2C1B05CF7C00DD9A93 /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
-		5CFD3D2D1B05CF7C00DD9A93 /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
+		5CFD3D2C1B05CF7C00DD9A93 /* BaseChatViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseChatViewController.h; sourceTree = "<group>"; };
+		5CFD3D2D1B05CF7C00DD9A93 /* BaseChatViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseChatViewController.m; sourceTree = "<group>"; };
+		6A6EBB371B8471D900109FC5 /* DemoTextMessageTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DemoTextMessageTableViewCell.h; sourceTree = "<group>"; };
+		6A6EBB381B8471D900109FC5 /* DemoTextMessageTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DemoTextMessageTableViewCell.m; sourceTree = "<group>"; };
+		6A6EBB391B8471D900109FC5 /* DemoTextMessageTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DemoTextMessageTableViewCell.xib; sourceTree = "<group>"; };
+		6A6EBB3F1B84913200109FC5 /* MessageToolBarView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MessageToolBarView.xib; sourceTree = "<group>"; };
+		6A6EBB421B8578AF00109FC5 /* ChatRoomViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatRoomViewController.h; sourceTree = "<group>"; };
+		6A6EBB431B8578AF00109FC5 /* ChatRoomViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatRoomViewController.m; sourceTree = "<group>"; };
+		6A6EBB451B858CF300109FC5 /* MessageToolBarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageToolBarView.h; sourceTree = "<group>"; };
+		6A6EBB461B858CF300109FC5 /* MessageToolBarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageToolBarView.m; sourceTree = "<group>"; };
 		6A7481041B7B415A001AFF9D /* SampleData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SampleData.h; sourceTree = "<group>"; };
 		6A7481051B7B415A001AFF9D /* SampleData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SampleData.m; sourceTree = "<group>"; };
-		6A7481081B7CA2BC001AFF9D /* TextMessageTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextMessageTableViewCell.h; sourceTree = "<group>"; };
-		6A7481091B7CA2BC001AFF9D /* TextMessageTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextMessageTableViewCell.m; sourceTree = "<group>"; };
-		70146D231B05DD89000E32B4 /* ChatViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatViewController.m; sourceTree = "<group>"; };
 		AC68B1AE58AE132334393CD3 /* libPods-LeanMessageDemo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-LeanMessageDemo.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DF0A5963552C26D0D12DA4BD /* Pods-LeanMessageDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LeanMessageDemo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-LeanMessageDemo/Pods-LeanMessageDemo.debug.xcconfig"; sourceTree = "<group>"; };
 		F58CB5C0E75A1C8FD246846C /* Pods-LeanMessageDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LeanMessageDemo.release.xcconfig"; path = "Pods/Target Support Files/Pods-LeanMessageDemo/Pods-LeanMessageDemo.release.xcconfig"; sourceTree = "<group>"; };
@@ -109,21 +116,22 @@
 		5CFD3CFF1B05CE7100DD9A93 /* LeanMessageDemo */ = {
 			isa = PBXGroup;
 			children = (
-				6A7481071B7C9D02001AFF9D /* TabelCellView */,
-				5CFD3D2A1B05CF7C00DD9A93 /* LoginViewController.h */,
-				5CFD3D2B1B05CF7C00DD9A93 /* LoginViewController.m */,
-				5CFD3D2C1B05CF7C00DD9A93 /* MainViewController.h */,
-				5CFD3D2D1B05CF7C00DD9A93 /* MainViewController.m */,
-				5CFD3D261B05CF7C00DD9A93 /* ChatViewController.h */,
-				70146D231B05DD89000E32B4 /* ChatViewController.m */,
 				5CFD3D041B05CE7100DD9A93 /* AppDelegate.h */,
 				5CFD3D051B05CE7100DD9A93 /* AppDelegate.m */,
-				5CFD3D0A1B05CE7100DD9A93 /* Main.storyboard */,
+				5CFD3D2C1B05CF7C00DD9A93 /* BaseChatViewController.h */,
+				5CFD3D2D1B05CF7C00DD9A93 /* BaseChatViewController.m */,
+				6A6EBB421B8578AF00109FC5 /* ChatRoomViewController.h */,
+				6A6EBB431B8578AF00109FC5 /* ChatRoomViewController.m */,
 				5CFD3D0D1B05CE7100DD9A93 /* Images.xcassets */,
 				5CFD3D0F1B05CE7100DD9A93 /* LaunchScreen.xib */,
-				5CFD3D001B05CE7100DD9A93 /* Supporting Files */,
+				5CFD3D2A1B05CF7C00DD9A93 /* LoginViewController.h */,
+				5CFD3D2B1B05CF7C00DD9A93 /* LoginViewController.m */,
+				5CFD3D0A1B05CE7100DD9A93 /* Main.storyboard */,
 				6A7481041B7B415A001AFF9D /* SampleData.h */,
 				6A7481051B7B415A001AFF9D /* SampleData.m */,
+				6A6EBB3C1B84906700109FC5 /* MessageToolBar */,
+				6A7481071B7C9D02001AFF9D /* TabelCellView */,
+				5CFD3D001B05CE7100DD9A93 /* Supporting Files */,
 			);
 			path = LeanMessageDemo;
 			sourceTree = "<group>";
@@ -154,11 +162,22 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		6A6EBB3C1B84906700109FC5 /* MessageToolBar */ = {
+			isa = PBXGroup;
+			children = (
+				6A6EBB451B858CF300109FC5 /* MessageToolBarView.h */,
+				6A6EBB461B858CF300109FC5 /* MessageToolBarView.m */,
+				6A6EBB3F1B84913200109FC5 /* MessageToolBarView.xib */,
+			);
+			name = MessageToolBar;
+			sourceTree = "<group>";
+		};
 		6A7481071B7C9D02001AFF9D /* TabelCellView */ = {
 			isa = PBXGroup;
 			children = (
-				6A7481081B7CA2BC001AFF9D /* TextMessageTableViewCell.h */,
-				6A7481091B7CA2BC001AFF9D /* TextMessageTableViewCell.m */,
+				6A6EBB371B8471D900109FC5 /* DemoTextMessageTableViewCell.h */,
+				6A6EBB381B8471D900109FC5 /* DemoTextMessageTableViewCell.m */,
+				6A6EBB391B8471D900109FC5 /* DemoTextMessageTableViewCell.xib */,
 			);
 			name = TabelCellView;
 			sourceTree = "<group>";
@@ -222,6 +241,7 @@
 				TargetAttributes = {
 					5CFD3CFC1B05CE7100DD9A93 = {
 						CreatedOnToolsVersion = 6.3.1;
+						DevelopmentTeam = Y6X8P44TM5;
 					};
 					5CFD3D151B05CE7100DD9A93 = {
 						CreatedOnToolsVersion = 6.3.1;
@@ -253,7 +273,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6A6EBB411B84913200109FC5 /* MessageToolBarView.xib in Resources */,
 				5CFD3D0C1B05CE7100DD9A93 /* Main.storyboard in Resources */,
+				6A6EBB3B1B8471D900109FC5 /* DemoTextMessageTableViewCell.xib in Resources */,
 				5CFD3D111B05CE7100DD9A93 /* LaunchScreen.xib in Resources */,
 				5CFD3D0E1B05CE7100DD9A93 /* Images.xcassets in Resources */,
 			);
@@ -307,12 +329,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				5CFD3D061B05CE7100DD9A93 /* AppDelegate.m in Sources */,
-				5CFD3D311B05CF7C00DD9A93 /* MainViewController.m in Sources */,
-				70146D241B05DD89000E32B4 /* ChatViewController.m in Sources */,
+				5CFD3D311B05CF7C00DD9A93 /* BaseChatViewController.m in Sources */,
 				5CFD3D031B05CE7100DD9A93 /* main.m in Sources */,
 				5CFD3D301B05CF7C00DD9A93 /* LoginViewController.m in Sources */,
 				6A7481061B7B415A001AFF9D /* SampleData.m in Sources */,
-				6A74810A1B7CA2BC001AFF9D /* TextMessageTableViewCell.m in Sources */,
+				6A6EBB3A1B8471D900109FC5 /* DemoTextMessageTableViewCell.m in Sources */,
+				6A6EBB471B858CF300109FC5 /* MessageToolBarView.m in Sources */,
+				6A6EBB441B8578AF00109FC5 /* ChatRoomViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -439,10 +462,14 @@
 			baseConfigurationReference = DF0A5963552C26D0D12DA4BD /* Pods-LeanMessageDemo.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = LeanMessageDemo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -452,10 +479,14 @@
 			baseConfigurationReference = F58CB5C0E75A1C8FD246846C /* Pods-LeanMessageDemo.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = LeanMessageDemo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;

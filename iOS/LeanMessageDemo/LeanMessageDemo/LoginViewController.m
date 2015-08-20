@@ -17,7 +17,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    //[self.loginButton setBackgroundColor:[UIColor colorWithRed:44 green:151 blue:235 alpha:1]];
+    
     self.fruitIconImage.clipsToBounds = YES;
     self.fruitIconImage.layer.cornerRadius=5;
    
@@ -49,7 +49,12 @@
     }];
     
 }
+-(void)viewWillAppear:(BOOL)animated{
+    self.navigationController.navigationBar.barTintColor = [UIColor colorWithRed:239.0/255.0 green:239.0/255.0 blue:239.0/255.0 alpha:1.0];
+    self.navigationController.navigationBar.tintColor= [UIColor colorWithRed:137.0/255.0 green:137.0/255.0 blue:137.0/255.0 alpha:1.0];
+    [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor colorWithRed:137.0/255.0 green:137.0/255.0 blue:137.0/255.0 alpha:1.0]}];
 
+}
 - (IBAction)inputingClientId:(id)sender {
     
 }

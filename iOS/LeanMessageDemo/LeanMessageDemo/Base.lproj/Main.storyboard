@@ -30,7 +30,7 @@
                         <viewControllerLayoutGuide type="bottom" id="2z8-oJ-DsL"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="kh9-bI-dsS">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="bezel" placeholder="请输入你的 ID" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dBc-dV-73a">
@@ -63,7 +63,7 @@
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" image="Icon" translatesAutoresizingMaskIntoConstraints="NO" id="wO9-yF-BAT">
                                         <rect key="frame" x="57" y="0.0" width="90" height="90"/>
                                     </imageView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="水果群英会" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="89c-DF-O02">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="水果群英会" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="89c-DF-O02">
                                         <rect key="frame" x="49" y="98" width="107" height="21"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" red="0.53725490196078429" green="0.53725490196078429" blue="0.53725490196078429" alpha="1" colorSpace="calibratedRGB"/>
@@ -72,8 +72,8 @@
                                 </subviews>
                                 <color key="backgroundColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.93725490196078431" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="centerX" secondItem="wO9-yF-BAT" secondAttribute="centerX" id="UWD-cU-P99"/>
-                                    <constraint firstAttribute="centerX" secondItem="wO9-yF-BAT" secondAttribute="centerX" id="h0T-q4-zHo"/>
+                                    <constraint firstAttribute="centerX" secondItem="89c-DF-O02" secondAttribute="centerX" id="Qyu-FU-dVK"/>
+                                    <constraint firstAttribute="centerX" secondItem="wO9-yF-BAT" secondAttribute="centerX" id="uzQ-xn-6kz"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -98,10 +98,10 @@
             </objects>
             <point key="canvasLocation" x="201" y="214"/>
         </scene>
-        <!--水果群英会-->
+        <!--Chat Room View Controller-->
         <scene sceneID="rfg-i3-PyO">
             <objects>
-                <viewController automaticallyAdjustsScrollViewInsets="NO" id="yBv-Io-kTP" customClass="MainViewController" sceneMemberID="viewController">
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="yBv-Io-kTP" customClass="ChatRoomViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="LgN-qC-Eg6"/>
                         <viewControllerLayoutGuide type="bottom" id="f4P-QJ-CjE"/>
@@ -110,100 +110,33 @@
                         <rect key="frame" x="0.0" y="94" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9QN-pe-Ab3">
-                                <rect key="frame" x="262" y="526" width="46" height="30"/>
-                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="15"/>
-                                <state key="normal" title="发送">
-                                    <color key="titleColor" red="0.53725490200000003" green="0.53725490200000003" blue="0.53725490200000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                </state>
-                                <connections>
-                                    <action selector="sendMessage:" destination="yBv-Io-kTP" eventType="touchUpInside" id="knT-rw-baX"/>
-                                </connections>
-                            </button>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="说点什么" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="QOi-Zn-BtB">
-                                <rect key="frame" x="12" y="526" width="253" height="30"/>
-                                <color key="textColor" red="0.53725490200000003" green="0.53725490200000003" blue="0.53725490200000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="Crz-74-kpH">
-                                <rect key="frame" x="0.0" y="94" width="320" height="424"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" alwaysBounceVertical="YES" pagingEnabled="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="90" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="Crz-74-kpH">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="518"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="90" id="g69-OV-bWc" customClass="TextMessageTableViewCell">
-                                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="g69-OV-bWc" id="Ibi-Z2-3Z0">
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="med-o0-URX">
-                                                    <rect key="frame" x="8" y="8" width="42" height="21"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" usesAttributedText="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SLs-3F-18m">
-                                                    <rect key="frame" x="12" y="30" width="296" height="51"/>
-                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                    <attributedString key="attributedText">
-                                                        <fragment content="欢迎使用">
-                                                            <attributes>
-                                                                <font key="NSFont" size="14" name="STHeitiSC-Light"/>
-                                                                <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
-                                                            </attributes>
-                                                        </fragment>
-                                                        <fragment content=" LeanCloud Demo">
-                                                            <attributes>
-                                                                <font key="NSFont" size="14" name="HelveticaNeue"/>
-                                                                <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
-                                                            </attributes>
-                                                        </fragment>
-                                                        <fragment content="！">
-                                                            <attributes>
-                                                                <font key="NSFont" size="14" name="STHeitiSC-Light"/>
-                                                                <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
-                                                            </attributes>
-                                                        </fragment>
-                                                    </attributedString>
-                                                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                                                </textView>
-                                            </subviews>
-                                        </tableViewCellContentView>
-                                        <connections>
-                                            <outlet property="messageSenderClientIdLabel" destination="med-o0-URX" id="6rJ-Bu-tpP"/>
-                                            <outlet property="textMessageContentTextView" destination="SLs-3F-18m" id="MR1-pB-mns"/>
-                                        </connections>
-                                    </tableViewCell>
-                                </prototypes>
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.93725490196078431" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="QOi-Zn-BtB" firstAttribute="leading" secondItem="cah-Fw-eaj" secondAttribute="leading" constant="12" id="BZj-U9-PmV"/>
-                            <constraint firstAttribute="bottom" secondItem="QOi-Zn-BtB" secondAttribute="bottom" constant="12" id="END-eg-0HS"/>
                             <constraint firstAttribute="bottom" secondItem="Crz-74-kpH" secondAttribute="bottom" constant="50" id="Hs4-0I-qfJ"/>
-                            <constraint firstAttribute="bottom" secondItem="9QN-pe-Ab3" secondAttribute="bottom" constant="12" id="JfI-57-dDH"/>
                             <constraint firstAttribute="trailing" secondItem="Crz-74-kpH" secondAttribute="trailing" id="Zga-Z2-rIJ"/>
-                            <constraint firstAttribute="trailing" secondItem="9QN-pe-Ab3" secondAttribute="trailing" constant="12" id="lST-Zl-R2l"/>
-                            <constraint firstAttribute="trailing" secondItem="QOi-Zn-BtB" secondAttribute="trailing" constant="55" id="tVH-R3-OEh"/>
                             <constraint firstItem="Crz-74-kpH" firstAttribute="leading" secondItem="cah-Fw-eaj" secondAttribute="leading" id="tnT-gN-QYX"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="水果群英会" prompt="聊天室" id="aMu-Ag-QSn"/>
+                    <navigationItem key="navigationItem" id="aMu-Ag-QSn"/>
+                    <nil key="simulatedTopBarMetrics"/>
                     <connections>
-                        <outlet property="messageInputTextField" destination="QOi-Zn-BtB" id="Ybp-eb-DI5"/>
                         <outlet property="messageTableView" destination="Crz-74-kpH" id="aVN-gj-ygX"/>
-                        <segue destination="LKo-Vt-yon" kind="push" identifier="toChat" id="uwT-wa-TOr"/>
+                        <segue destination="LKo-Vt-yon" kind="push" identifier="singleChat" id="mLS-b9-PLk"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="t4D-xO-i7q" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="579" y="214"/>
         </scene>
-        <!--Chat View Controller-->
+        <!--Single Chat View Controller-->
         <scene sceneID="Xg3-gQ-xBq">
             <objects>
-                <viewController id="LKo-Vt-yon" customClass="ChatViewController" sceneMemberID="viewController">
+                <viewController id="LKo-Vt-yon" customClass="SingleChatViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="OFB-Zy-oa3"/>
                         <viewControllerLayoutGuide type="bottom" id="Fsg-Fz-x4N"/>
@@ -253,7 +186,7 @@
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 </scrollView>
             </objects>
-            <point key="canvasLocation" x="950" y="214"/>
+            <point key="canvasLocation" x="955" y="214"/>
         </scene>
     </scenes>
     <resources>
