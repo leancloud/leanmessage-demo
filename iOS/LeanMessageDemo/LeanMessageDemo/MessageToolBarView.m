@@ -8,8 +8,75 @@
 
 #import "MessageToolBarView.h"
 
-@implementation MessageToolBarView
+@interface MessageToolBarView() {
+    CGSize _intrinsicContentSize;
+}
+@end
 
+@implementation MessageToolBarView
+-(void)setCurrentConversation:(AVIMConversation *)currentConversation{
+    _currentConversation=currentConversation;
+}
+- (CGSize)intrinsicContentSize {
+    return _intrinsicContentSize;
+}
+- (id)initWithFrame:(CGRect)frame
+{
+    self = [super initWithFrame:frame];
+    if (self) {
+        /*
+         * 从 xib 文件中加载 View
+         */
+        
+        [[NSBundle mainBundle] loadNibNamed:@"MessageToolBarView" owner:self options:nil];
+        
+        self.bounds = self.view.bounds;
+        _intrinsicContentSize = self.bounds.size;
+        [self addSubview:self.view];
+        [self addConstraint:[NSLayoutConstraint constraintWithItem:self.view
+                                                              attribute:NSLayoutAttributeBottom
+                                                              relatedBy:NSLayoutRelationEqual
+                                                                 toItem:self
+                                                              attribute:NSLayoutAttributeBottom
+                                                             multiplier:1.0
+                                                               constant:0.0]];
+        [self addConstraint:[NSLayoutConstraint constraintWithItem:self.view
+                                                                  attribute:NSLayoutAttributeTop
+                                                                  relatedBy:NSLayoutRelationEqual
+                                                                     toItem:self
+                                                                  attribute:NSLayoutAttributeTop
+                                                                 multiplier:1.0
+                                                                   constant:0.0]];
+        [self addConstraint:[NSLayoutConstraint constraintWithItem:self.view
+                                                              attribute:NSLayoutAttributeLeading
+                                                              relatedBy:NSLayoutRelationEqual
+                                                                 toItem:self
+                                                              attribute:NSLayoutAttributeLeading
+                                                             multiplier:1.0
+                                                               constant:0.0]];
+        [self addConstraint:[NSLayoutConstraint constraintWithItem:self.view
+                                                              attribute:NSLayoutAttributeTrailing
+                                                              relatedBy:NSLayoutRelationEqual
+                                                                 toItem:self
+                                                              attribute:NSLayoutAttributeTrailing
+                                                             multiplier:1.0
+                                                               constant:0.0]];
+
+    }
+    return self;
+}
+- (id)initWithCoder:(NSCoder *)aDecoder {
+    self = [super initWithCoder:aDecoder];
+    if(self) {
+        
+        [[NSBundle mainBundle] loadNibNamed:@"MessageToolBarView" owner:self options:nil];
+        
+        [self addSubview:self.view];
+        
+        _intrinsicContentSize = self.bounds.size;
+    }
+    return self;
+}
 /**
  *  点击「发送」按钮，将消息发送到当前的聊天室
  */
@@ -31,14 +98,4 @@
         }
     }];
 }
-
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect {
-    // Drawing code
-}
-*/
-
-
 @end

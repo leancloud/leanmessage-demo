@@ -7,7 +7,7 @@
 //
 
 #import "BaseChatViewController.h"
-#import "DemoTextMessageTableViewCell.h"
+#import "LeftTextMessageTableViewCell.h"
 #import "MessageToolBarView.h"
 
 #define kConversationId @"55cd829e60b2b52cda834469"
@@ -50,6 +50,7 @@ typedef enum : NSUInteger {
     AVIMConversationQuery *query = [imClient conversationQuery];
     [query getConversationById:kConversationId callback:^(AVIMConversation *conversation, NSError *error) {
         self.currentConversation=conversation;
+        [self initMessageToolBar];
         [conversation queryMessagesWithLimit:kPageSize callback:^(NSArray *objects, NSError *error) {
             [self.messages addObjectsFromArray:objects];
             [self.messageTableView reloadData];
@@ -61,28 +62,44 @@ typedef enum : NSUInteger {
      */
     [self.messageTableView addSubview:self.refreshControl];
     
-    [self.messageTableView removeFromSuperview];
+    //[self.messageTableView removeFromSuperview];
+}
+/*
+ * 获取了对话实例之后，把消息输入框以及发送按钮的 UIView 从 Xib 文件里面读取出来，并且渲染在当前页面上
+ */
+-(void)initMessageToolBar{
     
-    NSArray *nibArray = [[NSBundle mainBundle] loadNibNamed:@"MessageToolBarView" owner:self options:nil];
-    
-    MessageToolBarView* messageToolBar = (MessageToolBarView*)[nibArray objectAtIndex:0];
-    
-    //UIView *messageToolBarView = nibViews.firstObject;
+    MessageToolBarView *messageToolBar = [[MessageToolBarView alloc] init];
+    messageToolBar.currentConversation= self.currentConversation;
+    /*
+     * 添加相关的视图约束，将 messageToolBar 置于整个 View 的底部
+     */
     [self.view addSubview:messageToolBar];
-    
-
+    messageToolBar.translatesAutoresizingMaskIntoConstraints = NO;
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:messageToolBar
-                                                              attribute:NSLayoutAttributeBottom
-                                                              relatedBy:NSLayoutRelationEqual
-                                                              toItem:self.view
-                                                              attribute:NSLayoutAttributeBottom
-                                                              multiplier:1.0
-                                                              constant:0.0]];
-    [self.view setNeedsUpdateConstraints];
-    [self.view layoutIfNeeded];
-
-
-
+                                                          attribute:NSLayoutAttributeBottom
+                                                          relatedBy:NSLayoutRelationEqual
+                                                             toItem:self.view
+                                                          attribute:NSLayoutAttributeBottom
+                                                         multiplier:1.0
+                                                           constant:0.0]];
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:messageToolBar
+                                                          attribute:NSLayoutAttributeLeading
+                                                          relatedBy:NSLayoutRelationEqual
+                                                             toItem:self.view
+                                                          attribute:NSLayoutAttributeLeading
+                                                         multiplier:1.0
+                                                           constant:0.0]];
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:messageToolBar
+                                                          attribute:NSLayoutAttributeTrailing
+                                                          relatedBy:NSLayoutRelationEqual
+                                                             toItem:self.view
+                                                          attribute:NSLayoutAttributeTrailing
+                                                         multiplier:1.0
+                                                           constant:0.0]];
+    [messageToolBar updateConstraintsIfNeeded];
+    [messageToolBar layoutIfNeeded];
+    messageToolBar.view.frame=messageToolBar.bounds;
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
@@ -149,12 +166,18 @@ typedef enum : NSUInteger {
         switch (typedMessage.mediaType) {
             case  kAVIMMessageMediaTypeText: {
                 AVIMTextMessage *textMessage=(AVIMTextMessage*)typedMessage;
+                NSString* cellNamePrefix = @"Left";
+                NSString* cellName=@"TextMessageTableViewCell";
+                if([textMessage.clientId isEqualToString:[AVIMClient defaultClient].clientId]){
+                    cellNamePrefix=@"Right";
+                }
                 
-                NSArray *nibArray = [[NSBundle mainBundle] loadNibNamed:@"DemoTextMessageTableViewCell" owner:self options:nil];
+                NSString* wholeCellName= [cellNamePrefix stringByAppendingString:cellName];
+                NSArray *nibArray = [[NSBundle mainBundle] loadNibNamed:wholeCellName owner:nil options:nil];
                 
-                DemoTextMessageTableViewCell* demoTextMessagecell = (DemoTextMessageTableViewCell*)[nibArray objectAtIndex:0];
+                LeftTextMessageTableViewCell* demoTextMessagecell = (LeftTextMessageTableViewCell*)[nibArray objectAtIndex:0];
                 
-                demoTextMessagecell.textMessage= textMessage;
+                demoTextMessagecell.textMessage = textMessage;
                 
                 return demoTextMessagecell;
             }

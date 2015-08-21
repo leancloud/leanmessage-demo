@@ -16,11 +16,14 @@
 		5CFD3D1D1B05CE7100DD9A93 /* LeanMessageDemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CFD3D1C1B05CE7100DD9A93 /* LeanMessageDemoTests.m */; };
 		5CFD3D301B05CF7C00DD9A93 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CFD3D2B1B05CF7C00DD9A93 /* LoginViewController.m */; };
 		5CFD3D311B05CF7C00DD9A93 /* BaseChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CFD3D2D1B05CF7C00DD9A93 /* BaseChatViewController.m */; };
-		6A6EBB3A1B8471D900109FC5 /* DemoTextMessageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A6EBB381B8471D900109FC5 /* DemoTextMessageTableViewCell.m */; };
-		6A6EBB3B1B8471D900109FC5 /* DemoTextMessageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6A6EBB391B8471D900109FC5 /* DemoTextMessageTableViewCell.xib */; };
+		6A6EBB3A1B8471D900109FC5 /* LeftTextMessageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A6EBB381B8471D900109FC5 /* LeftTextMessageTableViewCell.m */; };
+		6A6EBB3B1B8471D900109FC5 /* LeftTextMessageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6A6EBB391B8471D900109FC5 /* LeftTextMessageTableViewCell.xib */; };
 		6A6EBB411B84913200109FC5 /* MessageToolBarView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6A6EBB3F1B84913200109FC5 /* MessageToolBarView.xib */; };
 		6A6EBB441B8578AF00109FC5 /* ChatRoomViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A6EBB431B8578AF00109FC5 /* ChatRoomViewController.m */; };
 		6A6EBB471B858CF300109FC5 /* MessageToolBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A6EBB461B858CF300109FC5 /* MessageToolBarView.m */; };
+		6A6EBB4B1B870B3400109FC5 /* BaseTextMessageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A6EBB491B870B3400109FC5 /* BaseTextMessageTableViewCell.m */; };
+		6A6EBB501B870FB600109FC5 /* RightTextMessageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A6EBB4E1B870FB600109FC5 /* RightTextMessageTableViewCell.m */; };
+		6A6EBB511B870FB600109FC5 /* RightTextMessageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6A6EBB4F1B870FB600109FC5 /* RightTextMessageTableViewCell.xib */; };
 		6A7481061B7B415A001AFF9D /* SampleData.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A7481051B7B415A001AFF9D /* SampleData.m */; };
 /* End PBXBuildFile section */
 
@@ -50,14 +53,19 @@
 		5CFD3D2B1B05CF7C00DD9A93 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		5CFD3D2C1B05CF7C00DD9A93 /* BaseChatViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseChatViewController.h; sourceTree = "<group>"; };
 		5CFD3D2D1B05CF7C00DD9A93 /* BaseChatViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseChatViewController.m; sourceTree = "<group>"; };
-		6A6EBB371B8471D900109FC5 /* DemoTextMessageTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DemoTextMessageTableViewCell.h; sourceTree = "<group>"; };
-		6A6EBB381B8471D900109FC5 /* DemoTextMessageTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DemoTextMessageTableViewCell.m; sourceTree = "<group>"; };
-		6A6EBB391B8471D900109FC5 /* DemoTextMessageTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DemoTextMessageTableViewCell.xib; sourceTree = "<group>"; };
+		6A6EBB371B8471D900109FC5 /* LeftTextMessageTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeftTextMessageTableViewCell.h; sourceTree = "<group>"; };
+		6A6EBB381B8471D900109FC5 /* LeftTextMessageTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeftTextMessageTableViewCell.m; sourceTree = "<group>"; };
+		6A6EBB391B8471D900109FC5 /* LeftTextMessageTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LeftTextMessageTableViewCell.xib; sourceTree = "<group>"; };
 		6A6EBB3F1B84913200109FC5 /* MessageToolBarView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MessageToolBarView.xib; sourceTree = "<group>"; };
 		6A6EBB421B8578AF00109FC5 /* ChatRoomViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatRoomViewController.h; sourceTree = "<group>"; };
 		6A6EBB431B8578AF00109FC5 /* ChatRoomViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatRoomViewController.m; sourceTree = "<group>"; };
 		6A6EBB451B858CF300109FC5 /* MessageToolBarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageToolBarView.h; sourceTree = "<group>"; };
 		6A6EBB461B858CF300109FC5 /* MessageToolBarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageToolBarView.m; sourceTree = "<group>"; };
+		6A6EBB481B870B3400109FC5 /* BaseTextMessageTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseTextMessageTableViewCell.h; sourceTree = "<group>"; };
+		6A6EBB491B870B3400109FC5 /* BaseTextMessageTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseTextMessageTableViewCell.m; sourceTree = "<group>"; };
+		6A6EBB4D1B870FB600109FC5 /* RightTextMessageTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RightTextMessageTableViewCell.h; sourceTree = "<group>"; };
+		6A6EBB4E1B870FB600109FC5 /* RightTextMessageTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RightTextMessageTableViewCell.m; sourceTree = "<group>"; };
+		6A6EBB4F1B870FB600109FC5 /* RightTextMessageTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RightTextMessageTableViewCell.xib; sourceTree = "<group>"; };
 		6A7481041B7B415A001AFF9D /* SampleData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SampleData.h; sourceTree = "<group>"; };
 		6A7481051B7B415A001AFF9D /* SampleData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SampleData.m; sourceTree = "<group>"; };
 		AC68B1AE58AE132334393CD3 /* libPods-LeanMessageDemo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-LeanMessageDemo.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -175,9 +183,14 @@
 		6A7481071B7C9D02001AFF9D /* TabelCellView */ = {
 			isa = PBXGroup;
 			children = (
-				6A6EBB371B8471D900109FC5 /* DemoTextMessageTableViewCell.h */,
-				6A6EBB381B8471D900109FC5 /* DemoTextMessageTableViewCell.m */,
-				6A6EBB391B8471D900109FC5 /* DemoTextMessageTableViewCell.xib */,
+				6A6EBB481B870B3400109FC5 /* BaseTextMessageTableViewCell.h */,
+				6A6EBB491B870B3400109FC5 /* BaseTextMessageTableViewCell.m */,
+				6A6EBB371B8471D900109FC5 /* LeftTextMessageTableViewCell.h */,
+				6A6EBB381B8471D900109FC5 /* LeftTextMessageTableViewCell.m */,
+				6A6EBB391B8471D900109FC5 /* LeftTextMessageTableViewCell.xib */,
+				6A6EBB4D1B870FB600109FC5 /* RightTextMessageTableViewCell.h */,
+				6A6EBB4E1B870FB600109FC5 /* RightTextMessageTableViewCell.m */,
+				6A6EBB4F1B870FB600109FC5 /* RightTextMessageTableViewCell.xib */,
 			);
 			name = TabelCellView;
 			sourceTree = "<group>";
@@ -275,9 +288,10 @@
 			files = (
 				6A6EBB411B84913200109FC5 /* MessageToolBarView.xib in Resources */,
 				5CFD3D0C1B05CE7100DD9A93 /* Main.storyboard in Resources */,
-				6A6EBB3B1B8471D900109FC5 /* DemoTextMessageTableViewCell.xib in Resources */,
+				6A6EBB3B1B8471D900109FC5 /* LeftTextMessageTableViewCell.xib in Resources */,
 				5CFD3D111B05CE7100DD9A93 /* LaunchScreen.xib in Resources */,
 				5CFD3D0E1B05CE7100DD9A93 /* Images.xcassets in Resources */,
+				6A6EBB511B870FB600109FC5 /* RightTextMessageTableViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -329,13 +343,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				5CFD3D061B05CE7100DD9A93 /* AppDelegate.m in Sources */,
+				6A6EBB501B870FB600109FC5 /* RightTextMessageTableViewCell.m in Sources */,
 				5CFD3D311B05CF7C00DD9A93 /* BaseChatViewController.m in Sources */,
 				5CFD3D031B05CE7100DD9A93 /* main.m in Sources */,
 				5CFD3D301B05CF7C00DD9A93 /* LoginViewController.m in Sources */,
 				6A7481061B7B415A001AFF9D /* SampleData.m in Sources */,
-				6A6EBB3A1B8471D900109FC5 /* DemoTextMessageTableViewCell.m in Sources */,
+				6A6EBB3A1B8471D900109FC5 /* LeftTextMessageTableViewCell.m in Sources */,
 				6A6EBB471B858CF300109FC5 /* MessageToolBarView.m in Sources */,
 				6A6EBB441B8578AF00109FC5 /* ChatRoomViewController.m in Sources */,
+				6A6EBB4B1B870B3400109FC5 /* BaseTextMessageTableViewCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

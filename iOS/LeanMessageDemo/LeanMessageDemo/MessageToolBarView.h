@@ -13,4 +13,5 @@
 @property (nonatomic,strong) AVIMConversation *currentConversation;
 - (IBAction)sendMessageClicked:(id)sender;
 @property (strong, nonatomic) IBOutlet UITextField *messageInputTextField;
+@property (strong, nonatomic) IBOutlet UIView *view;
 @end
