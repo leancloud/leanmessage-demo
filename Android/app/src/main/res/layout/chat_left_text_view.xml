@@ -1,12 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="wrap_content"
+              android:layout_width="match_parent"
               android:layout_height="wrap_content"
-              android:orientation="horizontal">
+              android:layout_marginLeft="@dimen/chat_horizontal_margin"
+              android:layout_marginRight="@dimen/chat_horizontal_big_margin"
+              android:layout_marginTop="5dp"
+              android:orientation="vertical">
 
     <TextView
-        android:id="@+id/chat_left_text_tv_content"
+        android:id="@+id/chat_left_text_tv_time"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"/>
+
+    <TextView
+        android:id="@+id/chat_left_text_tv_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="left"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:id="@+id/chat_left_text_tv_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/chat_left_item_bg"
+            android:gravity="left"/>
+
+        <!--<ProgressBar-->
+            <!--android:id="@+id/pb_circle"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginTop="30dip"-->
+            <!--android:layout_centerHorizontal="true"/>-->
+
+        <!--<ImageView-->
+            <!--android:id="@+id/chat_left_text_tv_status"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"/>-->
+    </LinearLayout>
+
 </LinearLayout>

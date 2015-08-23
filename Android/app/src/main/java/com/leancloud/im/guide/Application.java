@@ -39,17 +39,4 @@ public class Application extends android.app.Application {
     // 应用一启动就会重连，服务器会推送离线消息过来，需要 MessageHandler 来处理
     AVIMMessageManager.registerMessageHandler(AVIMTypedMessage.class, new MessageHandler(this));
   }
-
-
-  public static String getClientIdFromPre() {
-    return preferences.getString(KEY_CLIENT_ID, "");
-  }
-
-  public static void setClientIdToPre(String id) {
-    preferences.edit().putString(KEY_CLIENT_ID, id).apply();
-  }
-
-  public static AVIMClient getIMClient() {
-    return AVIMClient.getInstance(getClientIdFromPre());
-  }
 }

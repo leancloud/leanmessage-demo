@@ -8,12 +8,15 @@ import com.avos.avoscloud.im.v2.AVIMConversation;
 import com.avos.avoscloud.im.v2.AVIMTypedMessage;
 import com.avos.avoscloud.im.v2.AVIMTypedMessageHandler;
 import com.avos.avoscloud.im.v2.messages.AVIMTextMessage;
+import com.leancloud.im.guide.event.ImTypeMessageEvent;
+
+import de.greenrobot.event.EventBus;
 
 /**
  * Created by zhangxiaobo on 15/4/20.
  */
 class MessageHandler extends AVIMTypedMessageHandler<AVIMTypedMessage> {
-  private static AVIMTypedMessageHandler<AVIMTypedMessage> activityMessageHandler;
+
   private Context context;
   private String TAG = MessageHandler.this.getClass().getSimpleName();
 
@@ -28,27 +31,13 @@ class MessageHandler extends AVIMTypedMessageHandler<AVIMTypedMessage> {
 
   @Override
   public void onMessage(AVIMTypedMessage message, AVIMConversation conversation, AVIMClient client) {
-    if (client.getClientId().equals(Application.getClientIdFromPre())) {
-      if (activityMessageHandler != null) {
-        // 正在聊天时，分发消息，刷新界面
-        activityMessageHandler.onMessage(message, conversation, client);
-      } else {
-        // 没有打开聊天界面，这里简单地 Toast 一下。实际中可以刷新最近消息页面，增加小红点
-        if (message instanceof AVIMTextMessage) {
-          AVIMTextMessage textMessage = (AVIMTextMessage) message;
-          Toast.makeText(context, "新消息 " + message.getFrom() + " : " + textMessage.getText(), Toast.LENGTH_SHORT).show();
-        }
-      }
+    if (client.getClientId().equals(AVImClientManager.getInstance().getClientId())) {
+      ImTypeMessageEvent event = new ImTypeMessageEvent();
+      event.message = message;
+      event.conversation = conversation;
+      EventBus.getDefault().post(event);
     } else {
       client.close(null);
     }
-  }
-
-  public static AVIMTypedMessageHandler<AVIMTypedMessage> getActivityMessageHandler() {
-    return activityMessageHandler;
-  }
-
-  public static void setActivityMessageHandler(AVIMTypedMessageHandler<AVIMTypedMessage> activityMessageHandler) {
-    MessageHandler.activityMessageHandler = activityMessageHandler;
   }
 }

@@ -47,9 +47,11 @@ public class AVLoginActivity extends AVBaseActivity {
       return;
     }
 
+    loginButton.setEnabled(false);
     AVImClientManager.getInstance().open(selfId, new AVIMClientCallback() {
       @Override
       public void done(AVIMClient avimClient, AVIMException e) {
+        loginButton.setEnabled(true);
         if (filterException(e)) {
           startActivity(AVSquareActivity.class);
           finish();

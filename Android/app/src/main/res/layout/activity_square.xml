@@ -32,12 +32,15 @@
                 android:id="@+id/activity_square_et_content"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:background="@null"
                 android:layout_weight="1"/>
 
-            <Button
+            <ImageButton
                 android:id="@+id/activity_square_btn_send"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:src="@drawable/btn_send"
+                android:background="@null"/>
         </LinearLayout>
     </RelativeLayout>
 </LinearLayout>

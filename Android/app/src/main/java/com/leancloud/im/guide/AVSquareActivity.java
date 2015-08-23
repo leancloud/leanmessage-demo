@@ -1,6 +1,7 @@
 package com.leancloud.im.guide;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -11,17 +12,21 @@ import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 
 import com.avos.avoscloud.im.v2.AVIMClient;
 import com.avos.avoscloud.im.v2.AVIMConversation;
+import com.avos.avoscloud.im.v2.AVIMConversationQuery;
 import com.avos.avoscloud.im.v2.AVIMException;
 import com.avos.avoscloud.im.v2.AVIMMessage;
 import com.avos.avoscloud.im.v2.callback.AVIMConversationCallback;
+import com.avos.avoscloud.im.v2.callback.AVIMConversationQueryCallback;
 import com.avos.avoscloud.im.v2.callback.AVIMMessagesQueryCallback;
 import com.avos.avoscloud.im.v2.messages.AVIMTextMessage;
+import com.leancloud.im.guide.event.ImTypeMessageEvent;
 
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -30,14 +35,20 @@ import java.util.List;
  * 2、根据 conversationId 获得 AVIMConversation 实例
  * 3、必须要加入 conversation 后才能拉取消息
  */
-public class AVSquareActivity extends AVBaseActivity {
+public class AVSquareActivity extends AVEventBaseActivity {
   private static final String SQUARE_CONVERSATION_ID = "551a2847e4b04d688d73dc54";
+
+  /**
+   * 最小间隔时间为 1 秒，避免多次点击
+   */
+  private final int MIN_INTERVAL_SEND_MESSAGE = 1000;
+
   private AVIMConversation squareConversation;
   private MultipleItemAdapter itemAdapter;
   private RecyclerView recyclerView;
   private SwipeRefreshLayout refreshLayout;
   private EditText contentView;
-  private Button sendButton;
+  private ImageButton sendButton;
   private Toolbar toolbar;
 
   @Override
@@ -50,7 +61,7 @@ public class AVSquareActivity extends AVBaseActivity {
     recyclerView = (RecyclerView) findViewById(R.id.activity_square_rv_chat);
     refreshLayout = (SwipeRefreshLayout) findViewById(R.id.activity_square_rv_srl_pullrefresh);
     contentView = (EditText) findViewById(R.id.activity_square_et_content);
-    sendButton = (Button) findViewById(R.id.activity_square_btn_send);
+    sendButton = (ImageButton) findViewById(R.id.activity_square_btn_send);
 
     setSupportActionBar(toolbar);
 
@@ -65,6 +76,7 @@ public class AVSquareActivity extends AVBaseActivity {
       }
     });
 
+    //TODO 刷新后跳转到原来位置
     refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
       @Override
       public void onRefresh() {
@@ -73,8 +85,16 @@ public class AVSquareActivity extends AVBaseActivity {
           @Override
           public void done(List<AVIMMessage> list, AVIMException e) {
             refreshLayout.setRefreshing(false);
-            itemAdapter.addMessageList(list);
-            itemAdapter.notifyDataSetChanged();
+            if (null != list && list.size() > 0) {
+              int firstIndex = ((LinearLayoutManager)recyclerView.getLayoutManager()).findFirstVisibleItemPosition();
+              int lastIndex = ((LinearLayoutManager)recyclerView.getLayoutManager()).findLastVisibleItemPosition();
+
+              itemAdapter.addMessageList(list);
+              itemAdapter.notifyDataSetChanged();
+
+              // TODO 这个地方还要调整
+              recyclerView.scrollToPosition(list.size() + (lastIndex - firstIndex) - 1);
+            }
           }
         });
 
@@ -101,7 +121,18 @@ public class AVSquareActivity extends AVBaseActivity {
     sendButton.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
+
+        sendButton.setEnabled(false);
+        new Handler().postDelayed(new Runnable() {
+          @Override
+          public void run() {
+            sendButton.setEnabled(true);
+          }
+        }, MIN_INTERVAL_SEND_MESSAGE);
+
         sendMessage();
+
+        contentView.setText("");
       }
     });
 
@@ -111,7 +142,7 @@ public class AVSquareActivity extends AVBaseActivity {
     itemAdapter = new MultipleItemAdapter(this);
 
     getSquare(SQUARE_CONVERSATION_ID);
-    fetchConversationInfo();
+    queryInSquare();
   }
 
   @Override
@@ -129,28 +160,13 @@ public class AVSquareActivity extends AVBaseActivity {
     squareConversation = client.getConversation(conversationId);
   }
 
-  //TODO 失败后 retry
-  private void fetchConversationInfo() {
-    squareConversation.fetchInfoInBackground(new AVIMConversationCallback() {
-      @Override
-      public void done(AVIMException e) {
-        if (filterException(e)) {
-          if (!squareConversation.getMembers().contains(AVImClientManager.getInstance().getClientId())) {
-            joinSquare();
-          } else {
-            fetchMessages();
-          }
-        }
-      }
-    });
-  }
-
   private void sendMessage() {
     String content = contentView.getText().toString();
     AVIMTextMessage message = new AVIMTextMessage();
     message.setText(content);
     itemAdapter.addMessage(message);
     itemAdapter.notifyDataSetChanged();
+    scrollToBottom();
     squareConversation.sendMessage(message, new AVIMConversationCallback() {
       @Override
       public void done(AVIMException e) {
@@ -170,9 +186,27 @@ public class AVSquareActivity extends AVBaseActivity {
     });
   }
 
+  private void queryInSquare() {
+    final AVIMClient client = AVImClientManager.getInstance().getClient();
+    AVIMConversationQuery conversationQuery = client.getQuery();
+    conversationQuery.whereEqualTo("objectId", SQUARE_CONVERSATION_ID);
+    conversationQuery.containsMembers(Arrays.asList(AVImClientManager.getInstance().getClientId()));
+    conversationQuery.findInBackground(new AVIMConversationQueryCallback() {
+      @Override
+      public void done(List<AVIMConversation> list, AVIMException e) {
+        if (null != list && list.size() > 0) {
+          fetchMessages();
+        } else {
+          joinSquare();
+        }
+      }
+    });
+  }
+
   /**
    * 拉取消息，必须加入 conversation 后才能拉取消息
    */
+  //TODO 默认滚动到底部
   private void fetchMessages() {
     squareConversation.queryMessages(new AVIMMessagesQueryCallback() {
       @Override
@@ -181,8 +215,22 @@ public class AVSquareActivity extends AVBaseActivity {
           itemAdapter.setMessageList(list);
           recyclerView.setAdapter(itemAdapter);
           itemAdapter.notifyDataSetChanged();
+          scrollToBottom();
         }
       }
     });
+  }
+
+  public void onEvent(ImTypeMessageEvent event) {
+    if (null != squareConversation && null != event &&
+      squareConversation.getConversationId().equals(event.conversation.getConversationId())) {
+      itemAdapter.addMessage(event.message);
+      itemAdapter.notifyDataSetChanged();
+      scrollToBottom();
+    }
+  }
+
+  private void scrollToBottom() {
+    recyclerView.scrollToPosition(itemAdapter.getItemCount() - 1);
   }
 }

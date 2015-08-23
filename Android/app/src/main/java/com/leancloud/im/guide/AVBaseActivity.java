@@ -1,15 +1,14 @@
 package com.leancloud.im.guide;
 
 import android.content.Intent;
-import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.view.ActionMode;
 import android.widget.Toast;
 
 /**
  * Created by wli on 15/8/13.
  */
 public class AVBaseActivity extends AppCompatActivity {
+
   protected boolean filterException(Exception e) {
     if (e != null) {
       e.printStackTrace();

@@ -12,10 +12,14 @@ import com.leancloud.im.guide.R;
  */
 public class RightTextHolder extends RecyclerView.ViewHolder {
 
-  public TextView mTextView;
+  public TextView timeView;
+  public TextView contentView;
+  public TextView nameView;
 
   public RightTextHolder(View itemView) {
     super(itemView);
-    mTextView = (TextView) itemView.findViewById(R.id.chat_right_text_tv_content);
+    timeView = (TextView) itemView.findViewById(R.id.chat_right_text_tv_time);
+    nameView = (TextView) itemView.findViewById(R.id.chat_right_text_tv_name);
+    contentView = (TextView) itemView.findViewById(R.id.chat_right_text_tv_content);
   }
 }

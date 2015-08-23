@@ -5,12 +5,10 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.text.TextUtils;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 
 import com.avos.avoscloud.im.v2.AVIMClient;
 import com.avos.avoscloud.im.v2.AVIMConversation;
@@ -22,23 +20,21 @@ import com.avos.avoscloud.im.v2.callback.AVIMConversationCreatedCallback;
 import com.avos.avoscloud.im.v2.callback.AVIMConversationQueryCallback;
 import com.avos.avoscloud.im.v2.callback.AVIMMessagesQueryCallback;
 import com.avos.avoscloud.im.v2.messages.AVIMTextMessage;
+import com.leancloud.im.guide.event.ImTypeMessageEvent;
 
-import java.lang.reflect.Array;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by wli on 15/8/14.
  */
-public class AVSingleChatActivity extends AVBaseActivity {
+public class AVSingleChatActivity extends AVEventBaseActivity {
   private AVIMConversation singleConversation;
   private MultipleItemAdapter itemAdapter;
   private RecyclerView recyclerView;
   private SwipeRefreshLayout refreshLayout;
   private EditText contentView;
-  private Button sendButton;
+  private ImageButton sendButton;
   private Toolbar toolbar;
 
   private String memberId;
@@ -53,7 +49,7 @@ public class AVSingleChatActivity extends AVBaseActivity {
 
     toolbar = (Toolbar) findViewById(R.id.toolbar);
     contentView = (EditText) findViewById(R.id.activity_square_et_content);
-    sendButton = (Button) findViewById(R.id.activity_square_btn_send);
+    sendButton = (ImageButton) findViewById(R.id.activity_square_btn_send);
     recyclerView = (RecyclerView) findViewById(R.id.activity_square_rv_chat);
     refreshLayout = (SwipeRefreshLayout) findViewById(R.id.activity_square_rv_srl_pullrefresh);
     setSupportActionBar(toolbar);
@@ -157,11 +153,25 @@ public class AVSingleChatActivity extends AVBaseActivity {
     message.setText(content);
     itemAdapter.addMessage(message);
     itemAdapter.notifyDataSetChanged();
+    scrollToBottom();
     singleConversation.sendMessage(message, new AVIMConversationCallback() {
       @Override
       public void done(AVIMException e) {
         itemAdapter.notifyDataSetChanged();
       }
     });
+  }
+
+  public void onEvent(ImTypeMessageEvent event) {
+    if (null != singleConversation && null != event &&
+      singleConversation.getConversationId().equals(event.conversation.getConversationId())) {
+      itemAdapter.addMessage(event.message);
+      itemAdapter.notifyDataSetChanged();
+      scrollToBottom();
+    }
+  }
+
+  private void scrollToBottom() {
+    recyclerView.scrollToPosition(itemAdapter.getItemCount() - 1);
   }
 }

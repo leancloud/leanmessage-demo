@@ -28,12 +28,6 @@
             </intent-filter>
         </activity>
 
-
-        <!--<activity android:name=".ConversationActivity">-->
-        <!--</activity>-->
-        <!--<activity android:name=".ChatActivity">-->
-        <!--</activity>-->
-
         <service android:name="com.avos.avoscloud.PushService"/>
 
         <receiver android:name="com.avos.avoscloud.AVBroadcastReceiver">

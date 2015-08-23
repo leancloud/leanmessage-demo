@@ -82,9 +82,13 @@ public class MultipleItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     }
 
     if (holder instanceof LeftTextHolder) {
-      ((LeftTextHolder) holder).mTextView.setText(content);
+      ((LeftTextHolder) holder).contentView.setText(content);
+      ((LeftTextHolder) holder).timeView.setText(message.getTimestamp() + "");
+      ((LeftTextHolder) holder).nameView.setText(message.getFrom());
     } else if (holder instanceof RightTextHolder) {
-      ((RightTextHolder) holder).mTextView.setText(content);
+      ((RightTextHolder) holder).contentView.setText(content);
+      ((RightTextHolder) holder).timeView.setText(message.getTimestamp() + "");
+      ((RightTextHolder) holder).nameView.setText(message.getFrom());
     }
   }
 

@@ -26,12 +26,67 @@
     <style name="AVTheme" parent="Theme.AppCompat.Light"/>
 
     <!--<style name="AVTheme.NoActionBar">-->
-        <!--&lt;!&ndash;<item name="windowNoTitle">true</item>&ndash;&gt;-->
-        <!--&lt;!&ndash;<item name="windowActionBar">false</item>&ndash;&gt;-->
+    <!--&lt;!&ndash;<item name="windowNoTitle">true</item>&ndash;&gt;-->
+    <!--&lt;!&ndash;<item name="windowActionBar">false</item>&ndash;&gt;-->
     <!--</style>-->
 
     <!--<style name="AVTheme.NoActionBar.FullScreen">-->
-        <!--<item name="android:windowFullscreen">true</item>-->
+    <!--<item name="android:windowFullscreen">true</item>-->
     <!--</style>-->
 
+    <!--<style name="DividerLine">-->
+    <!--<item name="android:background">@color/divider_line_color</item>-->
+    <!--</style>-->
+
+    <!--<style name="DividerLine.Horizontal">-->
+    <!--<item name="android:layout_width">match_parent</item>-->
+    <!--<item name="android:layout_height">@dimen/divider_line_height</item>-->
+    <!--</style>-->
+
+    <!--<style name="DividerLine.Vertical">-->
+    <!--<item name="android:layout_height">match_parent</item>-->
+    <!--<item name="android:layout_width">@dimen/divider_line_height</item>-->
+    <!--</style>-->
+
+    <style name="EditText"></style>
+
+    <style name="EditText.UserName">
+        <item name="android:singleLine">true</item>
+        <item name="android:maxLength">30</item>
+    </style>
+
+    <style name="EditText.Password">
+        <item name="android:singleLine">true</item>
+        <item name="android:inputType">textPassword</item>
+    </style>
+
+    <style name="Button"></style>
+
+    <style name="Button.Normal"/>
+
+    <style name="Button.Larger"></style>
+
+    <style name="TextAppearance"/>
+
+    <style name="TextAppearance.Large">
+        <item name="android:textSize">@dimen/textsize_large</item>
+    </style>
+
+    <style name="TextAppearance.Large.Gray">
+        <item name="android:textColor">@color/common_gray</item>
+    </style>
+
+    <style name="TextAppearance.Normal">
+        <item name="android:textSize">@dimen/textsize_normal</item>
+    </style>
+
+    <style name="TextAppearance.Normal.Bold">
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="TextAppearance.Normal.Gray">
+        <item name="android:textColor">@color/common_gray</item>
+    </style>
+
+    <style name="TextAppearance.small"></style>
 </resources>
