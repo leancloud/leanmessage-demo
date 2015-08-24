@@ -3,12 +3,14 @@ package com.leancloud.im.guide;
 import android.content.Context;
 import android.os.Handler;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.leancloud.im.guide.event.InputBottomBarEvent;
 import com.leancloud.im.guide.event.InputBottomBarTextEvent;
@@ -45,7 +47,7 @@ public class AVInputBottomBar extends LinearLayout {
     initView(context);
   }
 
-  private void initView(Context context) {
+  private void initView(final Context context) {
     View.inflate(context, R.layout.input_bottom_bar, this);
 
     sendTextBtn = (ImageButton) findViewById(R.id.input_bottom_bar_btn_send);
@@ -56,6 +58,11 @@ public class AVInputBottomBar extends LinearLayout {
     sendTextBtn.setOnClickListener(new OnClickListener() {
       @Override
       public void onClick(View v) {
+        String content = contentView.getText().toString();
+        if (TextUtils.isEmpty(content)) {
+          Toast.makeText(getContext(), R.string.message_is_null, Toast.LENGTH_SHORT).show();
+          return;
+        }
 
         contentView.setText("");
         new Handler().postDelayed(new Runnable() {
@@ -78,8 +85,6 @@ public class AVInputBottomBar extends LinearLayout {
 
       @Override
       public void onTextChanged(CharSequence charSequence, int i, int i2, int i3) {
-        boolean showSend = charSequence.length() > 0;
-        sendTextBtn.setVisibility(showSend ? View.VISIBLE : GONE);
       }
 
       @Override

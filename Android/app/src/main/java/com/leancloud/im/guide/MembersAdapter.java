@@ -4,6 +4,8 @@ import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.ViewGroup;
 
+import com.github.stuxuhai.jpinyin.PinyinFormat;
+import com.github.stuxuhai.jpinyin.PinyinHelper;
 import com.leancloud.im.guide.viewholder.MemberHolder;
 
 import java.text.Collator;
@@ -19,7 +21,8 @@ import java.util.Locale;
 public class MembersAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
   private final Context mContext;
-  private List<String> memberList = new ArrayList<String>();
+  private List<MemberItem> memberList = new ArrayList<MemberItem>();
+  Collator cmp = Collator.getInstance(Locale.SIMPLIFIED_CHINESE);
 
   public MembersAdapter(Context context) {
     mContext = context;
@@ -27,7 +30,14 @@ public class MembersAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
   public void setMemberList(List<String> list) {
     memberList.clear();
-    memberList.addAll(list);
+    if (null != list) {
+      for (String name : list) {
+        MemberItem item = new MemberItem();
+        item.content = name;
+        item.sortContent = PinyinHelper.convertToPinyinString(name, "", PinyinFormat.WITHOUT_TONE);
+        memberList.add(item);
+      }
+    }
     Collections.sort(memberList, new SortChineseName());
   }
 
@@ -38,7 +48,7 @@ public class MembersAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
   @Override
   public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
-      ((MemberHolder) holder).bindData(memberList.get(position));
+      ((MemberHolder) holder).bindData(memberList.get(position).content);
   }
 
   @Override
@@ -51,24 +61,27 @@ public class MembersAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     return memberList.size();
   }
 
-  public class SortChineseName implements Comparator<String> {
-    Collator cmp = Collator.getInstance(Locale.SIMPLIFIED_CHINESE);
+  public class SortChineseName implements Comparator<MemberItem> {
 
     @Override
-    public int compare(String str1, String str2) {
-
+    public int compare(MemberItem str1, MemberItem str2) {
       if (null == str1) {
         return -1;
       }
       if (null == str2) {
         return 1;
       }
-      if (cmp.compare(str1, str2)>0){
+      if (cmp.compare(str1.sortContent, str2.sortContent)>0){
         return 1;
-      }else if (cmp.compare(str1, str2)<0){
+      }else if (cmp.compare(str1.sortContent, str2.sortContent)<0){
         return -1;
       }
       return 0;
     }
+  }
+
+  public static class MemberItem {
+    public String content;
+    public String sortContent;
   }
 }

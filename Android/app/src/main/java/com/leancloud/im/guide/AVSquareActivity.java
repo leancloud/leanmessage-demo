@@ -45,6 +45,9 @@ public class AVSquareActivity extends AVEventBaseActivity {
   private SwipeRefreshLayout refreshLayout;
   private Toolbar toolbar;
 
+  private static long lastBackTime = 0;
+  private final int BACK_INTERVAL = 1000;
+
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -142,6 +145,17 @@ public class AVSquareActivity extends AVEventBaseActivity {
         }
       }
     });
+  }
+
+  @Override
+  public void onBackPressed() {
+    long currentTime = System.currentTimeMillis();
+    if (currentTime - lastBackTime < BACK_INTERVAL) {
+      super.onBackPressed();
+    } else {
+      showToast("双击 back 退出");
+    }
+    lastBackTime = currentTime;
   }
 
   private void queryInSquare() {

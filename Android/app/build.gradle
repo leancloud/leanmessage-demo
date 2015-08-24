@@ -39,4 +39,5 @@ dependencies {
     compile 'de.greenrobot:eventbus:2.4.0'
     compile 'com.jakewharton:butterknife:7.0.1'
     compile 'cn.leancloud.android:Java-WebSocket:1.2.0-leancloud'
+    compile 'com.github.stuxuhai:jpinyin:1.0'
 }
