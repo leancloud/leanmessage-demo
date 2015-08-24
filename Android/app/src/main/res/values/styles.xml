@@ -3,9 +3,10 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">#009688</item>
+        <item name="colorPrimary">@color/common_blue</item>
         <item name="colorPrimaryDark">#009688</item>
         <item name="colorAccent">#009688</item>
+        <item name="android:textColorPrimary">@android:color/white</item>
     </style>
 
     <style name="BigFont">
@@ -34,19 +35,19 @@
     <!--<item name="android:windowFullscreen">true</item>-->
     <!--</style>-->
 
-    <!--<style name="DividerLine">-->
-    <!--<item name="android:background">@color/divider_line_color</item>-->
-    <!--</style>-->
+    <style name="DividerLine">
+    <item name="android:background">@color/divider_line_color</item>
+    </style>
 
-    <!--<style name="DividerLine.Horizontal">-->
-    <!--<item name="android:layout_width">match_parent</item>-->
-    <!--<item name="android:layout_height">@dimen/divider_line_height</item>-->
-    <!--</style>-->
+    <style name="DividerLine.Horizontal">
+    <item name="android:layout_width">match_parent</item>
+    <item name="android:layout_height">@dimen/divider_line_height</item>
+    </style>
 
-    <!--<style name="DividerLine.Vertical">-->
-    <!--<item name="android:layout_height">match_parent</item>-->
-    <!--<item name="android:layout_width">@dimen/divider_line_height</item>-->
-    <!--</style>-->
+    <style name="DividerLine.Vertical">
+    <item name="android:layout_height">match_parent</item>
+    <item name="android:layout_width">@dimen/divider_line_height</item>
+    </style>
 
     <style name="EditText"></style>
 

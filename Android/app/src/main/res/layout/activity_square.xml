@@ -13,7 +13,7 @@
             android:id="@+id/activity_square_rv_srl_pullrefresh"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_above="@+id/activity_square_layout_input">
+            android:layout_above="@+id/chat_layout_inputbottombar">
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/activity_square_rv_chat"
@@ -21,26 +21,10 @@
                 android:layout_height="match_parent"/>
         </android.support.v4.widget.SwipeRefreshLayout>
 
-        <LinearLayout
-            android:id="@+id/activity_square_layout_input"
+        <com.leancloud.im.guide.AVInputBottomBar
+            android:id="@+id/chat_layout_inputbottombar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:orientation="horizontal">
-
-            <EditText
-                android:id="@+id/activity_square_et_content"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:background="@null"
-                android:layout_weight="1"/>
-
-            <ImageButton
-                android:id="@+id/activity_square_btn_send"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/btn_send"
-                android:background="@null"/>
-        </LinearLayout>
+            android:layout_alignParentBottom="true"/>
     </RelativeLayout>
 </LinearLayout>

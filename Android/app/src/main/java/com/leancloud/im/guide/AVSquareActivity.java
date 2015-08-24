@@ -25,6 +25,7 @@ import com.avos.avoscloud.im.v2.callback.AVIMConversationQueryCallback;
 import com.avos.avoscloud.im.v2.callback.AVIMMessagesQueryCallback;
 import com.avos.avoscloud.im.v2.messages.AVIMTextMessage;
 import com.leancloud.im.guide.event.ImTypeMessageEvent;
+import com.leancloud.im.guide.event.InputBottomBarTextEvent;
 
 import java.util.Arrays;
 import java.util.List;
@@ -38,17 +39,10 @@ import java.util.List;
 public class AVSquareActivity extends AVEventBaseActivity {
   private static final String SQUARE_CONVERSATION_ID = "551a2847e4b04d688d73dc54";
 
-  /**
-   * 最小间隔时间为 1 秒，避免多次点击
-   */
-  private final int MIN_INTERVAL_SEND_MESSAGE = 1000;
-
   private AVIMConversation squareConversation;
   private MultipleItemAdapter itemAdapter;
   private RecyclerView recyclerView;
   private SwipeRefreshLayout refreshLayout;
-  private EditText contentView;
-  private ImageButton sendButton;
   private Toolbar toolbar;
 
   @Override
@@ -60,8 +54,6 @@ public class AVSquareActivity extends AVEventBaseActivity {
 
     recyclerView = (RecyclerView) findViewById(R.id.activity_square_rv_chat);
     refreshLayout = (SwipeRefreshLayout) findViewById(R.id.activity_square_rv_srl_pullrefresh);
-    contentView = (EditText) findViewById(R.id.activity_square_et_content);
-    sendButton = (ImageButton) findViewById(R.id.activity_square_btn_send);
 
     setSupportActionBar(toolbar);
 
@@ -93,46 +85,11 @@ public class AVSquareActivity extends AVEventBaseActivity {
               itemAdapter.notifyDataSetChanged();
 
               // TODO 这个地方还要调整
-              recyclerView.scrollToPosition(list.size() + (lastIndex - firstIndex) - 1);
+              recyclerView.scrollToPosition(list.size() + (lastIndex - firstIndex) - 2);
             }
           }
         });
 
-      }
-    });
-
-    contentView.addTextChangedListener(new TextWatcher() {
-      @Override
-      public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-      }
-
-      @Override
-      public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-      }
-
-      @Override
-      public void afterTextChanged(Editable s) {
-
-      }
-    });
-
-    sendButton.setOnClickListener(new View.OnClickListener() {
-      @Override
-      public void onClick(View v) {
-
-        sendButton.setEnabled(false);
-        new Handler().postDelayed(new Runnable() {
-          @Override
-          public void run() {
-            sendButton.setEnabled(true);
-          }
-        }, MIN_INTERVAL_SEND_MESSAGE);
-
-        sendMessage();
-
-        contentView.setText("");
       }
     });
 
@@ -160,19 +117,20 @@ public class AVSquareActivity extends AVEventBaseActivity {
     squareConversation = client.getConversation(conversationId);
   }
 
-  private void sendMessage() {
-    String content = contentView.getText().toString();
-    AVIMTextMessage message = new AVIMTextMessage();
-    message.setText(content);
-    itemAdapter.addMessage(message);
-    itemAdapter.notifyDataSetChanged();
-    scrollToBottom();
-    squareConversation.sendMessage(message, new AVIMConversationCallback() {
-      @Override
-      public void done(AVIMException e) {
-        itemAdapter.notifyDataSetChanged();
-      }
-    });
+  public void onEvent(InputBottomBarTextEvent textEvent) {
+    if (!TextUtils.isEmpty(textEvent.sendContent)) {
+      AVIMTextMessage message = new AVIMTextMessage();
+      message.setText(textEvent.sendContent);
+      itemAdapter.addMessage(message);
+      itemAdapter.notifyDataSetChanged();
+      scrollToBottom();
+      squareConversation.sendMessage(message, new AVIMConversationCallback() {
+        @Override
+        public void done(AVIMException e) {
+          itemAdapter.notifyDataSetChanged();
+        }
+      });
+    }
   }
 
   private void joinSquare() {

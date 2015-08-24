@@ -73,21 +73,21 @@ public class MultipleItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
   @Override
   public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
     AVIMMessage message = messageList.get(position);
-    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm 1969-12-31 16:00");
+    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
     String time = dateFormat.format(message.getTimestamp());
 
-    String content = "暂不支持此消息类型";
+    String content =  mContext.getString(R.string.unspport_message_type);
     if (message instanceof AVIMTextMessage) {
-      content = ((AVIMTextMessage)message).getText() + "   " + message.getMessageStatus();
+      content = ((AVIMTextMessage)message).getText();
     }
 
     if (holder instanceof LeftTextHolder) {
       ((LeftTextHolder) holder).contentView.setText(content);
-      ((LeftTextHolder) holder).timeView.setText(message.getTimestamp() + "");
+      ((LeftTextHolder) holder).timeView.setText(time);
       ((LeftTextHolder) holder).nameView.setText(message.getFrom());
     } else if (holder instanceof RightTextHolder) {
       ((RightTextHolder) holder).contentView.setText(content);
-      ((RightTextHolder) holder).timeView.setText(message.getTimestamp() + "");
+      ((RightTextHolder) holder).timeView.setText(time);
       ((RightTextHolder) holder).nameView.setText(message.getFrom());
     }
   }

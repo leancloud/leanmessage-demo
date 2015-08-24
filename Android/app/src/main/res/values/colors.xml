@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="common_blue">#2c9738</color>
+    <color name="common_blue">#2c97e8</color>
     <color name="common_gray">#898989</color>
+
+    <color name="divider_line_color">#afafaf</color>
 
     <color name="login_activity_bg">#efefef</color>
 </resources>

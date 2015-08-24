@@ -1,11 +1,13 @@
 package com.leancloud.im.guide;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.View;
 
 import com.avos.avoscloud.im.v2.AVIMConversation;
 import com.avos.avoscloud.im.v2.AVIMException;
@@ -18,8 +20,6 @@ import java.util.List;
  */
 public class AVSquareMembersActivity extends AVBaseActivity {
 
-  public static final String MEMBER_ID = "member_id";
-
   private Toolbar toolbar;
   private MembersAdapter itemAdapter;
   private RecyclerView recyclerView;
@@ -27,13 +27,23 @@ public class AVSquareMembersActivity extends AVBaseActivity {
   private AVIMConversation conversation;
   private List<String> memberList;
 
+  private SearchView searchView;
+
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_square_members);
 
     toolbar = (Toolbar) findViewById(R.id.toolbar);
+
     setSupportActionBar(toolbar);
+    toolbar.setNavigationIcon(R.drawable.btn_navigation_back);
+    toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        onBackPressed();
+      }
+    });
     recyclerView = (RecyclerView) findViewById(R.id.activity_square_members_rv_list);
     refreshLayout = (SwipeRefreshLayout) findViewById(R.id.activity_square_members_srl_list);
 
@@ -44,14 +54,6 @@ public class AVSquareMembersActivity extends AVBaseActivity {
 
     itemAdapter = new MembersAdapter(this);
 
-    itemAdapter.setOnItemClick(new MembersAdapter.AdapterItemClick() {
-      @Override
-      public void onItemClick(String str) {
-        Intent intent = new Intent(AVSquareMembersActivity.this, AVSingleChatActivity.class);
-        intent.putExtra(MEMBER_ID, str);
-        startActivity(intent);
-      }
-    });
     recyclerView.setAdapter(itemAdapter);
 
     refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -69,10 +71,43 @@ public class AVSquareMembersActivity extends AVBaseActivity {
     getMembers();
   }
 
+  @Override
+  public boolean onCreateOptionsMenu(Menu menu) {
+    getMenuInflater().inflate(R.menu.activity_member_menu, menu);
+
+    searchView = (SearchView)menu.findItem(R.id.activity_member_menu_search).getActionView();
+    searchView.setOnCloseListener(new SearchView.OnCloseListener() {
+      @Override
+      public boolean onClose() {
+        return false;
+      }
+    });
+
+    searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+      @Override
+      public boolean onQueryTextSubmit(String query) {
+        return false;
+      }
+
+      @Override
+      public boolean onQueryTextChange(String newText) {
+        return false;
+      }
+    });
+
+    searchView.setOnSearchClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+
+      }
+    });
+    return true;
+  }
+
   private void getMembers() {
     conversation = AVImClientManager.getInstance().getClient().getConversation("551a2847e4b04d688d73dc54");
     memberList = conversation.getMembers();
-    if (null != memberList) {
+    if (null != memberList && memberList.size() > 0) {
       itemAdapter.setMemberList(memberList);
       itemAdapter.notifyDataSetChanged();
     } else {

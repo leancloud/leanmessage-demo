@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:id="@+id/input_bottom_bar_layout"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/white"
+    android:orientation="horizontal">
+
+    <EditText
+        android:id="@+id/input_bottom_bar_et_content"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:background="@null"
+        android:gravity="center_vertical"
+        android:maxLines="4"
+        android:textColor="@color/divider_line_color"
+        android:minHeight="@dimen/chat_input_bar_height"
+        android:paddingBottom="5dp"
+        android:paddingLeft="18dp"
+        android:paddingTop="5dp"/>
+
+    <ImageButton
+        android:id="@+id/input_bottom_bar_btn_send"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/chat_input_bar_height"
+        android:layout_gravity="bottom"
+        android:background="@null"
+        android:paddingLeft="12dp"
+        android:paddingRight="12dp"
+        android:src="@drawable/btn_send"/>
+</LinearLayout>

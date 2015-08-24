@@ -20,4 +20,6 @@
     <string name="square_name">广场</string>
     <string name="login">进入聊天室</string>
     <string name="login_null_name_tip">请输入用户名</string>
+
+    <string name="unspport_message_type">暂不支持此消息类型</string>
 </resources>

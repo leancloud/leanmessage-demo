@@ -5,10 +5,9 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.EditText;
-import android.widget.ImageButton;
 
 import com.avos.avoscloud.im.v2.AVIMClient;
 import com.avos.avoscloud.im.v2.AVIMConversation;
@@ -21,6 +20,7 @@ import com.avos.avoscloud.im.v2.callback.AVIMConversationQueryCallback;
 import com.avos.avoscloud.im.v2.callback.AVIMMessagesQueryCallback;
 import com.avos.avoscloud.im.v2.messages.AVIMTextMessage;
 import com.leancloud.im.guide.event.ImTypeMessageEvent;
+import com.leancloud.im.guide.event.InputBottomBarTextEvent;
 
 import java.util.Arrays;
 import java.util.List;
@@ -33,8 +33,6 @@ public class AVSingleChatActivity extends AVEventBaseActivity {
   private MultipleItemAdapter itemAdapter;
   private RecyclerView recyclerView;
   private SwipeRefreshLayout refreshLayout;
-  private EditText contentView;
-  private ImageButton sendButton;
   private Toolbar toolbar;
 
   private String memberId;
@@ -44,15 +42,20 @@ public class AVSingleChatActivity extends AVEventBaseActivity {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_square);
 
-    memberId = getIntent().getStringExtra(AVSquareMembersActivity.MEMBER_ID);
-
+    memberId = getIntent().getStringExtra(Constants.MEMBER_ID);
 
     toolbar = (Toolbar) findViewById(R.id.toolbar);
-    contentView = (EditText) findViewById(R.id.activity_square_et_content);
-    sendButton = (ImageButton) findViewById(R.id.activity_square_btn_send);
+
     recyclerView = (RecyclerView) findViewById(R.id.activity_square_rv_chat);
     refreshLayout = (SwipeRefreshLayout) findViewById(R.id.activity_square_rv_srl_pullrefresh);
     setSupportActionBar(toolbar);
+    toolbar.setNavigationIcon(R.drawable.btn_navigation_back);
+    toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        onBackPressed();
+      }
+    });
 
     toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
       @Override
@@ -66,13 +69,6 @@ public class AVSingleChatActivity extends AVEventBaseActivity {
     });
 
     setTitle(memberId);
-
-    sendButton.setOnClickListener(new View.OnClickListener() {
-      @Override
-      public void onClick(View v) {
-        sendMessage();
-      }
-    });
 
     refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
       @Override
@@ -147,19 +143,20 @@ public class AVSingleChatActivity extends AVEventBaseActivity {
     });
   }
 
-  private void sendMessage() {
-    String content = contentView.getText().toString();
-    AVIMTextMessage message = new AVIMTextMessage();
-    message.setText(content);
-    itemAdapter.addMessage(message);
-    itemAdapter.notifyDataSetChanged();
-    scrollToBottom();
-    singleConversation.sendMessage(message, new AVIMConversationCallback() {
-      @Override
-      public void done(AVIMException e) {
-        itemAdapter.notifyDataSetChanged();
-      }
-    });
+  public void onEvent(InputBottomBarTextEvent textEvent) {
+    if (!TextUtils.isEmpty(textEvent.sendContent)) {
+      AVIMTextMessage message = new AVIMTextMessage();
+      message.setText(textEvent.sendContent);
+      itemAdapter.addMessage(message);
+      itemAdapter.notifyDataSetChanged();
+      scrollToBottom();
+      singleConversation.sendMessage(message, new AVIMConversationCallback() {
+        @Override
+        public void done(AVIMException e) {
+          itemAdapter.notifyDataSetChanged();
+        }
+      });
+    }
   }
 
   public void onEvent(ImTypeMessageEvent event) {
