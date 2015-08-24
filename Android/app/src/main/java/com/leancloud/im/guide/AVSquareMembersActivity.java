@@ -13,6 +13,7 @@ import com.avos.avoscloud.im.v2.AVIMConversation;
 import com.avos.avoscloud.im.v2.AVIMException;
 import com.avos.avoscloud.im.v2.callback.AVIMConversationCallback;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -91,17 +92,22 @@ public class AVSquareMembersActivity extends AVBaseActivity {
 
       @Override
       public boolean onQueryTextChange(String newText) {
+        itemAdapter.setMemberList(filterMembers(newText));
+        itemAdapter.notifyDataSetChanged();
         return false;
       }
     });
-
-    searchView.setOnSearchClickListener(new View.OnClickListener() {
-      @Override
-      public void onClick(View v) {
-
-      }
-    });
     return true;
+  }
+
+  private List<String> filterMembers(String content) {
+    List<String> members = new ArrayList<String>();
+    for (String name : memberList) {
+      if (name.contains(content)) {
+        members.add(name);
+      }
+    }
+    return members;
   }
 
   private void getMembers() {
