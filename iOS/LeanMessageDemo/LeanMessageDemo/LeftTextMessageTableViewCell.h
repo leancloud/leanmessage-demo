@@ -15,6 +15,6 @@
 
 @property (strong, nonatomic) IBOutlet UILabel *clientIdLabel;
 @property (strong, nonatomic) IBOutlet UITextView *messageContentTextView;
-@property (strong, nonatomic) IBOutlet UIImageView *messageContentBackgroudImage;
+@property (strong, nonatomic) IBOutlet UITableViewCell *view;
 
 @end

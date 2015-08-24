@@ -166,20 +166,27 @@ typedef enum : NSUInteger {
         switch (typedMessage.mediaType) {
             case  kAVIMMessageMediaTypeText: {
                 AVIMTextMessage *textMessage=(AVIMTextMessage*)typedMessage;
-                NSString* cellNamePrefix = @"Left";
-                NSString* cellName=@"TextMessageTableViewCell";
-                if([textMessage.clientId isEqualToString:[AVIMClient defaultClient].clientId]){
-                    cellNamePrefix=@"Right";
-                }
+//                NSString* cellNamePrefix = @"Left";
+//                NSString* cellName=@"TextMessageTableViewCell";
+//                if([textMessage.clientId isEqualToString:[AVIMClient defaultClient].clientId]){
+//                    cellNamePrefix=@"Right";
+//                }
+//                NSString* wholeCellName= [cellNamePrefix stringByAppendingString:cellName];
+//                
+//                id textMessageCellId = [[NSClassFromString(wholeCellName) alloc] init];
+               
+                LeftTextMessageTableViewCell *leftTestMessageCell = [[LeftTextMessageTableViewCell alloc] init];
+                leftTestMessageCell.textMessage = textMessage;
+                return leftTestMessageCell;
                 
-                NSString* wholeCellName= [cellNamePrefix stringByAppendingString:cellName];
-                NSArray *nibArray = [[NSBundle mainBundle] loadNibNamed:wholeCellName owner:nil options:nil];
                 
-                LeftTextMessageTableViewCell* demoTextMessagecell = (LeftTextMessageTableViewCell*)[nibArray objectAtIndex:0];
-                
-                demoTextMessagecell.textMessage = textMessage;
-                
-                return demoTextMessagecell;
+//                NSArray *nibArray = [[NSBundle mainBundle] loadNibNamed:wholeCellName owner:nil options:nil];
+//                
+//                LeftTextMessageTableViewCell* demoTextMessagecell = (LeftTextMessageTableViewCell*)[nibArray objectAtIndex:0];
+//                [demoTextMessagecell.messageContentTextView layoutIfNeeded];
+//                demoTextMessagecell.textMessage = textMessage;
+//                
+//                return demoTextMessagecell;
             }
                 break;
             default:

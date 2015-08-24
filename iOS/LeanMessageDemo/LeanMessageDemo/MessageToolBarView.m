@@ -2,7 +2,7 @@
 //  MessageToolBarView.m
 //  LeanMessageDemo
 //
-//  Created by WuJun on 8/20/15.
+//  Created by LeanCloud on 8/20/15.
 //  Copyright (c) 2015 LeanCloud. All rights reserved.
 //
 
@@ -24,6 +24,7 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
+        
         /*
          * 从 xib 文件中加载 View
          */
