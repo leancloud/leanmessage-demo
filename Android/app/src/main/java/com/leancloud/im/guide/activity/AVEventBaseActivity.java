@@ -1,4 +1,4 @@
-package com.leancloud.im.guide;
+package com.leancloud.im.guide.activity;
 
 import android.os.Bundle;
 

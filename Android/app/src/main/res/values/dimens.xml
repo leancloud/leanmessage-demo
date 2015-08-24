@@ -19,7 +19,7 @@
 
 
     <dimen name="login_name_input_height">50dp</dimen>
-    
+
     <dimen name="chat_horizontal_margin">15dp</dimen>
     <dimen name="chat_horizontal_big_margin">40dp</dimen>
 

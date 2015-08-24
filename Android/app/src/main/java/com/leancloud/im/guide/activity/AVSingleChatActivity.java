@@ -1,4 +1,4 @@
-package com.leancloud.im.guide;
+package com.leancloud.im.guide.activity;
 
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -19,6 +19,10 @@ import com.avos.avoscloud.im.v2.callback.AVIMConversationCreatedCallback;
 import com.avos.avoscloud.im.v2.callback.AVIMConversationQueryCallback;
 import com.avos.avoscloud.im.v2.callback.AVIMMessagesQueryCallback;
 import com.avos.avoscloud.im.v2.messages.AVIMTextMessage;
+import com.leancloud.im.guide.AVImClientManager;
+import com.leancloud.im.guide.Constants;
+import com.leancloud.im.guide.adapter.MultipleItemAdapter;
+import com.leancloud.im.guide.R;
 import com.leancloud.im.guide.event.ImTypeMessageEvent;
 import com.leancloud.im.guide.event.InputBottomBarTextEvent;
 

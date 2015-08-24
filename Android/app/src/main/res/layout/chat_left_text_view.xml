@@ -3,7 +3,8 @@
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
               android:layout_marginLeft="@dimen/chat_horizontal_margin"
-              android:layout_marginRight="@dimen/chat_horizontal_big_margin"
+              android:layout_marginRight="@dimen/chat_horizontal_margin"
+              android:layout_marginBottom="5dp"
               android:layout_marginTop="5dp"
               android:orientation="vertical">
 

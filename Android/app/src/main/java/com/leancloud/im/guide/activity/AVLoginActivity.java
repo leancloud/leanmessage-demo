@@ -1,4 +1,4 @@
-package com.leancloud.im.guide;
+package com.leancloud.im.guide.activity;
 
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -10,6 +10,8 @@ import android.widget.TextView;
 import com.avos.avoscloud.im.v2.AVIMClient;
 import com.avos.avoscloud.im.v2.AVIMException;
 import com.avos.avoscloud.im.v2.callback.AVIMClientCallback;
+import com.leancloud.im.guide.AVImClientManager;
+import com.leancloud.im.guide.R;
 
 /**
  * Created by wli on 15/8/13.

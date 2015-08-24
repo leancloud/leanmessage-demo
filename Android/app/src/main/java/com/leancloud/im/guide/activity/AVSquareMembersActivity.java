@@ -1,4 +1,4 @@
-package com.leancloud.im.guide;
+package com.leancloud.im.guide.activity;
 
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -12,6 +12,9 @@ import android.view.View;
 import com.avos.avoscloud.im.v2.AVIMConversation;
 import com.avos.avoscloud.im.v2.AVIMException;
 import com.avos.avoscloud.im.v2.callback.AVIMConversationCallback;
+import com.leancloud.im.guide.AVImClientManager;
+import com.leancloud.im.guide.adapter.MembersAdapter;
+import com.leancloud.im.guide.R;
 
 import java.util.ArrayList;
 import java.util.List;

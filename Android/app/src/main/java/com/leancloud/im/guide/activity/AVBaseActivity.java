@@ -1,4 +1,4 @@
-package com.leancloud.im.guide;
+package com.leancloud.im.guide.activity;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;

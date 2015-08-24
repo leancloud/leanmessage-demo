@@ -2,12 +2,10 @@ package com.leancloud.im.guide;
 
 import android.content.Context;
 import android.util.Log;
-import android.widget.Toast;
 import com.avos.avoscloud.im.v2.AVIMClient;
 import com.avos.avoscloud.im.v2.AVIMConversation;
 import com.avos.avoscloud.im.v2.AVIMTypedMessage;
 import com.avos.avoscloud.im.v2.AVIMTypedMessageHandler;
-import com.avos.avoscloud.im.v2.messages.AVIMTextMessage;
 import com.leancloud.im.guide.event.ImTypeMessageEvent;
 
 import de.greenrobot.event.EventBus;

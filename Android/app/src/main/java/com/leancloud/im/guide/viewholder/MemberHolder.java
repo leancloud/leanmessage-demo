@@ -9,7 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.leancloud.im.guide.AVSingleChatActivity;
+import com.leancloud.im.guide.activity.AVSingleChatActivity;
 import com.leancloud.im.guide.Constants;
 import com.leancloud.im.guide.R;
 

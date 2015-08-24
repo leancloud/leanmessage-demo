@@ -73,7 +73,7 @@ public class AVInputBottomBar extends LinearLayout {
         }, MIN_INTERVAL_SEND_MESSAGE);
 
         EventBus.getDefault().post(
-          new InputBottomBarTextEvent(InputBottomBarEvent.INPUTBOTTOMBAR_SEND_TEXT_ACTION, contentView.getText().toString()));
+          new InputBottomBarTextEvent(InputBottomBarEvent.INPUTBOTTOMBAR_SEND_TEXT_ACTION, content));
       }
     });
   }

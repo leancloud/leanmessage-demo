@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest package="com.leancloud.im.guide"
-          xmlns:android="http://schemas.android.com/apk/res/android">
+<manifest
+    package="com.leancloud.im.guide"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.INTERNET"/>
@@ -15,13 +16,14 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme">
 
-        <activity  android:name="com.leancloud.im.guide.AVLoginActivity"/>
-        <activity android:name="com.leancloud.im.guide.AVSquareActivity"
+        <activity android:name=".activity.AVLoginActivity"/>
+        <activity
+            android:name=".activity.AVSquareActivity"
             android:launchMode="singleTask"/>
 
-        <activity android:name="com.leancloud.im.guide.AVSquareMembersActivity"/>
-        <activity android:name="com.leancloud.im.guide.AVSingleChatActivity"/>
-        <activity android:name="com.leancloud.im.guide.AVLaunchActivity">
+        <activity android:name=".activity.AVSquareMembersActivity"/>
+        <activity android:name=".activity.AVSingleChatActivity"/>
+        <activity android:name=".activity.AVLaunchActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
