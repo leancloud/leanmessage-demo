@@ -12,8 +12,10 @@ import java.text.Collator;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 /**
  * Created by wli on 15/8/14.
@@ -22,6 +24,7 @@ public class MembersAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
   private final Context mContext;
   private List<MemberItem> memberList = new ArrayList<MemberItem>();
+  private Map<Character, Integer> indexMap = new HashMap<Character, Integer>();
   Collator cmp = Collator.getInstance(Locale.SIMPLIFIED_CHINESE);
 
   public MembersAdapter(Context context) {
@@ -39,16 +42,17 @@ public class MembersAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
       }
     }
     Collections.sort(memberList, new SortChineseName());
+    updateIndex();
   }
 
   @Override
   public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-    return new MemberHolder(mContext, parent, false);
+    return new MemberHolder(mContext, parent);
   }
 
   @Override
   public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
-      ((MemberHolder) holder).bindData(memberList.get(position).content);
+      ((MemberHolder) holder).bindData(memberList.get(position));
   }
 
   @Override
@@ -60,6 +64,23 @@ public class MembersAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
   public int getItemCount() {
     return memberList.size();
   }
+
+  public Map<Character, Integer> getIndexMap() {
+    return indexMap;
+  }
+
+  private void updateIndex() {
+    Character lastCharcter = '#';
+    indexMap.clear();
+    for (int i = 0; i < memberList.size(); i++) {
+      Character curChar = Character.toLowerCase(memberList.get(i).sortContent.charAt(0));
+      if (!lastCharcter.equals(curChar)) {
+        indexMap.put(curChar, i);
+      }
+      lastCharcter = curChar;
+    }
+  }
+
 
   public class SortChineseName implements Comparator<MemberItem> {
 

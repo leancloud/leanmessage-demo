@@ -36,6 +36,7 @@ public class AVSingleChatActivity extends AVEventBaseActivity {
   private AVIMConversation singleConversation;
   private MultipleItemAdapter itemAdapter;
   private RecyclerView recyclerView;
+  private LinearLayoutManager layoutManager;
   private SwipeRefreshLayout refreshLayout;
   private Toolbar toolbar;
 
@@ -100,7 +101,7 @@ public class AVSingleChatActivity extends AVEventBaseActivity {
       }
     });
 
-    LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+    layoutManager = new LinearLayoutManager(this);
     recyclerView.setLayoutManager(layoutManager);
 
     itemAdapter = new MultipleItemAdapter(this);
@@ -173,6 +174,6 @@ public class AVSingleChatActivity extends AVEventBaseActivity {
   }
 
   private void scrollToBottom() {
-    recyclerView.scrollToPosition(itemAdapter.getItemCount() - 1);
+    layoutManager.scrollToPositionWithOffset(itemAdapter.getItemCount() - 1, 0);
   }
 }

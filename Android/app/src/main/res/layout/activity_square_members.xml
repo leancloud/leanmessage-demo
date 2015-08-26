@@ -20,5 +20,13 @@
                 android:layout_height="match_parent"/>
         </android.support.v4.widget.SwipeRefreshLayout>
 
+        <com.leancloud.im.guide.LetterView
+            android:id="@+id/activity_square_members_letterview"
+            android:layout_width="20dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true">
+
+        </com.leancloud.im.guide.LetterView>
+
     </RelativeLayout>
 </LinearLayout>

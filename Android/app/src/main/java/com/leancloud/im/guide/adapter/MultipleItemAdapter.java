@@ -2,17 +2,13 @@ package com.leancloud.im.guide.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import com.avos.avoscloud.im.v2.AVIMMessage;
-import com.avos.avoscloud.im.v2.messages.AVIMTextMessage;
 import com.leancloud.im.guide.AVImClientManager;
-import com.leancloud.im.guide.R;
+import com.leancloud.im.guide.viewholder.AVCommonViewHolder;
 import com.leancloud.im.guide.viewholder.LeftTextHolder;
 import com.leancloud.im.guide.viewholder.RightTextHolder;
-
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -25,13 +21,9 @@ public class MultipleItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
   private final int ITEM_LEFT_TEXT = 0;
   private final int ITEM_RIGHT_TEXT = 1;
 
-  private final LayoutInflater mLayoutInflater;
-  private final Context mContext;
   private List<AVIMMessage> messageList = new ArrayList<AVIMMessage>();
 
   public MultipleItemAdapter(Context context) {
-    mContext = context;
-    mLayoutInflater = LayoutInflater.from(context);
   }
 
   public void setMessageList(List<AVIMMessage> messages) {
@@ -40,7 +32,6 @@ public class MultipleItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
       messageList.addAll(messages);
     }
   }
-
 
   public void addMessageList(List<AVIMMessage> messages) {
     messageList.addAll(0, messages);
@@ -61,9 +52,9 @@ public class MultipleItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
   @Override
   public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
     if (viewType == ITEM_LEFT_TEXT) {
-      return new LeftTextHolder(mLayoutInflater.inflate(R.layout.chat_left_text_view, parent, false));
+      return new LeftTextHolder(parent.getContext(), parent);
     } else if (viewType == ITEM_RIGHT_TEXT) {
-      return new RightTextHolder(mLayoutInflater.inflate(R.layout.chat_right_text_view, parent, false));
+      return new RightTextHolder(parent.getContext(), parent);
     } else {
       //TODO
       return null;
@@ -72,24 +63,7 @@ public class MultipleItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
   @Override
   public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-    AVIMMessage message = messageList.get(position);
-    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-    String time = dateFormat.format(message.getTimestamp());
-
-    String content =  mContext.getString(R.string.unspport_message_type);
-    if (message instanceof AVIMTextMessage) {
-      content = ((AVIMTextMessage)message).getText();
-    }
-
-    if (holder instanceof LeftTextHolder) {
-      ((LeftTextHolder) holder).contentView.setText(content);
-      ((LeftTextHolder) holder).timeView.setText(time);
-      ((LeftTextHolder) holder).nameView.setText(message.getFrom());
-    } else if (holder instanceof RightTextHolder) {
-      ((RightTextHolder) holder).contentView.setText(content);
-      ((RightTextHolder) holder).timeView.setText(time);
-      ((RightTextHolder) holder).nameView.setText(message.getFrom());
-    }
+    ((AVCommonViewHolder)holder).bindData(messageList.get(position));
   }
 
   @Override

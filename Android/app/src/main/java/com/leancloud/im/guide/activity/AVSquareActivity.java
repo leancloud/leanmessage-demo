@@ -39,6 +39,7 @@ public class AVSquareActivity extends AVEventBaseActivity {
   private AVIMConversation squareConversation;
   private MultipleItemAdapter itemAdapter;
   private RecyclerView recyclerView;
+  private LinearLayoutManager layoutManager;
   private SwipeRefreshLayout refreshLayout;
   private Toolbar toolbar;
 
@@ -78,14 +79,10 @@ public class AVSquareActivity extends AVEventBaseActivity {
           public void done(List<AVIMMessage> list, AVIMException e) {
             refreshLayout.setRefreshing(false);
             if (null != list && list.size() > 0) {
-              int firstIndex = ((LinearLayoutManager)recyclerView.getLayoutManager()).findFirstVisibleItemPosition();
-              int lastIndex = ((LinearLayoutManager)recyclerView.getLayoutManager()).findLastVisibleItemPosition();
-
               itemAdapter.addMessageList(list);
               itemAdapter.notifyDataSetChanged();
 
-              // TODO 这个地方还要调整
-              recyclerView.scrollToPosition(list.size() + (lastIndex - firstIndex) - 2);
+              layoutManager.scrollToPositionWithOffset(list.size() - 1, 0);
             }
           }
         });
@@ -93,7 +90,7 @@ public class AVSquareActivity extends AVEventBaseActivity {
       }
     });
 
-    LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+    layoutManager = new LinearLayoutManager(this);
     recyclerView.setLayoutManager(layoutManager);
 
     itemAdapter = new MultipleItemAdapter(this);
@@ -200,6 +197,6 @@ public class AVSquareActivity extends AVEventBaseActivity {
   }
 
   private void scrollToBottom() {
-    recyclerView.scrollToPosition(itemAdapter.getItemCount() - 1);
+    layoutManager.scrollToPositionWithOffset(itemAdapter.getItemCount() - 1, 0);
   }
 }

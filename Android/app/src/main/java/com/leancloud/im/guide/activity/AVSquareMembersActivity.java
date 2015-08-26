@@ -13,8 +13,10 @@ import com.avos.avoscloud.im.v2.AVIMConversation;
 import com.avos.avoscloud.im.v2.AVIMException;
 import com.avos.avoscloud.im.v2.callback.AVIMConversationCallback;
 import com.leancloud.im.guide.AVImClientManager;
+import com.leancloud.im.guide.LetterView;
 import com.leancloud.im.guide.adapter.MembersAdapter;
 import com.leancloud.im.guide.R;
+import com.leancloud.im.guide.event.MemberLetterEvent;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,16 +24,17 @@ import java.util.List;
 /**
  * Created by wli on 15/8/14.
  */
-public class AVSquareMembersActivity extends AVBaseActivity {
+public class AVSquareMembersActivity extends AVEventBaseActivity {
 
   private Toolbar toolbar;
   private MembersAdapter itemAdapter;
-  private RecyclerView recyclerView;
   private SwipeRefreshLayout refreshLayout;
   private AVIMConversation conversation;
-  private List<String> memberList;
-
+  private LetterView letterView;
   private SearchView searchView;
+  LinearLayoutManager layoutManager;
+
+  private List<String> memberList;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -48,16 +51,17 @@ public class AVSquareMembersActivity extends AVBaseActivity {
         onBackPressed();
       }
     });
-    recyclerView = (RecyclerView) findViewById(R.id.activity_square_members_rv_list);
+    RecyclerView recyclerView = (RecyclerView) findViewById(R.id.activity_square_members_rv_list);
     refreshLayout = (SwipeRefreshLayout) findViewById(R.id.activity_square_members_srl_list);
+    letterView = (LetterView) findViewById(R.id.activity_square_members_letterview);
 
     setTitle("在线成员列表");
 
-    LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+    layoutManager = new LinearLayoutManager(this);
     recyclerView.setLayoutManager(layoutManager);
 
+    letterView.setLetters(getSortLetters());
     itemAdapter = new MembersAdapter(this);
-
     recyclerView.setAdapter(itemAdapter);
 
     refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -129,5 +133,23 @@ public class AVSquareMembersActivity extends AVBaseActivity {
         }
       });
     }
+  }
+
+  public void onEvent(MemberLetterEvent event) {
+    Character targetChar = Character.toLowerCase(event.letter);
+    if (itemAdapter.getIndexMap().containsKey(targetChar)) {
+      int index = itemAdapter.getIndexMap().get(targetChar);
+      if (index > 0 && index < itemAdapter.getItemCount()) {
+        layoutManager.scrollToPositionWithOffset(index, 0);
+      }
+    }
+  }
+
+  private List<Character> getSortLetters() {
+    List<Character> letterList = new ArrayList<Character>();
+    for (char c = 'A'; c <= 'Z'; c++) {
+      letterList.add(c);
+    }
+    return letterList;
   }
 }
