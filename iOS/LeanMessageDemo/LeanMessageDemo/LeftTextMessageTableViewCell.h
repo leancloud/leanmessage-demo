@@ -1,20 +1,19 @@
 //
-//  DemoTextMessageTableViewCell.h
+//  TextMessageTableViewCell.h
 //  LeanMessageDemo
 //
-//  Created by LeanCloud on 8/19/15.
+//  Created by WuJun on 8/24/15.
 //  Copyright (c) 2015 LeanCloud. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
 #import <AVOSCloudIM.h>
 
-#import "BaseTextMessageTableViewCell.h"
+#import "TextMessageTableViewCell.h"
 
-@interface LeftTextMessageTableViewCell : BaseTextMessageTableViewCell
+@interface LeftTextMessageTableViewCell : TextMessageTableViewCell
 
-@property (strong, nonatomic) IBOutlet UILabel *clientIdLabel;
-@property (strong, nonatomic) IBOutlet UITextView *messageContentTextView;
-@property (strong, nonatomic) IBOutlet UITableViewCell *view;
+@property (strong, nonatomic) IBOutlet UILabel *messageSenderClientId;
+@property (strong, nonatomic) IBOutlet UITextView *textMessageContentTextView;
 
 @end

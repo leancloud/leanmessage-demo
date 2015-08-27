@@ -8,6 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "BaseChatViewController.h"
+#import "MessageTableViewCell.h"
+#import "LeftTextMessageTableViewCell.h"
+#import "SingleChatViewController.h"
 
 @interface ChatRoomViewController : BaseChatViewController
 

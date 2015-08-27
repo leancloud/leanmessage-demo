@@ -8,7 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import <AVOSCloudIM.h>
+#import "MessageToolBarView.h"
 
+static NSInteger kPageSize = 5;
 /**
  * 创建 BaseChatViewController 的目的是为了实现聊天页面的组件的共用
  * 群聊和私聊在逻辑上都是一个对话
@@ -18,10 +20,15 @@
 
 @class BaseChatViewController;
 
-@interface BaseChatViewController :UIViewController
+@interface BaseChatViewController :UIViewController<UITableViewDataSource, UITableViewDelegate, AVIMClientDelegate>
+
 
 @property (strong, nonatomic) IBOutlet UITableView *messageTableView;
 @property (nonatomic, strong) NSMutableArray *messages;
 @property (nonatomic, strong) UIRefreshControl *refreshControl;
+@property (nonatomic, strong) AVIMClient *imClient;
 @property (nonatomic,strong) AVIMConversation *currentConversation;
+@property (nonatomic,strong) MessageToolBarView *messageToolBar;
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath;
+-(void)initMessageToolBar;
 @end

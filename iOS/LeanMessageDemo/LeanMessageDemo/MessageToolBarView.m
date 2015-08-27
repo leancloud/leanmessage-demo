@@ -79,7 +79,7 @@
     return self;
 }
 /**
- *  点击「发送」按钮，将消息发送到当前的聊天室
+ *  点击「发送」按钮，将消息发送到当前的对话中
  */
 - (IBAction)sendMessageClicked:(id)sender {
     AVIMTextMessage *textMessage = [AVIMTextMessage messageWithText:self.messageInputTextField.text attributes:nil];
@@ -95,6 +95,7 @@
             //[self.messageTableView reloadData];
             UIAlertView *view = [[UIAlertView alloc] initWithTitle:@"发送成功！" message:[error description] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
             self.messageInputTextField.text = @"";
+            self.messageSentBlock(textMessage);
             [view show];
         }
     }];

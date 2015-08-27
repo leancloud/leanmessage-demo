@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="jXC-d4-tbU">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="jXC-d4-tbU">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
@@ -30,7 +30,7 @@
                         <viewControllerLayoutGuide type="bottom" id="2z8-oJ-DsL"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="kh9-bI-dsS">
-                        <rect key="frame" x="0.0" y="64" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="474"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="bezel" placeholder="请输入你的 ID" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dBc-dV-73a">
@@ -86,7 +86,8 @@
                             <constraint firstAttribute="trailing" secondItem="fCi-dn-A0K" secondAttribute="trailing" constant="40" id="zBH-Tn-M0M"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="登录" id="eG3-PW-ZFa"/>
+                    <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
+                    <navigationItem key="navigationItem" title="登录" prompt="LeanMessage Demo" id="eG3-PW-ZFa"/>
                     <connections>
                         <outlet property="clientIdTextFiled" destination="dBc-dV-73a" id="Rup-my-oA8"/>
                         <outlet property="fruitIconImage" destination="wO9-yF-BAT" id="xhl-IB-Ljs"/>
@@ -96,9 +97,9 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="201" y="214"/>
+            <point key="canvasLocation" x="201" y="213.99999999999997"/>
         </scene>
-        <!--Chat Room View Controller-->
+        <!--广场-->
         <scene sceneID="rfg-i3-PyO">
             <objects>
                 <viewController automaticallyAdjustsScrollViewInsets="NO" id="yBv-Io-kTP" customClass="ChatRoomViewController" sceneMemberID="viewController">
@@ -107,10 +108,10 @@
                         <viewControllerLayoutGuide type="bottom" id="f4P-QJ-CjE"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="cah-Fw-eaj">
-                        <rect key="frame" x="0.0" y="94" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" alwaysBounceVertical="YES" pagingEnabled="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="90" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="Crz-74-kpH">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="90" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="Crz-74-kpH">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="518"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </tableView>
@@ -122,21 +123,22 @@
                             <constraint firstItem="Crz-74-kpH" firstAttribute="leading" secondItem="cah-Fw-eaj" secondAttribute="leading" id="tnT-gN-QYX"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="aMu-Ag-QSn"/>
+                    <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
+                    <navigationItem key="navigationItem" title="广场" prompt="群聊" id="aMu-Ag-QSn"/>
                     <nil key="simulatedTopBarMetrics"/>
                     <connections>
                         <outlet property="messageTableView" destination="Crz-74-kpH" id="aVN-gj-ygX"/>
-                        <segue destination="LKo-Vt-yon" kind="push" identifier="singleChat" id="mLS-b9-PLk"/>
+                        <segue destination="LKo-Vt-yon" kind="push" identifier="toSingleChat" id="mLS-b9-PLk"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="t4D-xO-i7q" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="579" y="214"/>
+            <point key="canvasLocation" x="579" y="213.99999999999997"/>
         </scene>
         <!--Single Chat View Controller-->
         <scene sceneID="Xg3-gQ-xBq">
             <objects>
-                <viewController id="LKo-Vt-yon" customClass="SingleChatViewController" sceneMemberID="viewController">
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="LKo-Vt-yon" customClass="SingleChatViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="OFB-Zy-oa3"/>
                         <viewControllerLayoutGuide type="bottom" id="Fsg-Fz-x4N"/>
@@ -147,36 +149,22 @@
                         <subviews>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pnh-cp-uKq">
                                 <rect key="frame" x="0.0" y="524" width="320" height="44"/>
-                                <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bK4-Sc-Drk">
-                                        <rect key="frame" x="262" y="5" width="50" height="30"/>
-                                        <state key="normal" title="发送">
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="onSendButtonClicked:" destination="LKo-Vt-yon" eventType="touchUpInside" id="fNW-D6-UbC"/>
-                                        </connections>
-                                    </button>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="fQT-4n-zxV">
-                                        <rect key="frame" x="15" y="5" width="244" height="30"/>
-                                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                        <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                        <nil key="textColor"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                        <textInputTraits key="textInputTraits"/>
-                                    </textField>
-                                </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="xHM-Pa-f0L">
-                                <rect key="frame" x="0.0" y="64" width="320" height="460"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="90" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="xHM-Pa-f0L">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </tableView>
                         </subviews>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="xHM-Pa-f0L" secondAttribute="trailing" id="5rl-AZ-dSb"/>
+                            <constraint firstAttribute="bottom" secondItem="xHM-Pa-f0L" secondAttribute="bottom" constant="50" id="dp3-dh-Cqj"/>
+                            <constraint firstItem="xHM-Pa-f0L" firstAttribute="leading" secondItem="JHr-0g-5gX" secondAttribute="leading" id="hqT-WB-6Vo"/>
+                        </constraints>
                     </view>
+                    <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <navigationItem key="navigationItem" prompt="单聊" id="ffC-2U-TGl"/>
                     <connections>
-                        <outlet property="inputTextField" destination="fQT-4n-zxV" id="ESb-XW-6Eb"/>
                         <outlet property="messageTableView" destination="xHM-Pa-f0L" id="CQa-vo-qen"/>
                     </connections>
                 </viewController>
@@ -186,7 +174,7 @@
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 </scrollView>
             </objects>
-            <point key="canvasLocation" x="955" y="214"/>
+            <point key="canvasLocation" x="955" y="213.99999999999997"/>
         </scene>
     </scenes>
     <resources>

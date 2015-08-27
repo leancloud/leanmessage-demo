@@ -1,18 +1,15 @@
 //
-//  BaseTextMessageTableViewCell.h
+//  TextMessageTableViewCell.h
 //  LeanMessageDemo
 //
-//  Created by WuJun on 8/21/15.
+//  Created by WuJun on 8/25/15.
 //  Copyright (c) 2015 LeanCloud. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
 #import <AVOSCloudIM.h>
 
-@interface BaseTextMessageTableViewCell : UITableViewCell
-
+@interface TextMessageTableViewCell : UITableViewCell
 @property (strong,nonatomic) AVIMTextMessage *textMessage;
-
--(void)clientIdLabelTapped:(UIGestureRecognizer *)sender;
-
+- (instancetype)initWithIsMe:(BOOL)isMe;
 @end

@@ -7,11 +7,13 @@
 //
 
 #import "BaseChatViewController.h"
+#import "TextMessageTableViewCell.h"
 #import "LeftTextMessageTableViewCell.h"
-#import "MessageToolBarView.h"
+#import "RightTextMessageTableViewCell.h"
+#import "TextMessageTableViewCell.h"
 
 #define kConversationId @"55cd829e60b2b52cda834469"
-static NSInteger kPageSize = 5;
+
 
 // 自定义属性来区分单聊和群聊
 typedef enum : NSUInteger {
@@ -19,17 +21,20 @@ typedef enum : NSUInteger {
     ConversatinoTypeGroup
 }ConversationType;
 
-@interface BaseChatViewController ()<UITableViewDataSource, UITableViewDelegate, AVIMClientDelegate>
+@interface BaseChatViewController ()
 
 @end
 
 @implementation BaseChatViewController
+// 设置当前对话
+-(void)setCurrentConversation:(AVIMConversation *)currentConversation{
+    _currentConversation = currentConversation;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
     self.navigationController.navigationBar.barTintColor = [UIColor colorWithRed:44.0/255.0 green:151.0/255.0 blue:235.0/255.0 alpha:1.0];
-    //self.navigationController.navigationBar.translucent = NO;
     self.navigationController.navigationBar.tintColor =[UIColor whiteColor];
     [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor]}];
 
@@ -44,19 +49,16 @@ typedef enum : NSUInteger {
     self.messageTableView.delegate = self;
     
     /**
-     *  首次进入会话之后，获取最近的 10条 聊天记录
+     *  初始化页面上的控件
      */
-    AVIMClient *imClient = [AVIMClient defaultClient];
-    AVIMConversationQuery *query = [imClient conversationQuery];
-    [query getConversationById:kConversationId callback:^(AVIMConversation *conversation, NSError *error) {
-        self.currentConversation=conversation;
-        [self initMessageToolBar];
-        [conversation queryMessagesWithLimit:kPageSize callback:^(NSArray *objects, NSError *error) {
-            [self.messages addObjectsFromArray:objects];
-            [self.messageTableView reloadData];
-        }];
-    }];
     
+    self.imClient = [AVIMClient defaultClient];
+    self.imClient.delegate = self;
+    
+    UITapGestureRecognizer *singleFingerTap =
+    [[UITapGestureRecognizer alloc] initWithTarget:self
+                                            action:@selector(handleSingleTap:)];
+    [self.view addGestureRecognizer:singleFingerTap];
     /**
      * 为消息列表添加下拉刷新控件，每一次下拉都会增加 10 条聊天记录
      */
@@ -64,42 +66,67 @@ typedef enum : NSUInteger {
     
     //[self.messageTableView removeFromSuperview];
 }
+- (void)handleSingleTap:(UITapGestureRecognizer *)recognizer {
+    [self.messageToolBar.messageInputTextField resignFirstResponder];
+    NSLog(@"sdd");
+}
+// 接收消息的回调函数
+- (void)conversation:(AVIMConversation *)conversation didReceiveTypedMessage:(AVIMTypedMessage *)message {
+    
+    UIAlertView *view = [[UIAlertView alloc] initWithTitle:@"收到新的消息" message:@"" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+    [view show];
+    
+    if ([message.conversationId isEqualToString:self.currentConversation.conversationId]) {
+        [self.messages addObject:message];
+        [self.messageTableView reloadData];
+    }
+}
+-(void)conversation:(AVIMConversation *)conversation didReceiveCommonMessage:(AVIMMessage *)message{
+    UIAlertView *view = [[UIAlertView alloc] initWithTitle:@"收到新的消息" message:@"" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+    [view show];
+}
 /*
  * 获取了对话实例之后，把消息输入框以及发送按钮的 UIView 从 Xib 文件里面读取出来，并且渲染在当前页面上
  */
 -(void)initMessageToolBar{
     
-    MessageToolBarView *messageToolBar = [[MessageToolBarView alloc] init];
-    messageToolBar.currentConversation= self.currentConversation;
+    self.messageToolBar = [[MessageToolBarView alloc] init];
+    self.messageToolBar.currentConversation= self.currentConversation;
+    
+    __weak typeof(self) weakSelf = self;
+    self.messageToolBar.messageSentBlock = ^(AVIMMessage *message){
+        [weakSelf.messages addObject:message];
+        [weakSelf.messageTableView reloadData];
+    };
     /*
      * 添加相关的视图约束，将 messageToolBar 置于整个 View 的底部
      */
-    [self.view addSubview:messageToolBar];
-    messageToolBar.translatesAutoresizingMaskIntoConstraints = NO;
-    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:messageToolBar
+    [self.view addSubview:self.messageToolBar];
+    self.messageToolBar.translatesAutoresizingMaskIntoConstraints = NO;
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.messageToolBar
                                                           attribute:NSLayoutAttributeBottom
                                                           relatedBy:NSLayoutRelationEqual
                                                              toItem:self.view
                                                           attribute:NSLayoutAttributeBottom
                                                          multiplier:1.0
                                                            constant:0.0]];
-    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:messageToolBar
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.messageToolBar
                                                           attribute:NSLayoutAttributeLeading
                                                           relatedBy:NSLayoutRelationEqual
                                                              toItem:self.view
                                                           attribute:NSLayoutAttributeLeading
                                                          multiplier:1.0
                                                            constant:0.0]];
-    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:messageToolBar
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.messageToolBar
                                                           attribute:NSLayoutAttributeTrailing
                                                           relatedBy:NSLayoutRelationEqual
                                                              toItem:self.view
                                                           attribute:NSLayoutAttributeTrailing
                                                          multiplier:1.0
                                                            constant:0.0]];
-    [messageToolBar updateConstraintsIfNeeded];
-    [messageToolBar layoutIfNeeded];
-    messageToolBar.view.frame=messageToolBar.bounds;
+    [self.messageToolBar updateConstraintsIfNeeded];
+    [self.messageToolBar layoutIfNeeded];
+    self.messageToolBar.view.frame=self.messageToolBar.bounds;
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
@@ -151,55 +178,39 @@ typedef enum : NSUInteger {
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    
     NSString *identifier = @"cell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
-    if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
-    }
+
     /**
      * 绘画 Tabel View Cell 控件
      */
     AVIMMessage *message= self.messages[indexPath.row];
+    // 判断是否为当前 ClientId 发送的消息，如果是，则该条消息会出现在列表的右侧
+    BOOL isMe= [[AVIMClient defaultClient ].clientId isEqualToString:message.clientId];
     if ([message isKindOfClass:[AVIMTypedMessage class]]) {
         AVIMTypedMessage *typedMessage=(AVIMTypedMessage*)message;
         switch (typedMessage.mediaType) {
             case  kAVIMMessageMediaTypeText: {
+                
                 AVIMTextMessage *textMessage=(AVIMTextMessage*)typedMessage;
-//                NSString* cellNamePrefix = @"Left";
-//                NSString* cellName=@"TextMessageTableViewCell";
-//                if([textMessage.clientId isEqualToString:[AVIMClient defaultClient].clientId]){
-//                    cellNamePrefix=@"Right";
-//                }
-//                NSString* wholeCellName= [cellNamePrefix stringByAppendingString:cellName];
-//                
-//                id textMessageCellId = [[NSClassFromString(wholeCellName) alloc] init];
-               
-                LeftTextMessageTableViewCell *leftTestMessageCell = [[LeftTextMessageTableViewCell alloc] init];
-                leftTestMessageCell.textMessage = textMessage;
-                return leftTestMessageCell;
-                
-                
-//                NSArray *nibArray = [[NSBundle mainBundle] loadNibNamed:wholeCellName owner:nil options:nil];
-//                
-//                LeftTextMessageTableViewCell* demoTextMessagecell = (LeftTextMessageTableViewCell*)[nibArray objectAtIndex:0];
-//                [demoTextMessagecell.messageContentTextView layoutIfNeeded];
-//                demoTextMessagecell.textMessage = textMessage;
-//                
-//                return demoTextMessagecell;
+                TextMessageTableViewCell *textCell=[[TextMessageTableViewCell alloc] initWithIsMe:isMe];
+                textCell.textMessage = textMessage;
+                return textCell;
             }
                 break;
             default:
                 break;
         }
     }
-    
+    if (cell == nil) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
+    }
     if(message){
         cell.textLabel.text = [NSString stringWithFormat:@"%@ : %@", message.clientId, @"当前版本暂不支持显示此消息类型。"];
         return cell;
     }
     return  cell;
 }
-
 #pragma mark - actions
+
 @end

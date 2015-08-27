@@ -14,4 +14,5 @@
 - (IBAction)sendMessageClicked:(id)sender;
 @property (strong, nonatomic) IBOutlet UITextField *messageInputTextField;
 @property (strong, nonatomic) IBOutlet UIView *view;
+@property (nonatomic, copy) void (^messageSentBlock)(AVIMMessage*);
 @end

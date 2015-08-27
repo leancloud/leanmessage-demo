@@ -20,9 +20,16 @@
     
     self.fruitIconImage.clipsToBounds = YES;
     self.fruitIconImage.layer.cornerRadius=5;
+    
+    UITapGestureRecognizer *singleFingerTap =
+    [[UITapGestureRecognizer alloc] initWithTarget:self
+                                            action:@selector(handleSingleTap:)];
+    [self.view addGestureRecognizer:singleFingerTap];
    
 }
-
+- (void)handleSingleTap:(UITapGestureRecognizer *)recognizer {
+    [self.clientIdTextFiled resignFirstResponder];
+}
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
 }
@@ -35,8 +42,9 @@
 - (IBAction)onLoginButtonClicked:(id)sender {
     // 创建一个 AVIMClient 实例
     AVIMClient *imClient = [AVIMClient defaultClient];
+    NSString *seflClientId=self.clientIdTextFiled.text;
     
-    [imClient openWithClientId:self.clientIdTextFiled.text callback:^(BOOL succeeded, NSError *error){
+    [imClient openWithClientId:seflClientId callback:^(BOOL succeeded, NSError *error){
         if (error) {
             // 出错了，可能是网络问题无法连接 LeanCloud 云端，请检查网络之后重试。
             // 此时聊天服务不可用。
@@ -47,7 +55,6 @@
           [self performSegueWithIdentifier:@"toChatroom" sender:self];
         }
     }];
-    
 }
 -(void)viewWillAppear:(BOOL)animated{
     self.navigationController.navigationBar.barTintColor = [UIColor colorWithRed:239.0/255.0 green:239.0/255.0 blue:239.0/255.0 alpha:1.0];
