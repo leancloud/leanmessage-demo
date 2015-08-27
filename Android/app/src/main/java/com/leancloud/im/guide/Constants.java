@@ -13,7 +13,7 @@ public class Constants {
   public static final String ACTIVITY_TITLE = getPrefixConstant("activity_title");
 
 
-  public static final String SQUARE_CONVERSATION_ID = "551a2847e4b04d688d73dc54";
+  public static final String SQUARE_CONVERSATION_ID = "55cd829e60b2b52cda834469";
 
   private static String getPrefixConstant(String str) {
     return LEANMESSAGE_CONSTANTS_PREFIX + str;

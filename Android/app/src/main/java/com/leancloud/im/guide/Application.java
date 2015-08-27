@@ -31,8 +31,8 @@ public class Application extends android.app.Application {
 
     // 这是使用中国节点的 app 信息，如果使用中国节点，请 uncomment 这两行
     // 这是用于 SimpleChat 的 app id 和 app key，如果更改将不能进入 demo 中相应的聊天室
-    AVOSCloud.initialize(this, "9p6hyhh60av3ukkni3i9z53q1l8yy3cijj6sie3cewft18vm",
-        "nhqqc1x7r7r89kp8pggrme57i374h3vyd0ukr2z3ayojpvf4");
+    AVOSCloud.initialize(this, "m7baukzusy3l5coew0b3em5uf4df5i2krky0ypbmee358yon",
+        "2e46velw0mqrq3hl2a047yjtpxn32frm0m253k258xo63ft9");
     preferences = PreferenceManager.getDefaultSharedPreferences(this);
 
     // 必须在启动的时候注册 MessageHandler
