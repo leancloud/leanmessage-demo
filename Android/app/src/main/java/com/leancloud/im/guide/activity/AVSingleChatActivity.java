@@ -1,5 +1,6 @@
 package com.leancloud.im.guide.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -44,11 +45,7 @@ public class AVSingleChatActivity extends AVBaseActivity {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_square);
     chatFragment = (ChatFragment)getFragmentManager().findFragmentById(R.id.fragment_chat);
-
-    memberId = getIntent().getStringExtra(Constants.MEMBER_ID);
-
     toolbar = (Toolbar) findViewById(R.id.toolbar);
-
     setSupportActionBar(toolbar);
     toolbar.setNavigationIcon(R.drawable.btn_navigation_back);
     toolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -69,8 +66,20 @@ public class AVSingleChatActivity extends AVBaseActivity {
       }
     });
 
+    memberId = getIntent().getStringExtra(Constants.MEMBER_ID);
     setTitle(memberId);
     getSquare();
+  }
+
+  @Override
+  protected void onNewIntent(Intent intent) {
+    super.onNewIntent(intent);
+    Bundle extras = intent.getExtras();
+    if (null != extras && extras.containsKey(Constants.MEMBER_ID)) {
+      memberId = extras.getString(Constants.MEMBER_ID);
+      setTitle(memberId);
+      getSquare();
+    }
   }
 
   private void getSquare() {

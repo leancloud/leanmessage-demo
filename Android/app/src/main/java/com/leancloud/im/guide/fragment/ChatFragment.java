@@ -19,6 +19,7 @@ import com.avos.avoscloud.im.v2.callback.AVIMConversationCallback;
 import com.avos.avoscloud.im.v2.callback.AVIMMessagesQueryCallback;
 import com.avos.avoscloud.im.v2.messages.AVIMTextMessage;
 import com.leancloud.im.guide.AVInputBottomBar;
+import com.leancloud.im.guide.MessageHandler;
 import com.leancloud.im.guide.R;
 import com.leancloud.im.guide.adapter.MultipleItemAdapter;
 import com.leancloud.im.guide.event.ImTypeMessageEvent;
@@ -54,6 +55,8 @@ public class ChatFragment extends Fragment {
     recyclerView.setLayoutManager(layoutManager);
     itemAdapter = new MultipleItemAdapter(getActivity());
     recyclerView.setAdapter(itemAdapter);
+
+    EventBus.getDefault().register(this);
     return view;
   }
 
@@ -82,12 +85,20 @@ public class ChatFragment extends Fragment {
   @Override
   public void onResume() {
     super.onResume();
-    EventBus.getDefault().register(this);
+    if (null != imConversation) {
+      MessageHandler.currentTopConversation = imConversation.getConversationId();
+    }
   }
 
   @Override
   public void onPause() {
-    super.onPause();
+    super.onResume();
+    MessageHandler.currentTopConversation = "";
+  }
+
+  @Override
+  public void onDestroyView() {
+    super.onDestroyView();
     EventBus.getDefault().unregister(this);
   }
 
@@ -96,7 +107,10 @@ public class ChatFragment extends Fragment {
     refreshLayout.setEnabled(true);
     inputBottomBar.setTag(imConversation.getConversationId());
     fetchMessages();
+    MessageHandler.currentTopConversation = conversation.getConversationId();
   }
+
+
 
   /**
    * 拉取消息，必须加入 conversation 后才能拉取消息
@@ -131,7 +145,6 @@ public class ChatFragment extends Fragment {
         });
       }
     }
-
   }
 
   public void onEvent(ImTypeMessageEvent event) {

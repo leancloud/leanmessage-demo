@@ -25,6 +25,7 @@
         <activity android:name=".activity.AVSquareMembersActivity"/>
         <activity
             android:name=".activity.AVSingleChatActivity"
+            android:launchMode="singleTop"
             android:windowSoftInputMode="adjustResize"/>
         <activity
             android:name=".activity.AVLaunchActivity"
