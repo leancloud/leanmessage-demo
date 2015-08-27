@@ -59,7 +59,7 @@ public class AVSquareActivity extends AVEventBaseActivity {
     recyclerView = (RecyclerView) findViewById(R.id.activity_square_rv_chat);
     refreshLayout = (SwipeRefreshLayout) findViewById(R.id.activity_square_rv_srl_pullrefresh);
     inputBottomBar = (AVInputBottomBar) findViewById(R.id.chat_layout_inputbottombar);
-    inputBottomBar.setTag("SQUARE_CONVERSATION_ID");
+    inputBottomBar.setTag(Constants.SQUARE_CONVERSATION_ID);
 
     setSupportActionBar(toolbar);
 
@@ -174,7 +174,7 @@ public class AVSquareActivity extends AVEventBaseActivity {
   }
 
   public void onEvent(InputBottomBarTextEvent textEvent) {
-    if (!TextUtils.isEmpty(textEvent.sendContent)) {
+    if (!TextUtils.isEmpty(textEvent.sendContent) && Constants.SQUARE_CONVERSATION_ID.equals(textEvent.tag)) {
       AVIMTextMessage message = new AVIMTextMessage();
       message.setText(textEvent.sendContent);
       itemAdapter.addMessage(message);
@@ -199,7 +199,8 @@ public class AVSquareActivity extends AVEventBaseActivity {
   }
 
   public void onEvent(ImTypeMessageResendEvent event) {
-    if (AVIMMessage.AVIMMessageStatus.AVIMMessageStatusFailed == event.message.getMessageStatus()) {
+    if (AVIMMessage.AVIMMessageStatus.AVIMMessageStatusFailed == event.message.getMessageStatus()
+      && squareConversation.getConversationId().equals(event.message.getConversationId())) {
       squareConversation.sendMessage(event.message, new AVIMConversationCallback() {
         @Override
         public void done(AVIMException e) {
