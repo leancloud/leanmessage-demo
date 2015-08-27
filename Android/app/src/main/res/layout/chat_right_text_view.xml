@@ -24,8 +24,7 @@
             android:id="@+id/chat_right_text_layout_status"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/chat_right_text_layout_content"
-            android:visibility="gone">
+            android:layout_alignLeft="@+id/chat_right_text_layout_content">
 
             <ProgressBar
                 android:id="@+id/chat_right_text_progressbar"
@@ -35,9 +34,11 @@
                 android:layout_gravity="center_vertical"/>
 
             <ImageView
-                android:id="@+id/chat_right_text_tv_status"
+                android:id="@+id/chat_right_text_tv_error"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:src="@drawable/message_send_error"/>
         </FrameLayout>
 
         <LinearLayout

@@ -19,11 +19,16 @@
         <activity android:name=".activity.AVLoginActivity"/>
         <activity
             android:name=".activity.AVSquareActivity"
-            android:launchMode="singleTask"/>
+            android:launchMode="singleTask"
+            android:windowSoftInputMode="adjustResize"/>
 
         <activity android:name=".activity.AVSquareMembersActivity"/>
-        <activity android:name=".activity.AVSingleChatActivity"/>
-        <activity android:name=".activity.AVLaunchActivity">
+        <activity
+            android:name=".activity.AVSingleChatActivity"
+            android:windowSoftInputMode="adjustResize"/>
+        <activity
+            android:name=".activity.AVLaunchActivity"
+            android:theme="@style/AVActivity.FullScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
@@ -38,8 +43,5 @@
                 <action android:name="android.intent.action.USER_PRESENT"/>
             </intent-filter>
         </receiver>
-
-
     </application>
-
 </manifest>

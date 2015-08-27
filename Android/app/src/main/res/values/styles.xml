@@ -9,6 +9,12 @@
         <item name="android:textColorPrimary">@android:color/white</item>
     </style>
 
+    <style name="AVActivity" parent="AppTheme"/>
+
+    <style name="AVActivity.FullScreen">
+        <item name="android:windowFullscreen">true</item>
+    </style>
+
     <style name="BigFont">
         <item name="android:textColor">@android:color/white</item>
         <item name="android:textSize">70dp</item>
@@ -25,15 +31,6 @@
     </style>
 
     <style name="AVTheme" parent="Theme.AppCompat.Light"/>
-
-    <!--<style name="AVTheme.NoActionBar">-->
-    <!--&lt;!&ndash;<item name="windowNoTitle">true</item>&ndash;&gt;-->
-    <!--&lt;!&ndash;<item name="windowActionBar">false</item>&ndash;&gt;-->
-    <!--</style>-->
-
-    <!--<style name="AVTheme.NoActionBar.FullScreen">-->
-    <!--<item name="android:windowFullscreen">true</item>-->
-    <!--</style>-->
 
     <style name="DividerLine">
         <item name="android:background">@color/divider_line_color</item>

@@ -1,6 +1,7 @@
 package com.leancloud.im.guide.viewholder;
 
 import android.content.Context;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
@@ -35,7 +36,7 @@ public class LeftTextHolder extends AVCommonViewHolder {
   @Override
   public void bindData(Object o) {
     AVIMMessage message = (AVIMMessage)o;
-    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy年MM月dd日 HH:mm");
     String time = dateFormat.format(message.getTimestamp());
 
     String content =  getContext().getString(R.string.unspport_message_type);
@@ -46,5 +47,9 @@ public class LeftTextHolder extends AVCommonViewHolder {
     contentView.setText(content);
     timeView.setText(time);
     nameView.setText(message.getFrom());
+  }
+
+  public void showTimeView(boolean isShow) {
+    timeView.setVisibility(isShow ? View.VISIBLE : View.GONE);
   }
 }

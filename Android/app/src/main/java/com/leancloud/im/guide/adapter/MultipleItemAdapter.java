@@ -21,6 +21,9 @@ public class MultipleItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
   private final int ITEM_LEFT_TEXT = 0;
   private final int ITEM_RIGHT_TEXT = 1;
 
+  // 时间间隔最小为十分钟
+  private final long TIME_INTERVAL = 10 * 60 * 1000;
+
   private List<AVIMMessage> messageList = new ArrayList<AVIMMessage>();
 
   public MultipleItemAdapter(Context context) {
@@ -64,6 +67,11 @@ public class MultipleItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
   @Override
   public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
     ((AVCommonViewHolder)holder).bindData(messageList.get(position));
+    if (holder instanceof LeftTextHolder) {
+      ((LeftTextHolder)holder).showTimeView(shouldShowTime(position));
+    } else if (holder instanceof RightTextHolder) {
+      ((RightTextHolder)holder).showTimeView(shouldShowTime(position));
+    }
   }
 
   @Override
@@ -79,5 +87,14 @@ public class MultipleItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
   @Override
   public int getItemCount() {
     return messageList.size();
+  }
+
+  private boolean shouldShowTime(int position) {
+    if (position == 0) {
+      return true;
+    }
+    long lastTime = messageList.get(position - 1).getTimestamp();
+    long curTime = messageList.get(position).getTimestamp();
+    return curTime - lastTime > TIME_INTERVAL;
   }
 }

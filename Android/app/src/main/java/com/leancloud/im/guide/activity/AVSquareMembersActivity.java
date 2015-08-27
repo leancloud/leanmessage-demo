@@ -13,6 +13,7 @@ import com.avos.avoscloud.im.v2.AVIMConversation;
 import com.avos.avoscloud.im.v2.AVIMException;
 import com.avos.avoscloud.im.v2.callback.AVIMConversationCallback;
 import com.leancloud.im.guide.AVImClientManager;
+import com.leancloud.im.guide.Constants;
 import com.leancloud.im.guide.LetterView;
 import com.leancloud.im.guide.adapter.MembersAdapter;
 import com.leancloud.im.guide.R;
@@ -118,7 +119,7 @@ public class AVSquareMembersActivity extends AVEventBaseActivity {
   }
 
   private void getMembers() {
-    conversation = AVImClientManager.getInstance().getClient().getConversation("551a2847e4b04d688d73dc54");
+    conversation = AVImClientManager.getInstance().getClient().getConversation(Constants.SQUARE_CONVERSATION_ID);
     memberList = conversation.getMembers();
     if (null != memberList && memberList.size() > 0) {
       itemAdapter.setMemberList(memberList);
