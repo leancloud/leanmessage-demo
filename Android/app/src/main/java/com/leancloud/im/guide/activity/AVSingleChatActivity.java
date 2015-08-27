@@ -25,6 +25,7 @@ import com.leancloud.im.guide.adapter.MultipleItemAdapter;
 import com.leancloud.im.guide.R;
 import com.leancloud.im.guide.event.ImTypeMessageEvent;
 import com.leancloud.im.guide.event.InputBottomBarTextEvent;
+import com.leancloud.im.guide.fragment.ChatFragment;
 
 import java.util.Arrays;
 import java.util.List;
@@ -32,13 +33,9 @@ import java.util.List;
 /**
  * Created by wli on 15/8/14.
  */
-public class AVSingleChatActivity extends AVEventBaseActivity {
-  private AVIMConversation singleConversation;
-  private MultipleItemAdapter itemAdapter;
-  private RecyclerView recyclerView;
-  private LinearLayoutManager layoutManager;
-  private SwipeRefreshLayout refreshLayout;
+public class AVSingleChatActivity extends AVBaseActivity {
   private Toolbar toolbar;
+  private ChatFragment chatFragment;
 
   private String memberId;
 
@@ -46,13 +43,12 @@ public class AVSingleChatActivity extends AVEventBaseActivity {
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_square);
+    chatFragment = (ChatFragment)getFragmentManager().findFragmentById(R.id.fragment_chat);
 
     memberId = getIntent().getStringExtra(Constants.MEMBER_ID);
 
     toolbar = (Toolbar) findViewById(R.id.toolbar);
 
-    recyclerView = (RecyclerView) findViewById(R.id.activity_square_rv_chat);
-    refreshLayout = (SwipeRefreshLayout) findViewById(R.id.activity_square_rv_srl_pullrefresh);
     setSupportActionBar(toolbar);
     toolbar.setNavigationIcon(R.drawable.btn_navigation_back);
     toolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -74,39 +70,6 @@ public class AVSingleChatActivity extends AVEventBaseActivity {
     });
 
     setTitle(memberId);
-
-    refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-      @Override
-      public void onRefresh() {
-        AVIMMessage message = itemAdapter.getFirstMessage();
-        if (null == message) {
-          singleConversation.queryMessages(new AVIMMessagesQueryCallback() {
-            @Override
-            public void done(List<AVIMMessage> list, AVIMException e) {
-              refreshLayout.setRefreshing(false);
-              itemAdapter.addMessageList(list);
-              itemAdapter.notifyDataSetChanged();
-            }
-          });
-        } else {
-          singleConversation.queryMessages(message.getMessageId(), message.getTimestamp(), 20, new AVIMMessagesQueryCallback() {
-            @Override
-            public void done(List<AVIMMessage> list, AVIMException e) {
-              refreshLayout.setRefreshing(false);
-              itemAdapter.addMessageList(list);
-              itemAdapter.notifyDataSetChanged();
-            }
-          });
-        }
-      }
-    });
-
-    layoutManager = new LinearLayoutManager(this);
-    recyclerView.setLayoutManager(layoutManager);
-
-    itemAdapter = new MultipleItemAdapter(this);
-    recyclerView.setAdapter(itemAdapter);
-
     getSquare();
   }
 
@@ -118,62 +81,16 @@ public class AVSingleChatActivity extends AVEventBaseActivity {
       @Override
       public void done(List<AVIMConversation> list, AVIMException e) {
         if (null != list && list.size() > 0) {
-          singleConversation = list.get(0);
-          fetchMessages();
+          chatFragment.setConversation(list.get(0));
         } else {
           client.createConversation(Arrays.asList(memberId), null, null, true, new AVIMConversationCreatedCallback() {
             @Override
             public void done(AVIMConversation avimConversation, AVIMException e) {
-              singleConversation = avimConversation;
-              fetchMessages();
+              chatFragment.setConversation(avimConversation);
             }
           });
         }
       }
     });
-  }
-
-  /**
-   * 拉取消息，必须加入 conversation 后才能拉取消息
-   */
-  private void fetchMessages() {
-    singleConversation.queryMessages(new AVIMMessagesQueryCallback() {
-      @Override
-      public void done(List<AVIMMessage> list, AVIMException e) {
-        if (filterException(e)) {
-          itemAdapter.setMessageList(list);
-          itemAdapter.notifyDataSetChanged();
-        }
-      }
-    });
-  }
-
-  public void onEvent(InputBottomBarTextEvent textEvent) {
-    if (!TextUtils.isEmpty(textEvent.sendContent)) {
-      AVIMTextMessage message = new AVIMTextMessage();
-      message.setText(textEvent.sendContent);
-      itemAdapter.addMessage(message);
-      itemAdapter.notifyDataSetChanged();
-      scrollToBottom();
-      singleConversation.sendMessage(message, new AVIMConversationCallback() {
-        @Override
-        public void done(AVIMException e) {
-          itemAdapter.notifyDataSetChanged();
-        }
-      });
-    }
-  }
-
-  public void onEvent(ImTypeMessageEvent event) {
-    if (null != singleConversation && null != event &&
-      singleConversation.getConversationId().equals(event.conversation.getConversationId())) {
-      itemAdapter.addMessage(event.message);
-      itemAdapter.notifyDataSetChanged();
-      scrollToBottom();
-    }
-  }
-
-  private void scrollToBottom() {
-    layoutManager.scrollToPositionWithOffset(itemAdapter.getItemCount() - 1, 0);
   }
 }

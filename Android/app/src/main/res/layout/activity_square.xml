@@ -5,26 +5,9 @@
                 android:layout_height="match_parent">
 
     <include layout="@layout/tool_bar"/>
-
-    <RelativeLayout
+    <fragment
+        android:id="@+id/fragment_chat"
+        android:name="com.leancloud.im.guide.fragment.ChatFragment"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <android.support.v4.widget.SwipeRefreshLayout
-            android:id="@+id/activity_square_rv_srl_pullrefresh"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_above="@+id/chat_layout_inputbottombar">
-
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/activity_square_rv_chat"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
-        </android.support.v4.widget.SwipeRefreshLayout>
-
-        <com.leancloud.im.guide.AVInputBottomBar
-            android:id="@+id/chat_layout_inputbottombar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"/>
-    </RelativeLayout>
+        android:layout_height="match_parent"/>
 </LinearLayout>

@@ -1,5 +1,6 @@
 package com.leancloud.im.guide.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -11,6 +12,7 @@ import com.avos.avoscloud.im.v2.AVIMClient;
 import com.avos.avoscloud.im.v2.AVIMException;
 import com.avos.avoscloud.im.v2.callback.AVIMClientCallback;
 import com.leancloud.im.guide.AVImClientManager;
+import com.leancloud.im.guide.Constants;
 import com.leancloud.im.guide.R;
 
 /**
@@ -57,7 +59,10 @@ public class AVLoginActivity extends AVBaseActivity {
         loginButton.setEnabled(true);
         userNameView.setEnabled(true);
         if (filterException(e)) {
-          startActivity(AVSquareActivity.class);
+          Intent intent = new Intent(AVLoginActivity.this, AVSquareActivity.class);
+          intent.putExtra(Constants.CONVERSATION_ID, Constants.SQUARE_CONVERSATION_ID);
+          intent.putExtra(Constants.ACTIVITY_TITLE, getString(R.string.square_name));
+          startActivity(intent);
           finish();
         }
       }

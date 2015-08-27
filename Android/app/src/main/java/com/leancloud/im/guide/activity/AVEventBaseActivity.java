@@ -1,6 +1,5 @@
 package com.leancloud.im.guide.activity;
 
-import android.os.Bundle;
 
 import de.greenrobot.event.EventBus;
 
@@ -10,14 +9,14 @@ import de.greenrobot.event.EventBus;
 public class AVEventBaseActivity extends AVBaseActivity {
 
   @Override
-  protected void onCreate(Bundle savedInstanceState) {
-    super.onCreate(savedInstanceState);
+  protected void onResume() {
+    super.onResume();
     EventBus.getDefault().register(this);
   }
 
   @Override
-  protected void onDestroy() {
-    super.onDestroy();
+  protected void onPause() {
+    super.onPause();
     EventBus.getDefault().unregister(this);
   }
 }

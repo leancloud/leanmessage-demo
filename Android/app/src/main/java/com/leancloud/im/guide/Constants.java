@@ -8,6 +8,10 @@ public class Constants {
   private static final String LEANMESSAGE_CONSTANTS_PREFIX = "com.leancloud.im.guide";
 
   public static final String MEMBER_ID = getPrefixConstant("member_id");
+  public static final String CONVERSATION_ID = getPrefixConstant("conversation_id");
+
+  public static final String ACTIVITY_TITLE = getPrefixConstant("activity_title");
+
 
   public static final String SQUARE_CONVERSATION_ID = "551a2847e4b04d688d73dc54";
 
