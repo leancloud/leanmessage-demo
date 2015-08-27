@@ -1,15 +1,21 @@
 package com.leancloud.im.guide.viewholder;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.avos.avoscloud.im.v2.AVIMMessage;
 import com.avos.avoscloud.im.v2.messages.AVIMTextMessage;
+import com.leancloud.im.guide.Constants;
 import com.leancloud.im.guide.R;
+import com.leancloud.im.guide.activity.AVSingleChatActivity;
 
 import java.text.SimpleDateFormat;
+
+import de.greenrobot.event.EventBus;
 
 /**
  * Created by wli on 15/8/13.
@@ -31,6 +37,15 @@ public class LeftTextHolder extends AVCommonViewHolder {
     timeView = (TextView) itemView.findViewById(R.id.chat_left_text_tv_time);
     nameView = (TextView) itemView.findViewById(R.id.chat_left_text_tv_name);
     contentView = (TextView) itemView.findViewById(R.id.chat_left_text_tv_content);
+
+    nameView.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        LeftChatItemClickEvent clickEvent = new LeftChatItemClickEvent();
+        clickEvent.userId = nameView.getText().toString();
+        EventBus.getDefault().post(clickEvent);
+      }
+    });
   }
 
   @Override

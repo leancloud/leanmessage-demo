@@ -1,5 +1,7 @@
 package com.leancloud.im.guide.activity;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -27,6 +29,7 @@ import com.leancloud.im.guide.event.ImTypeMessageEvent;
 import com.leancloud.im.guide.event.ImTypeMessageResendEvent;
 import com.leancloud.im.guide.event.InputBottomBarTextEvent;
 import com.leancloud.im.guide.fragment.ChatFragment;
+import com.leancloud.im.guide.viewholder.LeftChatItemClickEvent;
 
 import java.util.Arrays;
 import java.util.List;
@@ -37,7 +40,7 @@ import java.util.List;
  * 2、根据 conversationId 获得 AVIMConversation 实例
  * 3、必须要加入 conversation 后才能拉取消息
  */
-public class AVSquareActivity extends AVBaseActivity {
+public class AVSquareActivity extends AVEventBaseActivity {
 
   private AVIMConversation squareConversation;
   private ChatFragment chatFragment;
@@ -127,5 +130,11 @@ public class AVSquareActivity extends AVBaseActivity {
         }
       }
     });
+  }
+
+  public void onEvent(LeftChatItemClickEvent event) {
+    Intent intent = new Intent(this, AVSingleChatActivity.class);
+    intent.putExtra(Constants.MEMBER_ID, event.userId);
+    startActivity(intent);
   }
 }
