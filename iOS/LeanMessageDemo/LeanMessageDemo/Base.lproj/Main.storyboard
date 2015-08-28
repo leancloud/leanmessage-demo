@@ -116,9 +116,9 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </tableView>
                         </subviews>
-                        <color key="backgroundColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.93725490196078431" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstAttribute="bottom" secondItem="Crz-74-kpH" secondAttribute="bottom" constant="50" id="Hs4-0I-qfJ"/>
+                            <constraint firstAttribute="bottom" secondItem="Crz-74-kpH" secondAttribute="bottom" constant="100" id="Hs4-0I-qfJ"/>
                             <constraint firstAttribute="trailing" secondItem="Crz-74-kpH" secondAttribute="trailing" id="Zga-Z2-rIJ"/>
                             <constraint firstItem="Crz-74-kpH" firstAttribute="leading" secondItem="cah-Fw-eaj" secondAttribute="leading" id="tnT-gN-QYX"/>
                         </constraints>
@@ -156,9 +156,10 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </tableView>
                         </subviews>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="xHM-Pa-f0L" secondAttribute="trailing" id="5rl-AZ-dSb"/>
-                            <constraint firstAttribute="bottom" secondItem="xHM-Pa-f0L" secondAttribute="bottom" constant="50" id="dp3-dh-Cqj"/>
+                            <constraint firstAttribute="bottom" secondItem="xHM-Pa-f0L" secondAttribute="bottom" constant="100" id="dp3-dh-Cqj"/>
                             <constraint firstItem="xHM-Pa-f0L" firstAttribute="leading" secondItem="JHr-0g-5gX" secondAttribute="leading" id="hqT-WB-6Vo"/>
                         </constraints>
                     </view>
