@@ -19,12 +19,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:textAppearance="@style/TextAppearance.Normal.Gray"
+        android:layout_marginBottom="15dp"
         android:text="@string/square_name"/>
-
-    <TextView
-        android:id="@+id/activity_login_tv_online_num"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
 
     <EditText
         android:id="@+id/activity_login_et_username"
