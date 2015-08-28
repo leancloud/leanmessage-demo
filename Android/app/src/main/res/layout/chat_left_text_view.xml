@@ -18,6 +18,7 @@
         android:id="@+id/chat_left_text_tv_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textColor="@color/common_blue"
         android:gravity="left"/>
 
     <RelativeLayout

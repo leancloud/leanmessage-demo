@@ -64,16 +64,16 @@ public class AVSquareActivity extends AVEventBaseActivity {
 
     setTitle(title);
 
-    toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
-      @Override
-      public boolean onMenuItemClick(MenuItem item) {
-        if (R.id.menu_square_members == item.getItemId()) {
-          startActivity(AVSquareMembersActivity.class);
-          return true;
-        }
-        return false;
-      }
-    });
+//    toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+//      @Override
+//      public boolean onMenuItemClick(MenuItem item) {
+//        if (R.id.menu_square_members == item.getItemId()) {
+//          startActivity(AVSquareMembersActivity.class);
+//          return true;
+//        }
+//        return false;
+//      }
+//    });
     getSquare(conversationId);
     queryInSquare(conversationId);
   }

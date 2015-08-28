@@ -55,17 +55,6 @@ public class AVSingleChatActivity extends AVBaseActivity {
       }
     });
 
-    toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
-      @Override
-      public boolean onMenuItemClick(MenuItem item) {
-        if (R.id.menu_square_members == item.getItemId()) {
-          startActivity(AVSquareMembersActivity.class);
-          return true;
-        }
-        return false;
-      }
-    });
-
     memberId = getIntent().getStringExtra(Constants.MEMBER_ID);
     setTitle(memberId);
     getSquare();
