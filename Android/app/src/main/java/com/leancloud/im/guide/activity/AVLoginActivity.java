@@ -15,7 +15,6 @@ import com.leancloud.im.guide.Constants;
 import com.leancloud.im.guide.R;
 
 import butterknife.Bind;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**

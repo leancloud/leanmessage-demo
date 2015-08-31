@@ -77,12 +77,4 @@ public class AVBaseActivity extends AppCompatActivity {
     }
     startActivity(intent);
   }
-
-//  protected void startActivity(Class<?> cls, Object... objs) {
-//    Intent intent = new Intent(this, cls);
-//    for (int i = 0; i < objs.length; i++) {
-//      intent.putExtra((String)objs[i], objs[++i]);
-//    }
-//    startActivity(intent);
-//  }
 }

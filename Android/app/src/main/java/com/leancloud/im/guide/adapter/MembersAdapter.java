@@ -1,6 +1,5 @@
 package com.leancloud.im.guide.adapter;
 
-import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.ViewGroup;
 
@@ -19,18 +18,31 @@ import java.util.Map;
 
 /**
  * Created by wli on 15/8/14.
+ * 成员列表 Adapter
  */
 public class MembersAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-  private final Context mContext;
+  /**
+   * 所有 Adapter 成员的list
+   */
   private List<MemberItem> memberList = new ArrayList<MemberItem>();
+
+  /**
+   * 在有序 memberList 中 MemberItem.sortContent 第一次出现时的字母与位置的 map
+   */
   private Map<Character, Integer> indexMap = new HashMap<Character, Integer>();
+
+  /**
+   * 简体中文的 Collator
+   */
   Collator cmp = Collator.getInstance(Locale.SIMPLIFIED_CHINESE);
 
-  public MembersAdapter(Context context) {
-    mContext = context;
-  }
+  public MembersAdapter() {}
 
+  /**
+   * 设置成员列表，然后更新索引
+   * 此处会对数据以 空格、数字、字母（汉字转化为拼音后的字母） 的顺序进行重新排列
+   */
   public void setMemberList(List<String> list) {
     memberList.clear();
     if (null != list) {
@@ -47,7 +59,7 @@ public class MembersAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
   @Override
   public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-    return new MemberHolder(mContext, parent);
+    return new MemberHolder(parent.getContext(), parent);
   }
 
   @Override
@@ -65,10 +77,16 @@ public class MembersAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     return memberList.size();
   }
 
+  /**
+   * 获取索引 Map
+   */
   public Map<Character, Integer> getIndexMap() {
     return indexMap;
   }
 
+  /**
+   * 更新索引 Map
+   */
   private void updateIndex() {
     Character lastCharcter = '#';
     indexMap.clear();

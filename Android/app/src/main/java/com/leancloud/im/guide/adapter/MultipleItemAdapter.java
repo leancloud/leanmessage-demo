@@ -1,6 +1,5 @@
 package com.leancloud.im.guide.adapter;
 
-import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.ViewGroup;
 
@@ -27,7 +26,7 @@ public class MultipleItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
   private List<AVIMMessage> messageList = new ArrayList<AVIMMessage>();
 
-  public MultipleItemAdapter(Context context) {
+  public MultipleItemAdapter() {
   }
 
   public void setMessageList(List<AVIMMessage> messages) {

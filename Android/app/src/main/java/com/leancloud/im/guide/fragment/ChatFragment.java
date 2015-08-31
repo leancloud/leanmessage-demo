@@ -54,7 +54,7 @@ public class ChatFragment extends Fragment {
     inputBottomBar = (AVInputBottomBar) view.findViewById(R.id.fragment_chat_inputbottombar);
     layoutManager = new LinearLayoutManager(getActivity());
     recyclerView.setLayoutManager(layoutManager);
-    itemAdapter = new MultipleItemAdapter(getActivity());
+    itemAdapter = new MultipleItemAdapter();
     recyclerView.setAdapter(itemAdapter);
 
     EventBus.getDefault().register(this);
@@ -130,6 +130,10 @@ public class ChatFragment extends Fragment {
     });
   }
 
+  /**
+   * 输入事件处理，接收后构造成 AVIMTextMessage 然后发送
+   * 因为不排除某些特殊情况会受到其他页面过来的无效消息，所以此处加了 tag 判断
+   */
   public void onEvent(InputBottomBarTextEvent textEvent) {
     if (null != imConversation && null != textEvent) {
       if (!TextUtils.isEmpty(textEvent.sendContent) && imConversation.getConversationId().equals(textEvent.tag)) {
@@ -148,6 +152,10 @@ public class ChatFragment extends Fragment {
     }
   }
 
+  /**
+   * 处理推送过来的消息
+   * 同理，避免无效消息，此处加了 conversation id 判断
+   */
   public void onEvent(ImTypeMessageEvent event) {
     if (null != imConversation && null != event &&
       imConversation.getConversationId().equals(event.conversation.getConversationId())) {
@@ -157,6 +165,9 @@ public class ChatFragment extends Fragment {
     }
   }
 
+  /**
+   * 重新发送已经发送失败的消息
+   */
   public void onEvent(ImTypeMessageResendEvent event) {
     if (null != imConversation && null != event) {
       if (AVIMMessage.AVIMMessageStatus.AVIMMessageStatusFailed == event.message.getMessageStatus()

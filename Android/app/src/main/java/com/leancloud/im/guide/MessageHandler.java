@@ -24,18 +24,12 @@ import de.greenrobot.event.EventBus;
 public class MessageHandler extends AVIMTypedMessageHandler<AVIMTypedMessage> {
 
   private Context context;
-  private String TAG = MessageHandler.this.getClass().getSimpleName();
 
   //TODO 此处代码仍有问题，这种实现方式不太合理
   public static String currentTopConversation = "";
 
   public MessageHandler(Context context) {
     this.context = context;
-  }
-
-  @Override
-  public void onMessageReceipt(AVIMTypedMessage message, AVIMConversation conversation, AVIMClient client) {
-    Log.d(TAG, "消息已到达对方" + message.getContent());
   }
 
   @Override
@@ -55,36 +49,44 @@ public class MessageHandler extends AVIMTypedMessageHandler<AVIMTypedMessage> {
       if (message.getFrom().equals(clientID)) {
         return;
       }
-      ImTypeMessageEvent event = new ImTypeMessageEvent();
-      event.message = message;
-      event.conversation = conversation;
-      EventBus.getDefault().post(event);
 
-      String notificationContent = "";
-      if (event.message instanceof AVIMTextMessage) {
-        notificationContent = ((AVIMTextMessage)event.message).getText();
-      } else {
-        notificationContent = context.getString(R.string.unspport_message_type);
-      }
-
-      //TODO 这一坨代码还是太乱了
-      if (!currentTopConversation.equals(conversation.getConversationId())) {
-        if (Constants.SQUARE_CONVERSATION_ID.equals(conversation.getConversationId())) {
-          Intent intent = new Intent();
-          ComponentName cn = new ComponentName(context, AVSquareActivity.class);
-          intent.setComponent(cn);
-          intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-          NotificationUtils.showNotification(context, "", notificationContent, null, intent);
-        } else {
-          Intent intent = new Intent();
-          ComponentName cn = new ComponentName(context, AVSingleChatActivity.class);
-          intent.setComponent(cn);
-          intent.putExtra(Constants.MEMBER_ID, message.getFrom());
-          NotificationUtils.showNotification(context, "", notificationContent, null, intent);
-        }
-      }
+      sendEvent(message, conversation);
+      sendNotification(message, conversation);
     } else {
-      client.close(null);
+        client.close(null);
+    }
+  }
+
+  private void sendEvent(AVIMTypedMessage message, AVIMConversation conversation) {
+    ImTypeMessageEvent event = new ImTypeMessageEvent();
+    event.message = message;
+    event.conversation = conversation;
+    EventBus.getDefault().post(event);
+  }
+
+  private void sendNotification(AVIMTypedMessage message, AVIMConversation conversation) {
+    String notificationContent = "";
+    if (message instanceof AVIMTextMessage) {
+      notificationContent = ((AVIMTextMessage)message).getText();
+    } else {
+      notificationContent = context.getString(R.string.unspport_message_type);
+    }
+
+    //TODO 这一坨代码还是太乱了
+    if (!currentTopConversation.equals(conversation.getConversationId())) {
+      if (Constants.SQUARE_CONVERSATION_ID.equals(conversation.getConversationId())) {
+        Intent intent = new Intent();
+        ComponentName cn = new ComponentName(context, AVSquareActivity.class);
+        intent.setComponent(cn);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        NotificationUtils.showNotification(context, "", notificationContent, null, intent);
+      } else {
+        Intent intent = new Intent();
+        ComponentName cn = new ComponentName(context, AVSingleChatActivity.class);
+        intent.setComponent(cn);
+        intent.putExtra(Constants.MEMBER_ID, message.getFrom());
+        NotificationUtils.showNotification(context, "", notificationContent, null, intent);
+      }
     }
   }
 }

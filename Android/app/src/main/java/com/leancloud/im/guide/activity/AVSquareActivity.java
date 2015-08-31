@@ -35,7 +35,15 @@ public class AVSquareActivity extends AVEventBaseActivity {
   private ChatFragment chatFragment;
   private Toolbar toolbar;
 
+  /**
+   * 上一次点击 back 键的时间
+   * 用于双击退出的判断
+   */
   private static long lastBackTime = 0;
+
+  /**
+   * 当双击 back 键在此间隔内是直接触发 onBackPressed
+   */
   private final int BACK_INTERVAL = 1000;
 
   @Override
@@ -50,19 +58,8 @@ public class AVSquareActivity extends AVEventBaseActivity {
     toolbar = (Toolbar) findViewById(R.id.toolbar);
 
     setSupportActionBar(toolbar);
-
     setTitle(title);
 
-//    toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
-//      @Override
-//      public boolean onMenuItemClick(MenuItem item) {
-//        if (R.id.menu_square_members == item.getItemId()) {
-//          startActivity(AVSquareMembersActivity.class);
-//          return true;
-//        }
-//        return false;
-//      }
-//    });
     getSquare(conversationId);
     queryInSquare(conversationId);
   }
@@ -84,6 +81,9 @@ public class AVSquareActivity extends AVEventBaseActivity {
     lastBackTime = currentTime;
   }
 
+  /**
+   * 根据 conversationId 查取本地缓存中的 conversation，如若没有缓存，则返回一个新建的 conversaiton
+   */
   private void getSquare(String conversationId) {
     if (TextUtils.isEmpty(conversationId)) {
       throw new IllegalArgumentException("conversationId can not be null");
@@ -93,6 +93,9 @@ public class AVSquareActivity extends AVEventBaseActivity {
     squareConversation = client.getConversation(conversationId);
   }
 
+  /**
+   * 加入 conversation
+   */
   private void joinSquare() {
     squareConversation.join(new AVIMConversationCallback() {
       @Override
@@ -104,6 +107,9 @@ public class AVSquareActivity extends AVEventBaseActivity {
     });
   }
 
+  /**
+   * 先查询自己是否已经在该 conversation，如果存在则直接给 chatFragment 赋值，否则先加入，再赋值
+   */
   private void queryInSquare(String conversationId) {
     final AVIMClient client = AVImClientManager.getInstance().getClient();
     AVIMConversationQuery conversationQuery = client.getQuery();
@@ -121,6 +127,9 @@ public class AVSquareActivity extends AVEventBaseActivity {
     });
   }
 
+  /**
+   * 处理聊天 item 点击事件，点击后跳转到相应1对1的对话
+   */
   public void onEvent(LeftChatItemClickEvent event) {
     Intent intent = new Intent(this, AVSingleChatActivity.class);
     intent.putExtra(Constants.MEMBER_ID, event.userId);

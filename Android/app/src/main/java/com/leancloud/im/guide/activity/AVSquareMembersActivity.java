@@ -23,10 +23,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
-import butterknife.ButterKnife;
 
 /**
  * Created by wli on 15/8/14.
+ * 在线成员列表
+ * 当前版本因为暂态回话不能查询成员而导致此页面的入口被注释掉
  */
 public class AVSquareMembersActivity extends AVEventBaseActivity {
 
@@ -62,14 +63,12 @@ public class AVSquareMembersActivity extends AVEventBaseActivity {
         onBackPressed();
       }
     });
-
-    setTitle("在线成员列表");
+    setTitle(R.string.square_member_title);
 
     layoutManager = new LinearLayoutManager(this);
     recyclerView.setLayoutManager(layoutManager);
 
-    letterView.setLetters(getSortLetters());
-    itemAdapter = new MembersAdapter(this);
+    itemAdapter = new MembersAdapter();
     recyclerView.setAdapter(itemAdapter);
 
     refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -91,14 +90,7 @@ public class AVSquareMembersActivity extends AVEventBaseActivity {
   public boolean onCreateOptionsMenu(Menu menu) {
     getMenuInflater().inflate(R.menu.activity_member_menu, menu);
 
-    searchView = (SearchView)menu.findItem(R.id.activity_member_menu_search).getActionView();
-    searchView.setOnCloseListener(new SearchView.OnCloseListener() {
-      @Override
-      public boolean onClose() {
-        return false;
-      }
-    });
-
+    searchView = (SearchView) menu.findItem(R.id.activity_member_menu_search).getActionView();
     searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
       @Override
       public boolean onQueryTextSubmit(String query) {
@@ -115,6 +107,9 @@ public class AVSquareMembersActivity extends AVEventBaseActivity {
     return true;
   }
 
+  /**
+   * 在 memberList 里匹配搜索结果
+   */
   private List<String> filterMembers(String content) {
     List<String> members = new ArrayList<String>();
     for (String name : memberList) {
@@ -125,6 +120,9 @@ public class AVSquareMembersActivity extends AVEventBaseActivity {
     return members;
   }
 
+  /**
+   * 从 AVIMConversation 获取 member，如果本地没有则做拉取请求，然后更新 UI
+   */
   private void getMembers() {
     conversation = AVImClientManager.getInstance().getClient().getConversation(Constants.SQUARE_CONVERSATION_ID);
     memberList = conversation.getMembers();
@@ -143,6 +141,10 @@ public class AVSquareMembersActivity extends AVEventBaseActivity {
     }
   }
 
+  /**
+   * 处理 LetterView 发送过来的 MemberLetterEvent
+   * 会通过 MembersAdapter 获取应该要跳转到的位置，然后跳转
+   */
   public void onEvent(MemberLetterEvent event) {
     Character targetChar = Character.toLowerCase(event.letter);
     if (itemAdapter.getIndexMap().containsKey(targetChar)) {
@@ -151,13 +153,5 @@ public class AVSquareMembersActivity extends AVEventBaseActivity {
         layoutManager.scrollToPositionWithOffset(index, 0);
       }
     }
-  }
-
-  private List<Character> getSortLetters() {
-    List<Character> letterList = new ArrayList<Character>();
-    for (char c = 'A'; c <= 'Z'; c++) {
-      letterList.add(c);
-    }
-    return letterList;
   }
 }

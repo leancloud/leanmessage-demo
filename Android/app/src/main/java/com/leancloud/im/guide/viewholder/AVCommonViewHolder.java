@@ -26,6 +26,9 @@ public abstract class AVCommonViewHolder<T> extends RecyclerView.ViewHolder {
     return itemView.getContext();
   }
 
+  /**
+   * 用给定的 data 对 holder 的 view 进行赋值
+   */
   public abstract void bindData(T t);
 
   public void setData(T t) {
