@@ -2,6 +2,7 @@ package com.leancloud.im.guide;
 
 /**
  * Created by wli on 15/8/23.
+ * 用来存放各种 static final 值
  */
 public class Constants {
 

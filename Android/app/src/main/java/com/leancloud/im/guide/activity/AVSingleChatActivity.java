@@ -2,50 +2,43 @@ package com.leancloud.im.guide.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.text.TextUtils;
-import android.view.MenuItem;
 import android.view.View;
 
 import com.avos.avoscloud.im.v2.AVIMClient;
 import com.avos.avoscloud.im.v2.AVIMConversation;
 import com.avos.avoscloud.im.v2.AVIMConversationQuery;
 import com.avos.avoscloud.im.v2.AVIMException;
-import com.avos.avoscloud.im.v2.AVIMMessage;
-import com.avos.avoscloud.im.v2.callback.AVIMConversationCallback;
 import com.avos.avoscloud.im.v2.callback.AVIMConversationCreatedCallback;
 import com.avos.avoscloud.im.v2.callback.AVIMConversationQueryCallback;
-import com.avos.avoscloud.im.v2.callback.AVIMMessagesQueryCallback;
-import com.avos.avoscloud.im.v2.messages.AVIMTextMessage;
 import com.leancloud.im.guide.AVImClientManager;
 import com.leancloud.im.guide.Constants;
-import com.leancloud.im.guide.adapter.MultipleItemAdapter;
 import com.leancloud.im.guide.R;
-import com.leancloud.im.guide.event.ImTypeMessageEvent;
-import com.leancloud.im.guide.event.InputBottomBarTextEvent;
 import com.leancloud.im.guide.fragment.ChatFragment;
 
 import java.util.Arrays;
 import java.util.List;
 
+import butterknife.Bind;
+
 /**
  * Created by wli on 15/8/14.
+ * 一对一单聊的页面，需要传入 Constants.MEMBER_ID
  */
 public class AVSingleChatActivity extends AVBaseActivity {
-  private Toolbar toolbar;
-  private ChatFragment chatFragment;
 
-  private String memberId;
+  @Bind(R.id.toolbar)
+  protected Toolbar toolbar;
+
+  protected ChatFragment chatFragment;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_square);
+
     chatFragment = (ChatFragment)getFragmentManager().findFragmentById(R.id.fragment_chat);
-    toolbar = (Toolbar) findViewById(R.id.toolbar);
+
     setSupportActionBar(toolbar);
     toolbar.setNavigationIcon(R.drawable.btn_navigation_back);
     toolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -55,9 +48,9 @@ public class AVSingleChatActivity extends AVBaseActivity {
       }
     });
 
-    memberId = getIntent().getStringExtra(Constants.MEMBER_ID);
+    String memberId = getIntent().getStringExtra(Constants.MEMBER_ID);
     setTitle(memberId);
-    getSquare();
+    getConversation(memberId);
   }
 
   @Override
@@ -65,19 +58,25 @@ public class AVSingleChatActivity extends AVBaseActivity {
     super.onNewIntent(intent);
     Bundle extras = intent.getExtras();
     if (null != extras && extras.containsKey(Constants.MEMBER_ID)) {
-      memberId = extras.getString(Constants.MEMBER_ID);
+      String memberId = extras.getString(Constants.MEMBER_ID);
       setTitle(memberId);
-      getSquare();
+      getConversation(memberId);
     }
   }
 
-  private void getSquare() {
+  /**
+   * 获取 conversation，为了避免重复的创建，此处先 query 是否已经存在只包含该 member 的 conversation
+   * 如果存在，则直接赋值给 ChatFragment，否者创建后再赋值
+   */
+  private void getConversation(final String memberId) {
     final AVIMClient client = AVImClientManager.getInstance().getClient();
     AVIMConversationQuery conversationQuery = client.getQuery();
     conversationQuery.withMembers(Arrays.asList(memberId), true);
     conversationQuery.findInBackground(new AVIMConversationQueryCallback() {
       @Override
       public void done(List<AVIMConversation> list, AVIMException e) {
+
+        //注意：此处仍有漏洞，如果获取了多个 conversation，默认取第一个
         if (null != list && list.size() > 0) {
           chatFragment.setConversation(list.get(0));
         } else {

@@ -1,20 +1,19 @@
 package com.leancloud.im.guide.viewholder;
 
-import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.avos.avoscloud.im.v2.AVIMMessage;
 import com.avos.avoscloud.im.v2.messages.AVIMTextMessage;
-import com.leancloud.im.guide.Constants;
 import com.leancloud.im.guide.R;
-import com.leancloud.im.guide.activity.AVSingleChatActivity;
+import com.leancloud.im.guide.event.LeftChatItemClickEvent;
 
 import java.text.SimpleDateFormat;
 
+import butterknife.Bind;
+import butterknife.OnClick;
 import de.greenrobot.event.EventBus;
 
 /**
@@ -24,28 +23,24 @@ import de.greenrobot.event.EventBus;
 
 public class LeftTextHolder extends AVCommonViewHolder {
 
-  private TextView timeView;
-  private TextView contentView;
-  private TextView nameView;
+  @Bind(R.id.chat_left_text_tv_time)
+  protected TextView timeView;
+
+  @Bind(R.id.chat_left_text_tv_content)
+  protected TextView contentView;
+
+  @Bind(R.id.chat_left_text_tv_name)
+  protected TextView nameView;
 
   public LeftTextHolder(Context context, ViewGroup root) {
     super(context, root, R.layout.chat_left_text_view);
   }
 
-  @Override
-  public void findView() {
-    timeView = (TextView) itemView.findViewById(R.id.chat_left_text_tv_time);
-    nameView = (TextView) itemView.findViewById(R.id.chat_left_text_tv_name);
-    contentView = (TextView) itemView.findViewById(R.id.chat_left_text_tv_content);
-
-    nameView.setOnClickListener(new View.OnClickListener() {
-      @Override
-      public void onClick(View v) {
-        LeftChatItemClickEvent clickEvent = new LeftChatItemClickEvent();
-        clickEvent.userId = nameView.getText().toString();
-        EventBus.getDefault().post(clickEvent);
-      }
-    });
+  @OnClick(R.id.chat_left_text_tv_content)
+  public void onNameClick(View view) {
+    LeftChatItemClickEvent clickEvent = new LeftChatItemClickEvent();
+    clickEvent.userId = nameView.getText().toString();
+    EventBus.getDefault().post(clickEvent);
   }
 
   @Override

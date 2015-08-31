@@ -81,7 +81,6 @@ public class MembersAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     }
   }
 
-
   public class SortChineseName implements Comparator<MemberItem> {
 
     @Override

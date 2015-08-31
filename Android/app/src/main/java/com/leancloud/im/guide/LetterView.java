@@ -13,6 +13,7 @@ import de.greenrobot.event.EventBus;
 
 /**
  * Created by wli on 15/8/24.
+ * 联系人列表，字母导航 View
  */
 public class LetterView extends LinearLayout {
 

@@ -1,4 +1,4 @@
-package com.leancloud.im.guide.viewholder;
+package com.leancloud.im.guide.event;
 
 /**
  * Created by wli on 15/8/27.

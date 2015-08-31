@@ -22,27 +22,37 @@ import com.leancloud.im.guide.event.MemberLetterEvent;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+
 /**
  * Created by wli on 15/8/14.
  */
 public class AVSquareMembersActivity extends AVEventBaseActivity {
 
-  private Toolbar toolbar;
-  private MembersAdapter itemAdapter;
-  private SwipeRefreshLayout refreshLayout;
-  private AVIMConversation conversation;
-  private LetterView letterView;
-  private SearchView searchView;
-  LinearLayoutManager layoutManager;
+  @Bind(R.id.toolbar)
+  protected Toolbar toolbar;
 
+  @Bind(R.id.activity_square_members_srl_list)
+  protected SwipeRefreshLayout refreshLayout;
+
+  @Bind(R.id.activity_square_members_letterview)
+  protected LetterView letterView;
+
+  @Bind(R.id.activity_square_members_rv_list)
+  protected RecyclerView recyclerView;
+
+  private SearchView searchView;
+
+  private MembersAdapter itemAdapter;
+  private AVIMConversation conversation;
+  LinearLayoutManager layoutManager;
   private List<String> memberList;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_square_members);
-
-    toolbar = (Toolbar) findViewById(R.id.toolbar);
 
     setSupportActionBar(toolbar);
     toolbar.setNavigationIcon(R.drawable.btn_navigation_back);
@@ -52,9 +62,6 @@ public class AVSquareMembersActivity extends AVEventBaseActivity {
         onBackPressed();
       }
     });
-    RecyclerView recyclerView = (RecyclerView) findViewById(R.id.activity_square_members_rv_list);
-    refreshLayout = (SwipeRefreshLayout) findViewById(R.id.activity_square_members_srl_list);
-    letterView = (LetterView) findViewById(R.id.activity_square_members_letterview);
 
     setTitle("在线成员列表");
 

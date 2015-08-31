@@ -41,11 +41,18 @@ public class MessageHandler extends AVIMTypedMessageHandler<AVIMTypedMessage> {
   @Override
   public void onMessage(AVIMTypedMessage message, AVIMConversation conversation, AVIMClient client) {
 
-    //TODO: 此处会触发 getClientId() throw exception
-    if (client.getClientId().equals(AVImClientManager.getInstance().getClientId())) {
+    String clientID = "";
+    try {
+      clientID = AVImClientManager.getInstance().getClientId();
+    } catch (IllegalStateException e) {
+      client.close(null);
+      return;
+    }
+
+    if (client.getClientId().equals(clientID)) {
 
       // 自己发的消息不提示
-      if (message.getFrom().equals(AVImClientManager.getInstance().getClientId())) {
+      if (message.getFrom().equals(clientID)) {
         return;
       }
       ImTypeMessageEvent event = new ImTypeMessageEvent();

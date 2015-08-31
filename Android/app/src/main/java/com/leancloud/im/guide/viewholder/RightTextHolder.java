@@ -18,6 +18,8 @@ import com.leancloud.im.guide.event.ImTypeMessageResendEvent;
 
 import java.text.SimpleDateFormat;
 
+import butterknife.Bind;
+import butterknife.OnClick;
 import de.greenrobot.event.EventBus;
 
 /**
@@ -26,12 +28,23 @@ import de.greenrobot.event.EventBus;
  */
 public class RightTextHolder extends AVCommonViewHolder {
 
-  private TextView timeView;
-  private TextView contentView;
-  private TextView nameView;
-  private FrameLayout statusView;
-  private ProgressBar loadingBar;
-  private ImageView errorView;
+  @Bind(R.id.chat_right_text_tv_time)
+  protected TextView timeView;
+
+  @Bind(R.id.chat_right_text_tv_content)
+  protected TextView contentView;
+
+  @Bind(R.id.chat_right_text_tv_name)
+  protected TextView nameView;
+
+  @Bind(R.id.chat_right_text_layout_status)
+  protected FrameLayout statusView;
+
+  @Bind(R.id.chat_right_text_progressbar)
+  protected ProgressBar loadingBar;
+
+  @Bind(R.id.chat_right_text_tv_error)
+  protected ImageView errorView;
 
   private AVIMMessage message;
 
@@ -39,23 +52,11 @@ public class RightTextHolder extends AVCommonViewHolder {
     super(context, root, R.layout.chat_right_text_view);
   }
 
-  @Override
-  public void findView() {
-    timeView = (TextView) itemView.findViewById(R.id.chat_right_text_tv_time);
-    nameView = (TextView) itemView.findViewById(R.id.chat_right_text_tv_name);
-    contentView = (TextView) itemView.findViewById(R.id.chat_right_text_tv_content);
-    statusView = (FrameLayout) itemView.findViewById(R.id.chat_right_text_layout_status);
-    loadingBar = (ProgressBar) itemView.findViewById(R.id.chat_right_text_progressbar);
-    errorView = (ImageView) itemView.findViewById(R.id.chat_right_text_tv_error);
-
-    errorView.setOnClickListener(new View.OnClickListener() {
-      @Override
-      public void onClick(View v) {
-        ImTypeMessageResendEvent event = new ImTypeMessageResendEvent();
-        event.message = message;
-        EventBus.getDefault().post(event);
-      }
-    });
+  @OnClick(R.id.chat_right_text_tv_error)
+  public void onErrorClick(View view) {
+    ImTypeMessageResendEvent event = new ImTypeMessageResendEvent();
+    event.message = message;
+    EventBus.getDefault().post(event);
   }
 
   @Override

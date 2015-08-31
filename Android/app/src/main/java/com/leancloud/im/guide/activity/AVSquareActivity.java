@@ -1,42 +1,31 @@
 package com.leancloud.im.guide.activity;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.Menu;
-import android.view.MenuItem;
 
 import com.avos.avoscloud.im.v2.AVIMClient;
 import com.avos.avoscloud.im.v2.AVIMConversation;
 import com.avos.avoscloud.im.v2.AVIMConversationQuery;
 import com.avos.avoscloud.im.v2.AVIMException;
-import com.avos.avoscloud.im.v2.AVIMMessage;
 import com.avos.avoscloud.im.v2.callback.AVIMConversationCallback;
 import com.avos.avoscloud.im.v2.callback.AVIMConversationQueryCallback;
-import com.avos.avoscloud.im.v2.callback.AVIMMessagesQueryCallback;
-import com.avos.avoscloud.im.v2.messages.AVIMTextMessage;
 import com.leancloud.im.guide.AVImClientManager;
-import com.leancloud.im.guide.AVInputBottomBar;
 import com.leancloud.im.guide.Constants;
-import com.leancloud.im.guide.adapter.MultipleItemAdapter;
 import com.leancloud.im.guide.R;
-import com.leancloud.im.guide.event.ImTypeMessageEvent;
-import com.leancloud.im.guide.event.ImTypeMessageResendEvent;
-import com.leancloud.im.guide.event.InputBottomBarTextEvent;
 import com.leancloud.im.guide.fragment.ChatFragment;
-import com.leancloud.im.guide.viewholder.LeftChatItemClickEvent;
+import com.leancloud.im.guide.event.LeftChatItemClickEvent;
 
 import java.util.Arrays;
 import java.util.List;
 
 /**
  * Created by wli on 15/8/13.
- * 流程：1、根据 clientId 获得 AVIMClient 实例
+ * 广场页面，即群组聊天页面
+ *
+ * 1、根据 clientId 获得 AVIMClient 实例
  * 2、根据 conversationId 获得 AVIMConversation 实例
  * 3、必须要加入 conversation 后才能拉取消息
  */

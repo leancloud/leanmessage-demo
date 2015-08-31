@@ -15,6 +15,7 @@ import java.util.List;
 
 /**
  * Created by wli on 15/8/13.
+ * 聊天的 Adapter，此处还有可优化的地方，稍后考虑一下提取出公共的 adapter
  */
 public class MultipleItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 

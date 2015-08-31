@@ -32,6 +32,7 @@ import de.greenrobot.event.EventBus;
 
 /**
  * Created by wli on 15/8/27.
+ * 将聊天相关的封装到此 Fragment 里边，只需要通过 setConversation 传入 Conversation 即可
  */
 public class ChatFragment extends Fragment {
   protected AVIMConversation imConversation;

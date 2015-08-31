@@ -7,6 +7,7 @@ import com.leancloud.im.guide.R;
 
 /**
  * Created by wli on 15/8/20.
+ * Launch 页面
  */
 public class AVLaunchActivity extends AVBaseActivity {
 
@@ -15,6 +16,9 @@ public class AVLaunchActivity extends AVBaseActivity {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_launch);
 
+    /**
+     * 默认等待 1.5 秒后跳转到登陆页面
+     */
     new Handler().postDelayed(new Runnable() {
       @Override
       public void run() {

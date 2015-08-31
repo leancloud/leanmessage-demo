@@ -12,20 +12,18 @@ import com.leancloud.im.guide.R;
 import com.leancloud.im.guide.activity.AVSingleChatActivity;
 import com.leancloud.im.guide.adapter.MembersAdapter;
 
+import butterknife.Bind;
+
 /**
  * Created by wli on 15/8/14.
  */
 public class MemberHolder extends AVCommonViewHolder {
 
+  @Bind(R.id.member_item_name)
   public TextView mTextView;
 
   public MemberHolder(Context context, ViewGroup root) {
     super(context, root, R.layout.activity_member_item);
-  }
-
-  @Override
-  public void findView() {
-    mTextView = (TextView) itemView.findViewById(R.id.member_item_name);
   }
 
   @Override
