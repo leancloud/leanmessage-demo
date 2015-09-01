@@ -37,7 +37,6 @@
             [self.messageTableView reloadData];
         }];
     }];
-
 }
 
 - (void)didReceiveMemoryWarning {
@@ -102,5 +101,13 @@
 
 }
 
+-(void) viewWillDisappear:(BOOL)animated {
+    if ([self.navigationController.viewControllers indexOfObject:self]==NSNotFound) {
+        [self.imClient closeWithCallback:^(BOOL succeeded, NSError *error) {
+            NSLog(@"Log Out!");
+        }];
+    }
+    [super viewWillDisappear:animated];
+}
 
 @end
