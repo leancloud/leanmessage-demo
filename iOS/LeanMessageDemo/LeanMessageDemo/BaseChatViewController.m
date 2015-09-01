@@ -11,6 +11,8 @@
 #import "LeftTextMessageTableViewCell.h"
 #import "RightTextMessageTableViewCell.h"
 #import "TextMessageTableViewCell.h"
+#import "MessageTableViewCell.h"
+
 
 #define kConversationId @"55cd829e60b2b52cda834469"
 
@@ -193,7 +195,7 @@ typedef enum : NSUInteger {
             case  kAVIMMessageMediaTypeText: {
                 
                 AVIMTextMessage *textMessage=(AVIMTextMessage*)typedMessage;
-                TextMessageTableViewCell *textCell=[[TextMessageTableViewCell alloc] initWithIsMe:isMe];
+                TextMessageTableViewCell *textCell=[TextMessageTableViewCell cellWithTableView:tableView isMe:isMe];
                 textCell.textMessage = textMessage;
                 return textCell;
             }

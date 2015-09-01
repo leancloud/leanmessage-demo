@@ -24,17 +24,29 @@
     }
     return self;
 }
-
-- (instancetype)initWithIsMe:(BOOL)isMe{
-    self = [super init];
-    if (self) {
-        NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"MessageTableCells" owner:nil options:nil];
-        if(isMe)
-             self =  [nib objectAtIndex:1];
-        else
-            self= [nib objectAtIndex:0];
++ (instancetype)cellWithTableView:(UITableView *)tableView isMe:(BOOL)isMe
+{
+    static NSString *CellIdentifier;
+    static NSString *CellNib = @"MessageTableCells";
+    if (isMe) {
+        CellIdentifier = @"LeftTextMessageTableViewCell";
+    } else {
+        CellIdentifier = @"RightTextMessageTableViewCell";
     }
-    return self;
+    
+    TextMessageTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    if (cell == nil) {
+        /*
+         * 从 xib 文件中加载 View
+         */
+        NSArray *nib = [[NSBundle mainBundle] loadNibNamed:CellNib owner:self options:nil];
+        if(isMe) {
+            cell = (TextMessageTableViewCell *)[nib objectAtIndex:1];
+        } else {
+            cell = (TextMessageTableViewCell *)[nib objectAtIndex:0];
+        }
+    }
+    return cell;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

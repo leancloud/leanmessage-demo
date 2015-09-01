@@ -11,5 +11,5 @@
 
 @interface TextMessageTableViewCell : UITableViewCell
 @property (strong,nonatomic) AVIMTextMessage *textMessage;
-- (instancetype)initWithIsMe:(BOOL)isMe;
++ (instancetype)cellWithTableView:(UITableView *)tableView isMe:(BOOL)isMe;
 @end
