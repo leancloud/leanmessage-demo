@@ -79,6 +79,7 @@ public class MessageHandler extends AVIMTypedMessageHandler<AVIMTypedMessage> {
         ComponentName cn = new ComponentName(context, AVSquareActivity.class);
         intent.setComponent(cn);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        intent.putExtra(Constants.CONVERSATION_ID, Constants.SQUARE_CONVERSATION_ID);
         NotificationUtils.showNotification(context, "", notificationContent, null, intent);
       } else {
         Intent intent = new Intent();

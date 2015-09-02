@@ -20,13 +20,13 @@
         <activity
             android:name=".activity.AVSquareActivity"
             android:launchMode="singleTask"
-            android:windowSoftInputMode="adjustResize"/>
+            android:windowSoftInputMode="adjustResize|stateAlwaysHidden"/>
 
         <activity android:name=".activity.AVSquareMembersActivity"/>
         <activity
             android:name=".activity.AVSingleChatActivity"
             android:launchMode="singleTop"
-            android:windowSoftInputMode="adjustResize"/>
+            android:windowSoftInputMode="adjustResize|stateAlwaysHidden"/>
         <activity
             android:name=".activity.AVLaunchActivity"
             android:theme="@style/AVActivity.FullScreen">

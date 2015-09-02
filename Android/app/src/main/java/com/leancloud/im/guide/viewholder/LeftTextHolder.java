@@ -36,7 +36,7 @@ public class LeftTextHolder extends AVCommonViewHolder {
     super(context, root, R.layout.chat_left_text_view);
   }
 
-  @OnClick(R.id.chat_left_text_tv_content)
+  @OnClick({R.id.chat_left_text_tv_content, R.id.chat_left_text_tv_name})
   public void onNameClick(View view) {
     LeftChatItemClickEvent clickEvent = new LeftChatItemClickEvent();
     clickEvent.userId = nameView.getText().toString();

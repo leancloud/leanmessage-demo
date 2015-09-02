@@ -1,28 +1,17 @@
 package com.leancloud.im.guide;
 
-import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
-import android.util.Log;
-import com.alibaba.fastjson.JSON;
 import com.avos.avoscloud.AVOSCloud;
-import com.avos.avoscloud.im.v2.AVIMClient;
 import com.avos.avoscloud.im.v2.AVIMMessageManager;
 import com.avos.avoscloud.im.v2.AVIMTypedMessage;
-
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Created by zhangxiaobo on 15/4/15.
  */
 public class Application extends android.app.Application {
-  public static final String KEY_CLIENT_ID = "client_id";
-
 
   @Override
   public void onCreate() {
     super.onCreate();
-    AVOSCloud.setDebugLogEnabled(true);
 
     // 这是使用美国节点的 app 信息，如果不使用美国节点，请 comment 这两行
 //    AVOSCloud.useAVCloudUS();
