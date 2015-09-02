@@ -17,7 +17,10 @@ import com.leancloud.im.guide.R;
 import com.leancloud.im.guide.fragment.ChatFragment;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 
 import butterknife.Bind;
 
@@ -72,6 +75,7 @@ public class AVSingleChatActivity extends AVBaseActivity {
     final AVIMClient client = AVImClientManager.getInstance().getClient();
     AVIMConversationQuery conversationQuery = client.getQuery();
     conversationQuery.withMembers(Arrays.asList(memberId), true);
+    conversationQuery.whereEqualTo("customConversationType",1);
     conversationQuery.findInBackground(new AVIMConversationQueryCallback() {
       @Override
       public void done(List<AVIMConversation> list, AVIMException e) {
@@ -80,7 +84,9 @@ public class AVSingleChatActivity extends AVBaseActivity {
         if (null != list && list.size() > 0) {
           chatFragment.setConversation(list.get(0));
         } else {
-          client.createConversation(Arrays.asList(memberId), null, null, true, new AVIMConversationCreatedCallback() {
+          HashMap<String,Object> attributes=new HashMap<String, Object>();
+          attributes.put("customConversationType",1);
+          client.createConversation(Arrays.asList(memberId), null, attributes, false , new AVIMConversationCreatedCallback() {
             @Override
             public void done(AVIMConversation avimConversation, AVIMException e) {
               chatFragment.setConversation(avimConversation);
