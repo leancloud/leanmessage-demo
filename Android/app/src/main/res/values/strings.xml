@@ -16,4 +16,12 @@
     <string name="begin_chat">开始聊天</string>
     <string name="otherId_input_hint">请输入对方的 clientId</string>
 
+
+    <string name="square_name">广场</string>
+    <string name="square_member_title">在线成员列表</string>
+    <string name="login">进入聊天室</string>
+    <string name="login_null_name_tip">请输入用户名</string>
+
+    <string name="unspport_message_type">暂不支持此消息类型</string>
+    <string name="message_is_null">消息不能为空</string>
 </resources>

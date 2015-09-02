@@ -1,5 +1,1 @@
-//include ':avoscloud-sdk'
-//project(':avoscloud-sdk').projectDir = new File('~/clojure/AndroidSDK/avoscloud-sdk')
-//include ':avoscloud-push'
-//project(':avoscloud-push').projectDir = new File('~/clojure/AndroidSDK/avoscloud-push')
 include ':app'

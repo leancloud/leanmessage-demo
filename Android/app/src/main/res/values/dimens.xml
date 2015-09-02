@@ -2,4 +2,40 @@
     <!-- Default screen margins, per the Android Design guidelines. -->
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
+
+    <dimen name="common_horizontal_margin">15dp</dimen>
+    <dimen name="common_vertical_margin">10dp</dimen>
+    <dimen name="common_left_margin">@dimen/common_horizontal_margin</dimen>
+    <dimen name="common_right_margin">@dimen/common_horizontal_margin</dimen>
+
+
+    <dimen name="setting_item_height">60dp</dimen>
+    <dimen name="activity_top_margin">@dimen/common_vertical_margin</dimen>
+
+    <dimen name="login_icon_top_margin">80dp</dimen>
+    <dimen name="login_icon_bottom_margin">10dp</dimen>
+
+    <dimen name="member_item_height">55dp</dimen>
+
+
+    <dimen name="login_name_input_height">50dp</dimen>
+
+    <dimen name="chat_horizontal_margin">15dp</dimen>
+    <dimen name="chat_horizontal_big_margin">40dp</dimen>
+
+    <dimen name="divider_line_height">1px</dimen>
+
+    <!-- textsize -->
+    <dimen name="textsize_small">18sp</dimen>
+    <dimen name="textsize_normal">20sp</dimen>
+    <dimen name="textsize_large">22sp</dimen>
+    <dimen name="textsize_larger">24sp</dimen>
+    <dimen name="textsize_largest">26sp</dimen>
+
+
+    <!-- button -->
+    <dimen name="button_big_height">50dp</dimen>
+
+    <!-- input bottom bar -->
+    <dimen name="chat_input_bar_height">55dp</dimen>
 </resources>

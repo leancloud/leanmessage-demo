@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:app="http://schemas.android.com/apk/res-auto">
+    <!--<item-->
+        <!--android:id="@+id/menu_square_members"-->
+        <!--android:icon="@drawable/btn_square_members"-->
+        <!--android:orderInCategory="100"-->
+        <!--android:title="members"-->
+        <!--app:showAsAction="ifRoom"/>-->
+</menu>
