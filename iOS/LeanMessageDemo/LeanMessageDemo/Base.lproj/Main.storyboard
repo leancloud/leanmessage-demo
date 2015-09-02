@@ -108,11 +108,11 @@
                         <viewControllerLayoutGuide type="bottom" id="f4P-QJ-CjE"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="cah-Fw-eaj">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="474"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="90" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="Crz-74-kpH">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="518"/>
+                                <rect key="frame" x="0.0" y="41" width="320" height="477"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </tableView>
                         </subviews>
@@ -125,7 +125,6 @@
                     </view>
                     <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <navigationItem key="navigationItem" title="广场" prompt="群聊" id="aMu-Ag-QSn"/>
-                    <nil key="simulatedTopBarMetrics"/>
                     <connections>
                         <outlet property="messageTableView" destination="Crz-74-kpH" id="aVN-gj-ygX"/>
                         <segue destination="LKo-Vt-yon" kind="push" identifier="toSingleChat" id="mLS-b9-PLk"/>
@@ -133,7 +132,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="t4D-xO-i7q" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="579" y="213.99999999999997"/>
+            <point key="canvasLocation" x="579" y="213"/>
         </scene>
         <!--Single Chat View Controller-->
         <scene sceneID="Xg3-gQ-xBq">
@@ -144,7 +143,7 @@
                         <viewControllerLayoutGuide type="bottom" id="Fsg-Fz-x4N"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="JHr-0g-5gX">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="94" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pnh-cp-uKq">
@@ -152,7 +151,7 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="90" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="xHM-Pa-f0L">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <rect key="frame" x="0.0" y="94" width="320" height="474"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </tableView>
                         </subviews>
@@ -163,7 +162,6 @@
                             <constraint firstItem="xHM-Pa-f0L" firstAttribute="leading" secondItem="JHr-0g-5gX" secondAttribute="leading" id="hqT-WB-6Vo"/>
                         </constraints>
                     </view>
-                    <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <navigationItem key="navigationItem" prompt="单聊" id="ffC-2U-TGl"/>
                     <connections>
                         <outlet property="messageTableView" destination="xHM-Pa-f0L" id="CQa-vo-qen"/>
@@ -175,7 +173,7 @@
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 </scrollView>
             </objects>
-            <point key="canvasLocation" x="955" y="213.99999999999997"/>
+            <point key="canvasLocation" x="955" y="213"/>
         </scene>
     </scenes>
     <resources>
