@@ -8,14 +8,12 @@
 
 
 #### 登陆页
-
-![登陆页][LeanMessage-Android-Demo-Login.png]
+<img src="LeanMessage-Android-Demo-Login.png" width="270" height="480"/>
 
 
 #### 广场页
-
-![广场页][LeanMessage-Android-Demo-Square.png]
+<img src="LeanMessage-Android-Demo-Square.png" width="270" height="480"/>
 
 
 #### 单聊页
-![单聊页][LeanMessage-Android-Demo-Singlechat.png]
+<img src="LeanMessage-Android-Demo-Singlechat.png" width="270" height="480"/>
