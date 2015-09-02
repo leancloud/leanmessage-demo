@@ -29,7 +29,7 @@
         android:background="@android:color/white"
         android:textAppearance="@style/TextAppearance.Normal"
         android:textColor="@color/common_gray"
-        android:maxLength="30"
+        android:maxLength="50"
         android:paddingLeft="30dp"
         android:gravity="center_vertical"
         android:singleLine="true"/>
