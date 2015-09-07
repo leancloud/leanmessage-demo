@@ -1,0 +1,18 @@
+<div class="login-container" layout layout-align="center center" flex>
+  <md-whiteframe class="md-whiteframe-z1 login-frame" layout layout-align="center center">
+    <md-content layout-align="center center" flex>
+      <form name="loginForm" ng-submit="login.login()" layout="column" layout-align="center" flex>
+        <div class='logo'>LeanMessage</div>
+        <md-input-container>
+          <label>ID</label>
+          <input ng-model="login.user.id" required name="id">
+        </md-input-container>
+        <md-input-container>
+          <label>Email（可选，仅用于显示头像）</label>
+          <input ng-model="login.user.email" name="email">
+        </md-input-container>
+        <md-button flex>开始聊天</md-button>
+      </form>
+    </md-content>
+  </md-whiteframe>
+</div>

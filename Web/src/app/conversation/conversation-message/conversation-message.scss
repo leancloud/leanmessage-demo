@@ -1,0 +1,70 @@
+.menu-button {
+  position: relative;
+
+  .notice {
+    background: #f44336;
+    height: 10px;
+    width: 10px;
+    border-radius: 50%;
+    position: absolute;
+    top: 10px;
+    right: 4px;
+  }
+}
+
+.editor {
+  max-width: 480px;
+
+  &-wrapper {
+    min-height: 58px;
+  }
+
+  .textarea {
+    padding: 12px 8px;
+  }
+}
+
+.max-results-amount-hint {
+  color: rgba(0,0,0,.5);
+  text-align: center;
+  font-size: 0.9em;
+}
+
+.messages {
+  background-color: transparent;
+  height: 0;
+
+  &-wrapper {
+    max-width: 480px;
+    margin: 0 auto;
+  }
+}
+
+@media (max-width: 600px) {
+  #online-aside {
+    width: 100%;
+    min-width: 100%;
+    max-width: 100%;
+  }
+}
+
+.search-box {
+  height: $toolbar-height;
+  line-height: $toolbar-height;
+
+  input {
+    outline: none;
+    border: none;
+    height: $toolbar-height;
+  }
+}
+
+md-list.result,
+md-list.square-clients {
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.result-item {
+  padding-left: 60px - 16px;
+}

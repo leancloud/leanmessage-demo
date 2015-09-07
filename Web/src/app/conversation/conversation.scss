@@ -1,0 +1,43 @@
+$toolbar-height: 64px - 1px;
+.menu {
+  &.under-mask {
+    z-index: 58;
+  }
+  .logo {
+    line-height: $toolbar-height;
+    margin-bottom: -8px;
+    text-align: center;
+  }
+
+  md-list-item.active{
+    background-color: rgba(0, 0, 0, .04);
+  }
+
+  .unreadCount {
+    display: block;
+    background: #F44336;
+    height: 20px;
+    line-height: 20px;
+    min-width: 20px;
+    text-align: center;
+    padding: 0 4px;
+    border-radius: 50%;
+    color: white;
+    font-size: 12px;
+  }
+
+  .user {
+    height: 58px;
+    min-height: 58px;
+  }
+
+  .empty-list-hint {
+    display: none;
+    text-align:  center;
+    color: #999;
+  }
+
+  .md-subheader + .empty-list-hint {
+    display: block;
+  }
+}
