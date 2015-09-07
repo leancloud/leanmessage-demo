@@ -49,7 +49,7 @@ js 入口，申明依赖模块，配置依赖模块，注册 components 与 view
 依赖的 angular 模块有：
 - [leancloud-realtime](https://github.com/leeyeh/angular-leancloud-realtime)：leancloud realtime SDK 的 angular 包装
 - [ui.router](https://github.com/angular-ui/ui-router)：基于状态的 router
-- [`ngMaterial`](https://material.angularjs.org/)：提供 material design UI 组件
+- [ngMaterial](https://material.angularjs.org/)：提供 material design UI 组件
 
 #### index.route.js
 配置 ui.router
