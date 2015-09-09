@@ -19,7 +19,7 @@ import com.avos.avoscloud.im.v2.callback.AVIMConversationCallback;
 import com.avos.avoscloud.im.v2.callback.AVIMMessagesQueryCallback;
 import com.avos.avoscloud.im.v2.messages.AVIMTextMessage;
 import com.leancloud.im.guide.AVInputBottomBar;
-import com.leancloud.im.guide.MessageHandler;
+import com.leancloud.im.guide.NotificationUtils;
 import com.leancloud.im.guide.R;
 import com.leancloud.im.guide.adapter.MultipleItemAdapter;
 import com.leancloud.im.guide.event.ImTypeMessageEvent;
@@ -66,19 +66,21 @@ public class ChatFragment extends Fragment {
     refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
       @Override
       public void onRefresh() {
-        AVIMMessage message = itemAdapter.getFirstMessage();
-        imConversation.queryMessages(message.getMessageId(), message.getTimestamp(), 20, new AVIMMessagesQueryCallback() {
-          @Override
-          public void done(List<AVIMMessage> list, AVIMException e) {
-            refreshLayout.setRefreshing(false);
-            if (null != list && list.size() > 0) {
-              itemAdapter.addMessageList(list);
-              itemAdapter.notifyDataSetChanged();
+        if (!refreshLayout.isRefreshing()) {
+          AVIMMessage message = itemAdapter.getFirstMessage();
+          imConversation.queryMessages(message.getMessageId(), message.getTimestamp(), 20, new AVIMMessagesQueryCallback() {
+            @Override
+            public void done(List<AVIMMessage> list, AVIMException e) {
+              refreshLayout.setRefreshing(false);
+              if (null != list && list.size() > 0) {
+                itemAdapter.addMessageList(list);
+                itemAdapter.notifyDataSetChanged();
 
-              layoutManager.scrollToPositionWithOffset(list.size() - 1, 0);
+                layoutManager.scrollToPositionWithOffset(list.size() - 1, 0);
+              }
             }
-          }
-        });
+          });
+        }
       }
     });
   }
@@ -87,14 +89,14 @@ public class ChatFragment extends Fragment {
   public void onResume() {
     super.onResume();
     if (null != imConversation) {
-      MessageHandler.currentTopConversation = imConversation.getConversationId();
+      NotificationUtils.addTag(imConversation.getConversationId());
     }
   }
 
   @Override
   public void onPause() {
     super.onResume();
-    MessageHandler.currentTopConversation = "";
+    NotificationUtils.removeTag(imConversation.getConversationId());
   }
 
   @Override
@@ -108,7 +110,7 @@ public class ChatFragment extends Fragment {
     refreshLayout.setEnabled(true);
     inputBottomBar.setTag(imConversation.getConversationId());
     fetchMessages();
-    MessageHandler.currentTopConversation = conversation.getConversationId();
+    NotificationUtils.addTag(conversation.getConversationId());
   }
 
 

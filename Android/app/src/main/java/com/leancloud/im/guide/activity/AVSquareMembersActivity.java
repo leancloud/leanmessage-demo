@@ -29,7 +29,7 @@ import butterknife.Bind;
  * 在线成员列表
  * 当前版本因为暂态回话不能查询成员而导致此页面的入口被注释掉
  */
-public class AVSquareMembersActivity extends AVEventBaseActivity {
+public class AVSquareMembersActivity extends AVBaseActivity {
 
   @Bind(R.id.toolbar)
   protected Toolbar toolbar;

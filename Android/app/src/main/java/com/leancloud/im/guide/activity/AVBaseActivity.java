@@ -6,7 +6,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
+import com.leancloud.im.guide.event.EmptyEvent;
 import butterknife.ButterKnife;
+import de.greenrobot.event.EventBus;
 
 /**
  * Created by wli on 15/8/13.
@@ -38,6 +40,18 @@ public class AVBaseActivity extends AppCompatActivity {
     super.setContentView(view, params);
     ButterKnife.bind(this);
     onViewCreated();
+  }
+
+  @Override
+  protected void onResume() {
+    super.onResume();
+    EventBus.getDefault().register(this);
+  }
+
+  @Override
+  protected void onPause() {
+    super.onPause();
+    EventBus.getDefault().unregister(this);
   }
 
   protected void onViewCreated() {}
@@ -77,4 +91,6 @@ public class AVBaseActivity extends AppCompatActivity {
     }
     startActivity(intent);
   }
+
+  public void onEvent(EmptyEvent event) {}
 }
