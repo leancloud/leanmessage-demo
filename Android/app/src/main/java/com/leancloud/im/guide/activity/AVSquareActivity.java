@@ -29,7 +29,7 @@ import java.util.List;
  * 2、根据 conversationId 获得 AVIMConversation 实例
  * 3、必须要加入 conversation 后才能拉取消息
  */
-public class AVSquareActivity extends AVEventBaseActivity {
+public class AVSquareActivity extends AVBaseActivity {
 
   private AVIMConversation squareConversation;
   private ChatFragment chatFragment;
@@ -118,10 +118,12 @@ public class AVSquareActivity extends AVEventBaseActivity {
     conversationQuery.findInBackground(new AVIMConversationQueryCallback() {
       @Override
       public void done(List<AVIMConversation> list, AVIMException e) {
-        if (null != list && list.size() > 0) {
-          chatFragment.setConversation(list.get(0));
-        } else {
-          joinSquare();
+        if (filterException(e)) {
+          if (null != list && list.size() > 0) {
+            chatFragment.setConversation(list.get(0));
+          } else {
+            joinSquare();
+          }
         }
       }
     });

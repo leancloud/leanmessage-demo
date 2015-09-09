@@ -32,9 +32,6 @@ public class AVImClientManager {
   }
 
   public AVIMClient getClient() {
-    if (null == avimClient) {
-      throw new IllegalStateException("Please call AVImClientManager.open first");
-    }
     return avimClient;
   }
 

@@ -29,7 +29,7 @@ import butterknife.Bind;
  * 在线成员列表
  * 当前版本因为暂态回话不能查询成员而导致此页面的入口被注释掉
  */
-public class AVSquareMembersActivity extends AVEventBaseActivity {
+public class AVSquareMembersActivity extends AVBaseActivity {
 
   @Bind(R.id.toolbar)
   protected Toolbar toolbar;
@@ -77,7 +77,9 @@ public class AVSquareMembersActivity extends AVEventBaseActivity {
         conversation.fetchInfoInBackground(new AVIMConversationCallback() {
           @Override
           public void done(AVIMException e) {
-            getMembers();
+            if (filterException(e)) {
+              getMembers();
+            }
             refreshLayout.setRefreshing(false);
           }
         });
@@ -133,9 +135,11 @@ public class AVSquareMembersActivity extends AVEventBaseActivity {
       conversation.fetchInfoInBackground(new AVIMConversationCallback() {
         @Override
         public void done(AVIMException e) {
-          memberList = conversation.getMembers();
-          itemAdapter.setMemberList(memberList);
-          itemAdapter.notifyDataSetChanged();
+          if (filterException(e)) {
+            memberList = conversation.getMembers();
+            itemAdapter.setMemberList(memberList);
+            itemAdapter.notifyDataSetChanged();
+          }
         }
       });
     }
