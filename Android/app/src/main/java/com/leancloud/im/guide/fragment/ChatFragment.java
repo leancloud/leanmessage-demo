@@ -72,11 +72,13 @@ public class ChatFragment extends Fragment {
             @Override
             public void done(List<AVIMMessage> list, AVIMException e) {
               refreshLayout.setRefreshing(false);
-              if (null != list && list.size() > 0) {
-                itemAdapter.addMessageList(list);
-                itemAdapter.notifyDataSetChanged();
+              if (filterException(e)) {
+                if (null != list && list.size() > 0) {
+                  itemAdapter.addMessageList(list);
+                  itemAdapter.notifyDataSetChanged();
 
-                layoutManager.scrollToPositionWithOffset(list.size() - 1, 0);
+                  layoutManager.scrollToPositionWithOffset(list.size() - 1, 0);
+                }
               }
             }
           });

@@ -79,19 +79,20 @@ public class AVSingleChatActivity extends AVBaseActivity {
     conversationQuery.findInBackground(new AVIMConversationQueryCallback() {
       @Override
       public void done(List<AVIMConversation> list, AVIMException e) {
-
-        //注意：此处仍有漏洞，如果获取了多个 conversation，默认取第一个
-        if (null != list && list.size() > 0) {
-          chatFragment.setConversation(list.get(0));
-        } else {
-          HashMap<String,Object> attributes=new HashMap<String, Object>();
-          attributes.put("customConversationType",1);
-          client.createConversation(Arrays.asList(memberId), null, attributes, false , new AVIMConversationCreatedCallback() {
-            @Override
-            public void done(AVIMConversation avimConversation, AVIMException e) {
-              chatFragment.setConversation(avimConversation);
-            }
-          });
+        if (filterException(e)) {
+          //注意：此处仍有漏洞，如果获取了多个 conversation，默认取第一个
+          if (null != list && list.size() > 0) {
+            chatFragment.setConversation(list.get(0));
+          } else {
+            HashMap<String,Object> attributes=new HashMap<String, Object>();
+            attributes.put("customConversationType",1);
+            client.createConversation(Arrays.asList(memberId), null, attributes, false , new AVIMConversationCreatedCallback() {
+              @Override
+              public void done(AVIMConversation avimConversation, AVIMException e) {
+                chatFragment.setConversation(avimConversation);
+              }
+            });
+          }
         }
       }
     });

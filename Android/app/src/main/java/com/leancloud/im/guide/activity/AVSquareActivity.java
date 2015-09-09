@@ -118,10 +118,12 @@ public class AVSquareActivity extends AVBaseActivity {
     conversationQuery.findInBackground(new AVIMConversationQueryCallback() {
       @Override
       public void done(List<AVIMConversation> list, AVIMException e) {
-        if (null != list && list.size() > 0) {
-          chatFragment.setConversation(list.get(0));
-        } else {
-          joinSquare();
+        if (filterException(e)) {
+          if (null != list && list.size() > 0) {
+            chatFragment.setConversation(list.get(0));
+          } else {
+            joinSquare();
+          }
         }
       }
     });

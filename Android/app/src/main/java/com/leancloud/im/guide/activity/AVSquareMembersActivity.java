@@ -77,7 +77,9 @@ public class AVSquareMembersActivity extends AVBaseActivity {
         conversation.fetchInfoInBackground(new AVIMConversationCallback() {
           @Override
           public void done(AVIMException e) {
-            getMembers();
+            if (filterException(e)) {
+              getMembers();
+            }
             refreshLayout.setRefreshing(false);
           }
         });
@@ -133,9 +135,11 @@ public class AVSquareMembersActivity extends AVBaseActivity {
       conversation.fetchInfoInBackground(new AVIMConversationCallback() {
         @Override
         public void done(AVIMException e) {
-          memberList = conversation.getMembers();
-          itemAdapter.setMemberList(memberList);
-          itemAdapter.notifyDataSetChanged();
+          if (filterException(e)) {
+            memberList = conversation.getMembers();
+            itemAdapter.setMemberList(memberList);
+            itemAdapter.notifyDataSetChanged();
+          }
         }
       });
     }
