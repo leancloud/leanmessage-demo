@@ -7,10 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "BaseViewController.h"
+#import <AVOSCloudIM.h>
 
 static NSString *kLoginSelfIdKey = @"selfId";
 
-@interface LoginViewController : BaseViewController
+@interface LoginViewController : UIViewController
+@property (strong, nonatomic) IBOutlet UITextField *clientIdTextFiled;
+@property (strong, nonatomic) IBOutlet UIButton *loginButton;
+- (IBAction)inputingClientId:(id)sender;
+@property (strong, nonatomic) IBOutlet UIImageView *fruitIconImage;
 
 @end
