@@ -1,0 +1,79 @@
+$arrow-size: 8px;
+
+.time {
+  color: #666;
+  font-size: 50%;
+  text-align: center;
+  margin: 6px 0;
+}
+
+.message {
+  padding: 6px 8px;
+  align-items: flex-start;
+
+  .user {
+    font-size: 80%;
+  }
+
+  .content {
+    position: relative;
+    max-width: 240px;
+    padding: 10px;
+    margin: 12px 0 8px;
+    $background: #f6f6f6;
+    background: $background;
+    word-wrap: break-word;
+
+    &:after {
+      content: '';
+      display: block;
+      position: absolute;
+      top: -$arrow-size;
+      left: 0;
+      border: $arrow-size solid transparent;
+      border-width: 0 $arrow-size $arrow-size 0;
+      border-bottom-color: $background;
+    }
+  }
+
+  &.mine {
+    align-items: flex-end;
+
+    .content {
+      margin: 8px 0 12px 12px;
+      color: white;
+      $background: #2c97e8;
+      background: $background;
+
+      &:after {
+        top: auto;
+        left: auto;
+        bottom: -$arrow-size;
+        right: 0;
+        border: $arrow-size solid transparent;
+        border-width: $arrow-size 0 0 $arrow-size;
+        border-top-color: $background;
+      }
+    }
+  }
+}
+
+@keyframes fadeInOut {
+  from {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: .1;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+[animation="fadeInOut"] {
+  animation-duration: 1.6s;
+  animation-iteration-count: infinite;
+  animation-name: fadeInOut;
+}

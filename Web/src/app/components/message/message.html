@@ -1,0 +1,9 @@
+<div ng-if="vm.displayTime" class="time">{{vm.message.timestamp | date:'H:mm'}}</div>
+<div class="message" ng-class="{mine: vm.isMine}" layout="column">
+  <!-- TODO: fromPeerId -> from -->
+  <div class="user" ng-if="!vm.isMine" ng-click="vm.onNameClick()">{{ vm.message.from }}</div>
+  <div layout>
+    <md-icon ng-if="vm.message._state === 'sending'" animation="fadeInOut">reply</md-icon>
+    <md-icon ng-if="vm.message._stats === 'failed'">error</md-icon>
+    <div class="content" ng-class="{sending: vm.message._sending}">{{ vm.message.content.text }}</div>
+  </div>
