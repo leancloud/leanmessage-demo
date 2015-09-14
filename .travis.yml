@@ -1,0 +1,22 @@
+language: node_js
+node_js:
+  - "0.12"
+sudo: false
+before_install:
+  - npm install bower gulp -g
+script: echo "No test specificated."
+after_success:
+  - if [[ "$TRAVIS_BRANCH" == "master" ]] && [[ "${TRAVIS_PULL_REQUEST}" = "false" ]]; then
+      cd Web;
+      echo "Building.";
+      npm i;
+      bower i;
+      gulp build;
+      echo "Deploying.";
+      cd dist && git init;
+      git config user.name "LeanCloud";
+      git config user.email "ci@leancloud.rocks";
+      git add .;
+      git commit -m "Deploy demos to Github Pages [skip ci]";
+      git push -qf https://${TOKEN}@github.com/${TRAVIS_REPO_SLUG}.git master:gh-pages;
+    fi
