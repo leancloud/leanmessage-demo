@@ -26,19 +26,25 @@ class ConversationMessageController {
     if (conversationRoute[0] === '@' && conversationRoute.length > 1) {
       // 单聊
       var clientId = conversationRoute.slice(1);
-      conversationId = conversationCache.getConversationId(clientId);
+      conversationPromise = conversationCache.getConversationId(clientId).then((conversationId) => {
 
-      if (conversationId === null) {
-        // 新建一个对话
-        conversationPromise = rt.conv({
-          members: [clientId]
-        });
-        // 写入 cache
-        conversationPromise.then((conv) => conversationCache.setConversationId(clientId, conv.id));
-      } else {
-        // 获取一个已存在的对话
-        conversationPromise = rt.conv(conversationId);
-      }
+        if (conversationId === null) {
+          // 新建一个对话
+          var newConversationPromise = rt.conv({
+            members: [clientId]
+          });
+          // 写入 cache
+          newConversationPromise.then(
+            (conv) => conversationCache.setConversationId(clientId, conv.id)
+          );
+          return newConversationPromise;
+        } else {
+          // 获取一个已存在的对话
+          return rt.conv(conversationId);
+        }
+
+      });
+
     } else if (conversationRoute.match(/^[0-9a-f]{24}$/)) {
       // 群聊
       this.isGroupConversation = true;
@@ -82,6 +88,8 @@ class ConversationMessageController {
   send() {
     var message = new this.LCTextMessage(this.currentconversationMessage.draft);
     message._state = 'sending';
+    // fake id
+    message.id = Date.now();
     this.messages.push(message);
     this.scrollToBottom();
     this.conv.send(message).then(
@@ -89,6 +97,14 @@ class ConversationMessageController {
     );
     this.$scope.$emit('conv.messagesent');
     this.currentconversationMessage.draft = '';
+  }
+
+  editorChangedHandler(event) {
+    if (event.keyCode === 13 && !event.shiftKey) {
+      this.send();
+      event.preventDefault();
+      return false;
+    }
   }
 
   query(queryString) {
