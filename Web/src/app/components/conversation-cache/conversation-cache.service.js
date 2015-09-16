@@ -33,18 +33,24 @@ class ConversationCacheService {
     var key = [clientId, this.currentClientId].sort().join(' ');
     // 先从 localstorage 中查询
     if (this.clientConversationRelations[key]) {
-      return this.clientConversationRelations[key];
+      return Promise.resolve(this.clientConversationRelations[key]);
     }
     // 然后查 server
-    this.rt.queryConvs({
+    return this.rt.queryConvs({
       where: {
         m: {
           $size: 2,
           $all: [clientId, this.currentClientId],
         }
       }
-    }).then((convs) => console.log(1, convs));
-    return null;
+    }).then((convs) => {
+      if (convs.length) {
+        this.setConversationId(clientId, convs[0].id);
+        return convs[0].id;
+      } else {
+        return null;
+      }
+    });
   }
 
   setConversationId(clientId, conversationId) {

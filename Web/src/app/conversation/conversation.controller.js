@@ -16,16 +16,21 @@ class ConversationController {
     rt.getMyConvs().then((convs) => {
       this.conversations = convs;
       console.log(convs);
+      // 每次重新连接都需要加入一次暂态的默认会话
+      var joinDefaultConversationPromise = rt.conv(defaultConversation.id)
       if (convs.length === 0) {
-        rt.conv(defaultConversation.id).then((conv) => {
-          this.conversations.push(conv);
-          $mdToast.show(
+        // 首次使用提示
+        joinDefaultConversationPromise.then(
+          (conv) => $mdToast.show(
             $mdToast.simple()
-            .content(`欢迎使用 LeanMessage，自动加入默认群聊（${conv.name}）`)
+            .content(`欢迎使用 LeanMessage，自动加入默认群聊「${conv.name}」`)
             .position('top right')
-          );
-        });
+          )
+        );
       }
+      joinDefaultConversationPromise.then(
+        (conv) => this.conversations.push(conv)
+      );
     });
 
     rt.on('message', (message) => {
@@ -44,6 +49,9 @@ class ConversationController {
           $scope.$broadcast('unreadMessageAdd');
         }
       }
+    });
+    rt.on('invited', (data) => {
+      console.log(data);
 
     });
 

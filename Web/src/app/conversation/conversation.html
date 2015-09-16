@@ -10,7 +10,7 @@
       <md-subheader class="md-no-sticky">群聊</md-subheader>
       <md-list-item
         ng-repeat="conv in conversation.conversations | orderBy: '-lastMessageTime'"
-        ng-if="conv.members.length > 2"
+        ng-if="conv.members.length > 2 || !conv.members.length || !conv.members "
         ng-click="conversation.changeTo(conv.id)"
         ng-class="{'active': conv.id === conversation.currentConversation.id}">
         <p layout="row" layout-align="center center">
@@ -32,7 +32,7 @@
           <span ng-if="conv.unreadMessagesCount" class="unreadCount">{{conv.unreadMessagesCount}}</span>
         </p>
       </md-list-item>
-      <div class="empty-list-hint" layout-padding>群聊中点击对方 ID 开始单聊</div>
+      <div class="empty-list-hint" layout-padding>点击任意用户 ID 开始单聊</div>
     </md-list>
   </div>
   <md-divider></md-divider>

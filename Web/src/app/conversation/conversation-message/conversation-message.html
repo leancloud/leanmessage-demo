@@ -14,7 +14,17 @@
         }}</span>
       </h2>
       <span flex></span>
-      <md-button ng-if="conversationMessage.isGroupConversation" class="md-icon-button" aria-label="Online Clients" hide-gt-md ng-click="conversationMessage.toggle('online')">
+      <!-- TODO: 待 sdk 支持后直接判断暂态会话，不用间接从 member 判断 -->
+      <md-button class="md-icon-button"
+                aria-label="Add Clients"
+                ng-click="conversationMessage.showAddUserDialog()">
+        <md-icon>add</md-icon>
+      </md-button>
+      <md-button ng-if="conversationMessage.isGroupConversation && conversationMessage.conv.members.length"
+                class="md-icon-button"
+                aria-label="Online Clients"
+                hide-gt-md
+                ng-click="conversationMessage.toggle('online')">
         <md-icon>group</md-icon>
       </md-button>
     </div>
@@ -34,7 +44,9 @@
   <md-content layout layout-align="center center" class="editor-wrapper">
     <form class="editor" layout layout-align="center center" flex>
       <md-input-container md-no-float flex class="textarea">
-        <textarea ng-model="conversationMessage.currentconversationMessage.draft" placeholder="说点什么……"></textarea>
+        <textarea ng-model="conversationMessage.currentconversationMessage.draft"
+                  placeholder="说点什么……"
+                  ng-keypress="conversationMessage.editorChangedHandler($event)"></textarea>
       </md-input-container>
       <md-button class="md-icon-button" aria-label="Send" ng-click="conversationMessage.send()">
         <md-icon>send</md-icon>
@@ -44,7 +56,12 @@
 
 </div>
 
-<md-sidenav id="online-aside" ng-if="conversationMessage.isGroupConversation" class=" md-sidenav-right md-whiteframe-z2" md-component-id="online" md-is-locked-open="$mdMedia('gt-md')" layout="column">
+<md-sidenav id="online-aside"
+            ng-if="conversationMessage.isGroupConversation && conversationMessage.conv.members.length"
+            class=" md-sidenav-right md-whiteframe-z2"
+            md-component-id="online"
+            md-is-locked-open="$mdMedia('gt-md')"
+            layout="column">
   <md-toolbar>
     <div class="md-toolbar-tools">
       <md-button class="md-icon-button" aria-label="Back" hide-gt-sm ng-click="conversationMessage.close('online')">
@@ -65,7 +82,11 @@
   </md-list>
 </md-sidenav>
 
-<md-sidenav id="online-aside" ng-if="conversationMessage.isGroupConversation" class=" md-sidenav-right md-whiteframe-z2" md-component-id="online-search" layout="column">
+<md-sidenav id="online-aside"
+            ng-if="conversationMessage.isGroupConversation && conversationMessage.conv.members.length"
+            class=" md-sidenav-right md-whiteframe-z2"
+            md-component-id="online-search"
+            layout="column">
   <form ng-submit="$event.preventDefault()">
     <div class="search-box" layout layout-align="center center">
       <md-button class="md-icon-button" aria-label="Back" ng-click="conversationMessage.close('online-search')">
