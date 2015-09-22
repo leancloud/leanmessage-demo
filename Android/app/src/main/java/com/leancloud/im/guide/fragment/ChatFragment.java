@@ -66,7 +66,6 @@ public class ChatFragment extends Fragment {
     refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
       @Override
       public void onRefresh() {
-        if (!refreshLayout.isRefreshing()) {
           AVIMMessage message = itemAdapter.getFirstMessage();
           imConversation.queryMessages(message.getMessageId(), message.getTimestamp(), 20, new AVIMMessagesQueryCallback() {
             @Override
@@ -82,7 +81,6 @@ public class ChatFragment extends Fragment {
               }
             }
           });
-        }
       }
     });
   }
