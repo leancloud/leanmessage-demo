@@ -17,6 +17,9 @@ angular.module('leanmessageDemo', ['ngResource', 'ui.router', 'ngMaterial', 'ui.
   .constant('defaultConversation', {
     id: '55cd829e60b2b52cda834469'
   })
+  .constant('MathBotConversation', {
+    id: '562c4d53ddb2084a8a406e0c'
+  })
   .config(config)
   .config(routerConfig)
   .run(runBlock)

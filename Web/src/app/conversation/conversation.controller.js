@@ -1,5 +1,15 @@
 class ConversationController {
-  constructor($scope, $mdSidenav, user, $state, $mdToast, rt, conversationCache, defaultConversation) {
+  constructor(
+    $scope,
+    $mdSidenav,
+    user,
+    $state,
+    $mdToast,
+    rt,
+    conversationCache,
+    defaultConversation,
+    MathBotConversation
+  ) {
     'ngInject';
 
     this.$mdSidenav = $mdSidenav;
@@ -8,6 +18,7 @@ class ConversationController {
     this.conversationCache = conversationCache;
 
     this.defaultConversation = defaultConversation;
+    this.MathBotConversation = MathBotConversation;
 
     this.conversations = [];
 
@@ -17,7 +28,7 @@ class ConversationController {
       this.conversations = convs;
       console.log(convs);
       // 每次重新连接都需要加入一次暂态的默认会话
-      var joinDefaultConversationPromise = rt.conv(defaultConversation.id)
+      var joinDefaultConversationPromise = rt.conv(defaultConversation.id);
       if (convs.length === 0) {
         // 首次使用提示
         joinDefaultConversationPromise.then(
@@ -31,6 +42,14 @@ class ConversationController {
       joinDefaultConversationPromise.then(
         (conv) => this.conversations.push(conv)
       );
+
+      // 如果用户没有添加 MathBot 系统会话，则添加之
+      if (!convs.some((conv) => conv.id === MathBotConversation.id)) {
+        console.log('Join MathBot conv.');
+        rt.conv(MathBotConversation.id).then(
+          (conv) => this.conversations.push(conv)
+        );
+      }
     });
 
     rt.on('message', (message) => {
