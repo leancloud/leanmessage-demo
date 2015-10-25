@@ -1,0 +1,19 @@
+{
+  "name": "mathbot",
+  "version": "1.0.0",
+  "description": "Math robot for LeanMessage system conversation demo.",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^1.14.1",
+    "express": "^4.13.3",
+    "leanengine": "^0.2.0",
+    "mathjs": "^2.4.0",
+    "request": "^2.65.0",
+    "workerpool": "^1.0.0"
+  }
+}
