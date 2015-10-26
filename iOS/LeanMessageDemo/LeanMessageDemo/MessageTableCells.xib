@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="8191" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -11,9 +12,10 @@
             <rect key="frame" x="0.0" y="0.0" width="360" height="90"/>
             <autoresizingMask key="autoresizingMask"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="nMw-aX-mzr" id="sV5-Ja-iPM">
+                <rect key="frame" x="0.0" y="0.0" width="360" height="89.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" editable="NO" text="欢迎使用 LeanMessage！" translatesAutoresizingMaskIntoConstraints="NO" id="xEC-5w-YFj">
+                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" editable="NO" text="欢迎使用 LeanMessage！" translatesAutoresizingMaskIntoConstraints="NO" id="xEC-5w-YFj">
                         <rect key="frame" x="20" y="40" width="320" height="40"/>
                         <color key="backgroundColor" red="0.92941176470588238" green="0.92941176470588238" blue="0.92941176470588238" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="textColor" red="0.53725490196078429" green="0.53725490196078429" blue="0.53725490196078429" alpha="1" colorSpace="calibratedRGB"/>
@@ -27,6 +29,10 @@
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
+                <constraints>
+                    <constraint firstItem="xEC-5w-YFj" firstAttribute="leading" secondItem="sV5-Ja-iPM" secondAttribute="leadingMargin" constant="2" id="ZFa-qO-UvJ"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="xEC-5w-YFj" secondAttribute="trailing" constant="2" id="kR6-N7-29O"/>
+                </constraints>
             </tableViewCellContentView>
             <connections>
                 <outlet property="messageSenderClientId" destination="hxW-vA-YDb" id="7YE-qQ-7cY"/>
@@ -38,22 +44,28 @@
             <rect key="frame" x="0.0" y="0.0" width="360" height="90"/>
             <autoresizingMask key="autoresizingMask"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="eMP-Rq-csw" id="CAf-Y1-ZiB">
+                <rect key="frame" x="0.0" y="0.0" width="360" height="89.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" editable="NO" text="欢迎使用 LeanMessage！" textAlignment="right" translatesAutoresizingMaskIntoConstraints="NO" id="M3Y-DX-D9K">
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AJM-0L-XVS">
+                        <rect key="frame" x="36" y="60" width="304" height="21"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <color key="textColor" red="0.70980392156862748" green="0.70980392156862748" blue="0.71372549019607845" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" editable="NO" text="欢迎使用 LeanMessage！" textAlignment="right" translatesAutoresizingMaskIntoConstraints="NO" id="M3Y-DX-D9K">
                         <rect key="frame" x="20" y="12" width="320" height="40"/>
                         <color key="backgroundColor" red="0.92941176469999998" green="0.92941176469999998" blue="0.92941176469999998" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="textColor" red="0.53725490200000003" green="0.53725490200000003" blue="0.53725490200000003" alpha="1" colorSpace="calibratedRGB"/>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                     </textView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AJM-0L-XVS">
-                        <rect key="frame" x="36" y="60" width="304" height="21"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                        <color key="textColor" red="0.70980392156862748" green="0.70980392156862748" blue="0.71372549019607845" alpha="1" colorSpace="calibratedRGB"/>
-                        <nil key="highlightedColor"/>
-                    </label>
                 </subviews>
+                <constraints>
+                    <constraint firstItem="M3Y-DX-D9K" firstAttribute="leading" secondItem="CAf-Y1-ZiB" secondAttribute="leadingMargin" constant="2" id="9iB-8P-TO8"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="M3Y-DX-D9K" secondAttribute="trailing" constant="2" id="fwu-pP-hpM"/>
+                    <constraint firstItem="AJM-0L-XVS" firstAttribute="trailing" secondItem="M3Y-DX-D9K" secondAttribute="trailing" id="xf6-1P-57C"/>
+                </constraints>
             </tableViewCellContentView>
             <connections>
                 <outlet property="messageSenderClientId" destination="AJM-0L-XVS" id="Lnq-ir-syY"/>
@@ -62,9 +74,4 @@
             <point key="canvasLocation" x="325.5" y="499"/>
         </tableViewCell>
     </objects>
-    <simulatedMetricsContainer key="defaultSimulatedMetrics">
-        <simulatedStatusBarMetrics key="statusBar"/>
-        <simulatedOrientationMetrics key="orientation"/>
-        <simulatedScreenMetrics key="destination" type="retina4"/>
-    </simulatedMetricsContainer>
 </document>
