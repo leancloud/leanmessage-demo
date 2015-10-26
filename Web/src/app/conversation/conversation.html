@@ -8,13 +8,28 @@
     <md-list flex>
       <md-divider></md-divider>
       <md-subheader class="md-no-sticky">群聊</md-subheader>
+      <!-- TODO: 在 SDK 支持后，系统对话应该由 conv.sys 字段来区分 -->
       <md-list-item
         ng-repeat="conv in conversation.conversations | orderBy: '-lastMessageTime'"
-        ng-if="conv.members.length > 2 || !conv.members.length || !conv.members "
+        ng-if="(conv.members.length > 2 || !conv.members.length || !conv.members) && conv.id !== conversation.MathBotConversation.id"
         ng-click="conversation.changeTo(conv.id)"
         ng-class="{'active': conv.id === conversation.currentConversation.id}">
         <p layout="row" layout-align="center center">
           {{::conv.name || '广场 ' + conv.id.slice(-4) }}
+          <span flex></span>
+          <span ng-if="conv.unreadMessagesCount" class="unreadCount">{{conv.unreadMessagesCount}}</span>
+        </p>
+      </md-list-item>
+      <md-divider></md-divider>
+      <md-subheader class="md-no-sticky">服务号</md-subheader>
+      <!-- TODO: 在 SDK 支持后，系统对话应该由 conv.sys 字段来区分 -->
+      <md-list-item
+        ng-repeat="conv in conversation.conversations | orderBy: '-lastMessageTime'"
+        ng-if="conv.id === conversation.MathBotConversation.id"
+        ng-click="conversation.changeTo(conv.id)"
+        ng-class="{'active': conv.id === conversation.currentConversation.id}">
+        <p layout="row" layout-align="center center">
+          {{::conv.name}}
           <span flex></span>
           <span ng-if="conv.unreadMessagesCount" class="unreadCount">{{conv.unreadMessagesCount}}</span>
         </p>
