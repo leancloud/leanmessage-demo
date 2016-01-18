@@ -27,15 +27,17 @@
         self.currentConversation=conversation;
         // 注意：如果不主动调用 joinWithCallback 方法，则不会收到聊天室的消息通知
         [self.currentConversation joinWithCallback:^(BOOL succeeded, NSError *error) {
-            NSLog(@"成功加入聊天室，开始接收消息。");
-        }];
-        // 初始化消息发送面板（消息输入框，发送按钮）
-        [self initMessageToolBar];
-        // 查询最近的 10 条聊天记录
-        [conversation queryMessagesWithLimit:kPageSize callback:^(NSArray *objects, NSError *error) {
-            // 刷新 Tabel 控件，为其添加数据源
-            [self.messages addObjectsFromArray:objects];
-            [self.messageTableView reloadData];
+            if (succeeded) {
+                NSLog(@"成功加入聊天室，开始接收消息。");
+                // 初始化消息发送面板（消息输入框，发送按钮）
+                [self initMessageToolBar];
+                // 查询最近的 10 条聊天记录
+                [conversation queryMessagesWithLimit:kPageSize callback:^(NSArray *objects, NSError *error) {
+                    // 刷新 Tabel 控件，为其添加数据源
+                    [self.messages addObjectsFromArray:objects];
+                    [self.messageTableView reloadData];
+                }];
+            }
         }];
     }];
 }
