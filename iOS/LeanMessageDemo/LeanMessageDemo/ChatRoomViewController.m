@@ -22,19 +22,22 @@
     // 新建一个针对 AVIMConversation 的查询，根据 Id 查询出对应的 AVIMConversation 实例
     AVIMConversationQuery *query = [self.imClient conversationQuery];
     [query getConversationById:kConversationId callback:^(AVIMConversation *conversation, NSError *error) {
+        #warning : 如果查询出来的 conversation 为 nil，请在控制台 _Conversation 表创建一条 tr 字段为 true 的数据，然后将这条数据的 objectId 替换掉上方的 kConversationId
         // 将当前所在的对话实例设置为查询出来的 conversation
         self.currentConversation=conversation;
         // 注意：如果不主动调用 joinWithCallback 方法，则不会收到聊天室的消息通知
         [self.currentConversation joinWithCallback:^(BOOL succeeded, NSError *error) {
-            NSLog(@"成功加入聊天室，开始接收消息。");
-        }];
-        // 初始化消息发送面板（消息输入框，发送按钮）
-        [self initMessageToolBar];
-        // 查询最近的 10 条聊天记录
-        [conversation queryMessagesWithLimit:kPageSize callback:^(NSArray *objects, NSError *error) {
-            // 刷新 Tabel 控件，为其添加数据源
-            [self.messages addObjectsFromArray:objects];
-            [self.messageTableView reloadData];
+            if (succeeded) {
+                NSLog(@"成功加入聊天室，开始接收消息。");
+                // 初始化消息发送面板（消息输入框，发送按钮）
+                [self initMessageToolBar];
+                // 查询最近的 10 条聊天记录
+                [conversation queryMessagesWithLimit:kPageSize callback:^(NSArray *objects, NSError *error) {
+                    // 刷新 Tabel 控件，为其添加数据源
+                    [self.messages addObjectsFromArray:objects];
+                    [self.messageTableView reloadData];
+                }];
+            }
         }];
     }];
 }

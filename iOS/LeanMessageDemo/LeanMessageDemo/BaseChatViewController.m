@@ -14,9 +14,6 @@
 #import "MessageTableViewCell.h"
 
 
-#define kConversationId @"55cd829e60b2b52cda834469"
-
-
 // 自定义属性来区分单聊和群聊
 typedef enum : NSUInteger {
     ConversationTypeOneToOne = 0,
