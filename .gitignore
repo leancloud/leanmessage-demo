@@ -24,3 +24,6 @@ DerivedData
 Pods
 Podfile.lock
 gradle.properties
+
+# Server
+node_modules
