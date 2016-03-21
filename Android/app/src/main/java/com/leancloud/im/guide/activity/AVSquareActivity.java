@@ -90,7 +90,12 @@ public class AVSquareActivity extends AVBaseActivity {
     }
 
     AVIMClient client = AVImClientManager.getInstance().getClient();
-    squareConversation = client.getConversation(conversationId);
+    if (null != client) {
+      squareConversation = client.getConversation(conversationId);
+    } else {
+      finish();
+      showToast("Please call AVIMClient.open first!");
+    }
   }
 
   /**
