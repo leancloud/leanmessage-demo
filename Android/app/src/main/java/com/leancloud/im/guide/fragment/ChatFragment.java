@@ -66,7 +66,8 @@ public class ChatFragment extends Fragment {
     refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
       @Override
       public void onRefresh() {
-          AVIMMessage message = itemAdapter.getFirstMessage();
+        AVIMMessage message = itemAdapter.getFirstMessage();
+        if (null != imConversation) {
           imConversation.queryMessages(message.getMessageId(), message.getTimestamp(), 20, new AVIMMessagesQueryCallback() {
             @Override
             public void done(List<AVIMMessage> list, AVIMException e) {
@@ -81,6 +82,9 @@ public class ChatFragment extends Fragment {
               }
             }
           });
+        } else {
+          refreshLayout.setRefreshing(false);
+        }
       }
     });
   }
@@ -106,11 +110,13 @@ public class ChatFragment extends Fragment {
   }
 
   public void setConversation(AVIMConversation conversation) {
-    imConversation = conversation;
-    refreshLayout.setEnabled(true);
-    inputBottomBar.setTag(imConversation.getConversationId());
-    fetchMessages();
-    NotificationUtils.addTag(conversation.getConversationId());
+    if (null != conversation) {
+      imConversation = conversation;
+      refreshLayout.setEnabled(true);
+      inputBottomBar.setTag(imConversation.getConversationId());
+      fetchMessages();
+      NotificationUtils.addTag(conversation.getConversationId());
+    }
   }
 
 
@@ -119,17 +125,19 @@ public class ChatFragment extends Fragment {
    * 拉取消息，必须加入 conversation 后才能拉取消息
    */
   private void fetchMessages() {
-    imConversation.queryMessages(new AVIMMessagesQueryCallback() {
-      @Override
-      public void done(List<AVIMMessage> list, AVIMException e) {
-        if (filterException(e)) {
-          itemAdapter.setMessageList(list);
-          recyclerView.setAdapter(itemAdapter);
-          itemAdapter.notifyDataSetChanged();
-          scrollToBottom();
+    if (null != imConversation) {
+      imConversation.queryMessages(new AVIMMessagesQueryCallback() {
+        @Override
+        public void done(List<AVIMMessage> list, AVIMException e) {
+          if (filterException(e)) {
+            itemAdapter.setMessageList(list);
+            recyclerView.setAdapter(itemAdapter);
+            itemAdapter.notifyDataSetChanged();
+            scrollToBottom();
+          }
         }
-      }
-    });
+      });
+    }
   }
 
   /**
