@@ -5,7 +5,7 @@ function ReverseInfiniteListDirective($timeout) {
     transclude: true,
     scope: {
       infiniteScroll: '&',
-      infiniteScrollDistance: '='
+      infiniteScrollDistance: '=?'
     },
     template: '<div ng-transclude></div>',
     link: (scope, elem) => {
