@@ -1,6 +1,6 @@
-node_modules/
-bower_components/
-.sass-cache/
-.idea/
 .tmp/
+coverage/
 dist/
+node_modules/
+jspm_packages/
+bower_components/

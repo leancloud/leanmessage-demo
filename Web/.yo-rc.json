@@ -1,55 +1,22 @@
 {
-  "generator-gulp-angular": {
-    "version": "0.12.1",
+  "generator-fountain-angular1": {
+    "version": "0.6.0",
     "props": {
-      "angularVersion": "~1.4.0",
-      "angularModules": [],
-      "jQuery": {
-        "key": "jquery2"
+      "framework": "angular1",
+      "modules": "webpack",
+      "js": "babel",
+      "css": "scss",
+      "resolved": "/Users/cuiyiran/.nvm/versions/node/v4.4.5/lib/node_modules/generator-fountain-webapp/node_modules/generator-fountain-angular1/generators/app/index.js",
+      "namespace": "fountain-angular1",
+      "argv": {
+        "remain": [],
+        "cooked": [],
+        "original": []
       },
-      "resource": {
-        "key": "angular-resource",
-        "module": "ngResource"
-      },
-      "router": {
-        "key": "ui-router",
-        "module": "ui.router"
-      },
-      "ui": {
-        "key": "angular-material",
-        "module": "ngMaterial"
-      },
-      "cssPreprocessor": {
-        "key": "node-sass",
-        "extension": "scss"
-      },
-      "jsPreprocessor": {
-        "key": "babel",
-        "extension": "js",
-        "srcExtension": "es6"
-      },
-      "htmlPreprocessor": {
-        "key": "none",
-        "extension": "html"
-      },
-      "bootstrapComponents": {
-        "name": null,
-        "version": null,
-        "key": null,
-        "module": null
-      },
-      "foundationComponents": {
-        "name": null,
-        "version": null,
-        "key": null,
-        "module": null
-      },
-      "paths": {
-        "src": "src",
-        "dist": "dist",
-        "e2e": "e2e",
-        "tmp": ".tmp"
-      }
+      "skip-cache": false,
+      "skip-install": false,
+      "sample": "hello",
+      "router": "uirouter"
     }
   }
 }
