@@ -7,14 +7,14 @@ export default ($scope, LeanRT, $location, $anchorScroll, $mdDialog, $stateParam
 
   $scope.messages = [];
   $scope.imClient = LeanRT.imClient;
-  $scope.messageIterator = $scope.currentConversation.createMessagesIterator({ limit: 20 });
+  $scope.messageIterator = $scope.currentConversation.createMessagesIterator({limit: 20});
   $scope.hasLoadAllMessages = false;
   $scope.maxResultsAmount = 50;
   $scope.draft = '';
 
   const scrollToBottom = () => {
     setTimeout(() => {
-      $anchorScroll('message-view-bottom')
+      $anchorScroll('message-view-bottom');
     }, 0);
   };
 
@@ -23,7 +23,7 @@ export default ($scope, LeanRT, $location, $anchorScroll, $mdDialog, $stateParam
       const message = new TextMessage($scope.draft);
       $scope.messages.push(message);
       $scope.currentConversation.send(message)
-      .then(msg => {
+      .then(() => {
         $scope.$digest();
         scrollToBottom();
         $scope.draft = '';
@@ -31,37 +31,35 @@ export default ($scope, LeanRT, $location, $anchorScroll, $mdDialog, $stateParam
         console.log(err);
       });
     }
-
   };
 
-  $scope.toSingleConv = (clientId) => {
+  $scope.toSingleConv = clientId => {
     $scope.imClient.createConversation({
       members: [clientId],
       name: `${clientId} 和 ${$scope.imClient.id} 的对话`,
       transient: false,
       unique: true
-    }).then(conv => {
+    }).then(() => {
       // 此时 onInvited 会被调用, 在下方 onInvited 中更新 conversation list
     }).catch(console.error.bind(console));
   };
 
   $scope.loadMoreMessages = () => {
-    if (!$scope.hasLoadAllMessages) {
-      return $scope.messageIterator.next().then(result => {
-        if (!result.done) {
-          $scope.messages = result.value.concat($scope.messages);
-          $scope.$digest();
-        } else {
-          $scope.hasLoadAllMessages = true;
-        }
-      });
-    } else {
+    if ($scope.hasLoadAllMessages) {
       return;
     }
-    return;
+
+    return $scope.messageIterator.next().then(result => {
+      if (result.done) {
+        $scope.hasLoadAllMessages = true;
+      } else {
+        $scope.messages = result.value.concat($scope.messages);
+        $scope.$digest();
+      }
+    });
   };
 
-  $scope.showAddUserDialog = (ev) => {
+  $scope.showAddUserDialog = ev => {
     const confirm = $mdDialog.prompt()
       .title('请输入要邀请的成员的 ClientId')
       .placeholder('ClientId')
@@ -81,7 +79,7 @@ export default ($scope, LeanRT, $location, $anchorScroll, $mdDialog, $stateParam
     });
   };
 
-  $scope.currentConversation.on('membersjoined', ((payload) => {
+  $scope.currentConversation.on('membersjoined', (payload => {
     $scope.messages.push({
       text: `${payload.invitedBy} 邀请 ${payload.members} 进入该对话`,
       timestamp: new Date()
@@ -119,7 +117,7 @@ export default ($scope, LeanRT, $location, $anchorScroll, $mdDialog, $stateParam
     } else {
       // 普通对话
       let isNewConv = true;
-      $scope.normalConvs.forEach((c) => {
+      $scope.normalConvs.forEach(c => {
         if (c.id === conversation.id) {
           isNewConv = false;
         }
@@ -135,17 +133,22 @@ export default ($scope, LeanRT, $location, $anchorScroll, $mdDialog, $stateParam
   if ($stateParams.convId === $scope.currentConversation.id) {
     $scope.currentConversation = LeanRT.currentConversation;
   } else {
-    const sysConv = _.find($scope.sysConvs, conv => {return conv.id === $stateParams.convId});
-    const transConv = _.find($scope.transConvs, conv => {return conv.id === $stateParams.convId});
-    const normalConv = _.find($scope.normalConvs, conv => {return conv.id === $stateParams.convId});
+    const sysConv = _.find($scope.sysConvs, conv => {
+      return conv.id === $stateParams.convId;
+    });
+    const transConv = _.find($scope.transConvs, conv => {
+      return conv.id === $stateParams.convId;
+    });
+    const normalConv = _.find($scope.normalConvs, conv => {
+      return conv.id === $stateParams.convId;
+    });
 
-    const  currentConversation = sysConv || transConv || normalConv;
+    const currentConversation = sysConv || transConv || normalConv;
 
     if (currentConversation) {
       $scope.changeTo(currentConversation);
     }
   }
-
 
   // 刚进入页面时, 展示最近 20 条消息
   $scope.messageIterator.next().then(result => {
@@ -156,4 +159,4 @@ export default ($scope, LeanRT, $location, $anchorScroll, $mdDialog, $stateParam
       $scope.hasLoadAllMessages = true;
     }
   }).catch(console.error.bind(console));
-}
+};

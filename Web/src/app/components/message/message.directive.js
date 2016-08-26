@@ -13,7 +13,7 @@ export default () => {
       isMine: '=',
       onNameClick: '&'
     },
-    link: ($scope) => {
+    link: $scope => {
       $scope.messageStatus = MessageStatus;
       if ($scope.previousMessage && $scope.previousMessage) {
         const thisMinute = Math.floor($scope.message.timestamp / 60000);
@@ -22,8 +22,6 @@ export default () => {
           $scope.displayTime = true;
         }
       }
-
-
     }
   };
 };

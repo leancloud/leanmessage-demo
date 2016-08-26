@@ -23,17 +23,17 @@ export default ($scope, LeanRT, $state, $stateParams, $mdSidenav, userService) =
     return $scope.imClient.getQuery().equalTo('sys', true).find();
   };
 
-  $scope.getSingleConvTarget = (members) => {
+  $scope.getSingleConvTarget = members => {
     if (members[0] === $scope.imClient.id) {
       return members[1];
-    } else {
-      return members[0];
     }
+
+    return members[0];
   };
 
   $scope.getConversations = () => {
     return Promise.all([getSysConvs(), getTransConvs(), getNormalConvs()])
-      .then((datas) => {
+      .then(datas => {
         $scope.sysConvs = datas[0];
         $scope.transConvs = datas[1];
         $scope.normalConvs = datas[2];
@@ -41,7 +41,7 @@ export default ($scope, LeanRT, $state, $stateParams, $mdSidenav, userService) =
       });
   };
 
-  $scope.switchToConv = (conv) => {
+  $scope.switchToConv = conv => {
     $scope.currentConversation = conv;
     LeanRT.currentConversation = conv;
     // 将切换后的 conversation 标记为已读
@@ -56,7 +56,7 @@ export default ($scope, LeanRT, $state, $stateParams, $mdSidenav, userService) =
       }).catch(console.error.bind(console));
   };
 
-  $scope.changeTo = (conv) => {
+  $scope.changeTo = conv => {
     if (conv.tr === true) {
       // join transiant conversation
       if ($scope.joinedTransConvs.findIndex($scope.imClient.id) === -1) {
@@ -76,29 +76,25 @@ export default ($scope, LeanRT, $state, $stateParams, $mdSidenav, userService) =
     const initConvId = localStorage.getItem('initConvId');
     if (initConvId) {
       $scope.imClient.getConversation(initConvId)
-        .then((conversation) => {
+        .then(conversation => {
           localStorage.removeItem('initConvId');
           if (conversation) {
             $scope.switchToConv(conversation);
           }
         }).catch(console.error.bind(console));
-
     } else {
       // 加入第一个暂态聊天室
-      $scope.transConvs[0].join().then((conv) => {
+      $scope.transConvs[0].join().then(conv => {
         $scope.joinedTransConvs.push($scope.imClient.id);
         $scope.switchToConv(conv);
       }).catch(console.error.bind(console));
     }
-
   }).catch(console.error.bind(console));
 
-
-  $scope.logout = () =>{
+  $scope.logout = () => {
     userService.logout().then(() => {
       LeanRT.imClient = null;
       $state.go('login');
     });
   };
-
 };

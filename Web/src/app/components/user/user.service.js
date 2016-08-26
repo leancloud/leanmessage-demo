@@ -1,6 +1,6 @@
-export default (LeanRT) => {
+export default LeanRT => {
   'ngInject';
-  
+
   return {
     isCached: () => {
       try {
@@ -9,7 +9,7 @@ export default (LeanRT) => {
         return false;
       }
     },
-    cache: (clientId) => {
+    cache: clientId => {
       localStorage.setItem('clientId', clientId);
     },
     getCachedInfo: () => {
@@ -19,19 +19,18 @@ export default (LeanRT) => {
         return undefined;
       }
     },
-    login: function (clientId) {
+    login: clientId => {
       return LeanRT.realtime.createIMClient(clientId);
     },
-    isLoggedin: function () {
+    isLoggedin: () => {
       if (LeanRT.imClient) {
         return true;
-      } else {
-        return false;
       }
+      return false;
     },
-    logout: function() {
+    logout: () => {
       localStorage.removeItem('clientId');
       return LeanRT.imClient.close();
     }
   };
-}
+};

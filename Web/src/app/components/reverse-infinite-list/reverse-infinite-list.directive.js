@@ -1,6 +1,6 @@
 import $ from 'jquery';
 
-export default ($timeout) => {
+export default $timeout => {
   'ngInject';
 
   return {
@@ -11,7 +11,6 @@ export default ($timeout) => {
     },
     template: '<div ng-transclude></div>',
     link: ($scope, $element) => {
-      
       if ($scope.infiniteScrollDistance === undefined) {
         $scope.infiniteScrollDistance = 200;
       }
@@ -25,11 +24,10 @@ export default ($timeout) => {
 
         const scrollElem = $($element[0]);
         if (scrollElem.scrollTop() < $scope.infiniteScrollDistance) {
-
           loading = true;
           const height = container.height();
           const result = $scope.infiniteScroll();
-          ((resortPosition) => {
+          (resortPosition => {
             if (result && typeof result.then === 'function') {
               result.then(resortPosition);
             } else {
@@ -43,4 +41,4 @@ export default ($timeout) => {
       });
     }
   };
-}
+};

@@ -1,7 +1,7 @@
-function runBlock($rootScope, $state, userService, $stateParams) {
+function runBlock($rootScope, $state, userService) {
   'ngInject';
 
-  $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams, options) {
+  $rootScope.$on('$stateChangeStart', (event, toState, toParams) => {
     if (toState.name === 'login') {
       return;
     }
@@ -9,20 +9,20 @@ function runBlock($rootScope, $state, userService, $stateParams) {
     if (userService.isLoggedin()) {
       return;
     }
-    if (!userService.isCached()) {
-      setTimeout(() => $state.go('login'), 0);
-    } else {
+
+    if (userService.isCached()) {
       if (toState.name === 'logging') {
         return;
-      } else {
-        event.preventDefault();
-        if (toParams.convId) {
-          localStorage.setItem('initConvId', toParams.convId);  
-        }
-        $state.go('logging');
       }
+      event.preventDefault();
+      if (toParams.convId) {
+        localStorage.setItem('initConvId', toParams.convId);
+      }
+      $state.go('logging');
+    } else {
+      setTimeout(() => $state.go('login'), 0);
     }
   });
-};
+}
 
 export default runBlock;

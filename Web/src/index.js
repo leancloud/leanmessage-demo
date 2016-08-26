@@ -25,9 +25,9 @@ angular
   .config(routesConfig)
   .factory('LeanRT', () => {
     const LeanRT = {};
-    const rt = require('leancloud-realtime').Realtime;
-    const realtime = new rt({
-      appId: appId,
+    const RT = require('leancloud-realtime').Realtime;
+    const realtime = new RT({
+      appId,
       region: 'cn' // 美国节点为 "us"
     });
     LeanRT.realtime = realtime;
