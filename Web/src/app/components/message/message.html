@@ -1,0 +1,11 @@
+<div ng-if="displayTime" class="time">{{message.timestamp | date:'H:mm'}}</div>
+<div class="message" ng-if="message.id" ng-class="{mine: isMine}" layout="column">
+    <div class="user" ng-if="!isMine">{{ message.from }}</div>
+    <div layout>
+        <md-icon ng-if="message.status === messageStatus.SENDING" animation="fadeInOut">reply</md-icon>
+        <md-icon ng-if="message.status === messageStatus.FAILED">error</md-icon>
+        <div class="content" ng-class="{sending: message.status}">{{ message.text }}</div>
+    </div>
+</div>
+
+<div class="tips" ng-if="!message.id">{{ message.text }}</div>
