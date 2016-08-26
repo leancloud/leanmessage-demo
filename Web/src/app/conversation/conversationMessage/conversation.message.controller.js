@@ -21,12 +21,12 @@ export default ($scope, LeanRT, $location, $anchorScroll, $mdDialog, $stateParam
   $scope.send = () => {
     if ($scope.draft) {
       const message = new TextMessage($scope.draft);
+      $scope.draft = '';
       $scope.messages.push(message);
       $scope.currentConversation.send(message)
       .then(() => {
         $scope.$digest();
         scrollToBottom();
-        $scope.draft = '';
       }).catch(err => {
         console.log(err);
       });
@@ -79,6 +79,14 @@ export default ($scope, LeanRT, $location, $anchorScroll, $mdDialog, $stateParam
     });
   };
 
+  $scope.editorChangedHandler = event => {
+    if (event.keyCode === 13 && !event.shiftKey) {
+      $scope.send();
+      event.preventDefault();
+      return false;
+    }
+  };
+
   $scope.currentConversation.on('membersjoined', (payload => {
     $scope.messages.push({
       text: `${payload.invitedBy} 邀请 ${payload.members} 进入该对话`,
@@ -127,6 +135,9 @@ export default ($scope, LeanRT, $location, $anchorScroll, $mdDialog, $stateParam
       }
     }
     $scope.$apply();
+    if (payload.invitedBy === $scope.imClient.id) {
+      $scope.switchToConv(conversation);
+    }
   });
 
   // 通过 url 切换 conversationId

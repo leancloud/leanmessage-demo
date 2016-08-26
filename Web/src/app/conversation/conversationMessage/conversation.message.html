@@ -37,7 +37,7 @@
         message="message"
         ng-if="message"
         previous-message="messages[index - 1]"
-        on-name-click="changeTo('@'+message.from)"
+        on-name-click="toSingleConv(message.from)"
         is-mine="message.from == imClient.id"></message>
       <!--messages end-->
       <div id="message-view-bottom"></div>
@@ -46,17 +46,17 @@
   <!--infinite-list End-->
 
   <md-content layout layout-align="center center" class="editor-wrapper">
-    <form class="editor" layout layout-align="center center" flex>
+    <form class="editor" ng-submit="send()" layout layout-align="center center" flex>
       <md-input-container md-no-float flex class="textarea">
         <textarea ng-model="draft"
-                  placeholder="说点什么……"></textarea>
+                  placeholder="说点什么……"
+                  ng-keypress="editorChangedHandler($event)"></textarea>
       </md-input-container>
       <md-button class="md-icon-button" aria-label="Send" ng-click="send()">
         <md-icon>send</md-icon>
       </md-button>
     </form>
   </md-content>
-
 </div>
 
 <!--members list -->

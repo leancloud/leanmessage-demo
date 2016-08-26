@@ -21,6 +21,10 @@ $toolbar-height: 64px - 1px;
   display: none;
 }
 
+.md-resize-handle:empty {
+  display: none;
+}
+
 .editor {
   max-width: 480px;
 

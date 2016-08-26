@@ -47,9 +47,11 @@ export default ($scope, LeanRT, $state, $stateParams, $mdSidenav, userService) =
     // 将切换后的 conversation 标记为已读
     $scope.currentConversation.markAsRead()
       .then(() => {
-        return $state.go('conversations.message', {
-          convId: conv.id
-        });
+        return setTimeout(() => {
+          $state.go('conversations.message', {
+            convId: conv.id
+          });
+        }, 0);
       })
       .then(() => {
         $scope.$digest();
