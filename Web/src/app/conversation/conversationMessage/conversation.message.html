@@ -1,0 +1,115 @@
+<div flex layout="column">
+
+  <md-toolbar>
+    <div class="md-toolbar-tools">
+      <!--<md-button class="md-icon-button menu-button" aria-label="Menu" hide-gt-sm ng-click="conversationMessage.toggle('menu')">-->
+        <!--<md-icon>menu</md-icon>-->
+        <!--<span ng-if="hasUnreadMessage" class="notice"></span>-->
+      <!--</md-button>-->
+      <h2>
+        <span ng-if="currentConversation.members.length !== 2">{{ currentConversation.name }}</span>
+        <span ng-if="currentConversation.members.length === 2">{{ getSingleConvTarget(currentConversation.members) }}</span>
+      </h2>
+      <span flex></span>
+
+      <!--TODO: SDK 加上 sys 字段后,通过判断 sys 字段替换掉现在的 ng-if-->
+      <md-button class="md-icon-button"
+                 aria-label="Add Clients"
+                 ng-if="currentConversation.members.length!= 0 || currentConversation.transient"
+                 ng-click="showAddUserDialog($event)">
+        <md-icon>add</md-icon>
+      </md-button>
+      <!--<md-button ng-if="conversationMessage.isGroupConversation && conversationMessage.conv.members.length"-->
+                <!--class="md-icon-button"-->
+                <!--aria-label="Online Clients"-->
+                <!--hide-gt-md-->
+                <!--ng-click="conversationMessage.toggle('online')">-->
+        <!--<md-icon>group</md-icon>-->
+      <!--</md-button>-->
+    </div>
+  </md-toolbar>
+
+  <!--infinite-list-->
+  <md-content infinite-list infinite-scroll="loadMoreMessages()" layout-padding flex class="messages">
+    <div class="messages-wrapper">
+      <!--messages-->
+      <message ng-repeat="(index, message) in messages"
+        message="message"
+        ng-if="message"
+        previous-message="messages[index - 1]"
+        on-name-click="changeTo('@'+message.from)"
+        is-mine="message.from == imClient.id"></message>
+      <!--messages end-->
+      <div id="message-view-bottom"></div>
+    </div>
+  </md-content>
+  <!--infinite-list End-->
+
+  <md-content layout layout-align="center center" class="editor-wrapper">
+    <form class="editor" layout layout-align="center center" flex>
+      <md-input-container md-no-float flex class="textarea">
+        <textarea ng-model="draft"
+                  placeholder="说点什么……"></textarea>
+      </md-input-container>
+      <md-button class="md-icon-button" aria-label="Send" ng-click="send()">
+        <md-icon>send</md-icon>
+      </md-button>
+    </form>
+  </md-content>
+
+</div>
+
+<!--members list -->
+<md-sidenav id="online-aside"
+            ng-if="currentConversation.members.length > 2"
+            class=" md-sidenav-right md-whiteframe-z2"
+            md-component-id="online"
+            md-is-locked-open="$mdMedia('gt-md')"
+            layout="column">
+  <md-toolbar>
+    <div class="md-toolbar-tools">
+      <!--<md-button class="md-icon-button" aria-label="Back" hide-gt-sm ng-click="conversationMessage.close('online')">-->
+        <!--<md-icon>arrow_back</md-icon>-->
+      <!--</md-button>-->
+      <h2>群聊成员 ({{currentConversation.members.length}})</h2>
+      <span flex></span>
+      <!--<md-button class="md-icon-button" aria-label="Search" ng-click="conversationMessage.toggle('online-search')">-->
+        <!--<md-icon>search</md-icon>-->
+      <!--</md-button>-->
+    </div>
+  </md-toolbar>
+  <md-list class="square-clients" flex>
+    <md-list-item ng-repeat="clientId in currentConversation.members.slice(0, maxResultsAmount)" ng-click="toSingleConv(clientId)">
+      <p> {{ clientId }} </p>
+    </md-list-item>
+    <p ng-if="currentConversation.members.length > maxResultsAmount" class="max-results-amount-hint">最多显示 {{:: maxResultsAmount }} 位成员</p>
+  </md-list>
+</md-sidenav>
+
+
+<!--// TODO : 搜索当前群聊的成员-->
+<!--<md-sidenav id="online-aside"-->
+            <!--ng-if="conversationMessage.isGroupConversation && conversationMessage.conv.members.length"-->
+            <!--class=" md-sidenav-right md-whiteframe-z2"-->
+            <!--md-component-id="online-search"-->
+            <!--layout="column">-->
+  <!--<form ng-submit="$event.preventDefault()">-->
+    <!--<div class="search-box" layout layout-align="center center">-->
+      <!--<md-button class="md-icon-button" aria-label="Back" ng-click="conversationMessage.close('online-search')">-->
+        <!--<md-icon>arrow_back</md-icon>-->
+      <!--</md-button>-->
+      <!--<input type="text" flex ng-model="conversationMessage.queryString" ng-change="conversationMessage.query(conversationMessage.queryString)" placeholder="搜索在线用户" md-sidenav-focus>-->
+      <!--<md-button class="md-icon-button" aria-label="Clear" ng-click="conversationMessage.clearQuery()" ng-hide="conversationMessage.queryString===''">-->
+        <!--<md-icon>clear</md-icon>-->
+      <!--</md-button>-->
+    <!--</div>-->
+    <!--<md-divider></md-divider>-->
+
+  <!--</form>-->
+  <!--<md-list class="result" flex>-->
+    <!--<md-list-item ng-repeat="client in conversationMessage.queryClients.slice(0, conversationMessage.maxResultsAmount)" ng-click="conversationMessage.changeTo('@' + client)">-->
+      <!--<p class="result-item"> {{ client }} </p>-->
+    <!--</md-list-item>-->
+    <!--<p ng-if="conversationMessage.queryClients.length > conversationMessage.maxResultsAmount" class="max-results-amount-hint">最多显示 {{:: conversationMessage.maxResultsAmount }} 条结果</p>-->
+  <!--</md-list>-->
+<!--</md-sidenav>-->

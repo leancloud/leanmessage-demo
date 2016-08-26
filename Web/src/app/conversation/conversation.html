@@ -1,0 +1,90 @@
+<md-sidenav class="menu md-sidenav-left md-whiteframe-z2" layout="column"
+  ng-class="{ 'under-mask': !conversation.isMenuOpen } "
+  md-component-id="menu"
+  md-is-open="conversation.isMenuOpen"
+  md-is-locked-open="$mdMedia('gt-sm')">
+  <div flex layout="column" style="overflow:auto;">
+    <div class='logo'>LeanMessage</div>
+    <md-list flex>
+
+      <!-- Robots List-->
+      <md-divider></md-divider>
+      <md-subheader class="md-no-sticky">小机器人</md-subheader>
+      <md-list-item
+              ng-repeat="conv in sysConvs | orderBy: '-lastMessageAt'"
+              ng-click="changeTo(conv)"
+              ng-class="{'active': conv.id === currentConversation.id}">
+        <p layout="row" layout-align="center center">
+          {{::conv.name}}
+          <span flex></span>
+          <span ng-if="conv.unreadMessagesCount" class="unreadCount">{{conv.unreadMessagesCount}}</span>
+        </p>
+      </md-list-item>
+      <!-- Robots List End -->
+
+      <!-- Transiant Convsations List-->
+      <md-divider></md-divider>
+      <md-subheader class="md-no-sticky">临时聊天室</md-subheader>
+      <md-list-item
+              ng-repeat="conv in transConvs | orderBy: '-lastMessageAt'"
+              ng-click="changeTo(conv)"
+              ng-class="{'active': conv.id === currentConversation.id}">
+        <p layout="row" layout-align="center center">
+          {{::conv.name}}
+          <span flex></span>
+          <span ng-if="conv.unreadMessagesCount" class="unreadCount">{{conv.unreadMessagesCount}}</span>
+        </p>
+      </md-list-item>
+      <!-- Transiant Convsations List End -->
+
+      <!-- Group Conversations List -->
+      <md-divider></md-divider>
+      <md-subheader class="md-no-sticky">群聊</md-subheader>
+      <md-list-item
+        ng-repeat="conv in normalConvs | orderBy: '-lastMessageAt'"
+        ng-if="(conv.members.length > 2)"
+        ng-click="changeTo(conv)"
+        ng-class="{'active': conv.id === currentConversation.id}">
+        <span>123</span>
+        <p layout="row" layout-align="center center">
+          {{conv.name || '群 ' + conv.id.slice(-4) }}
+          <span flex></span>
+          <span ng-if="conv.unreadMessagesCount" class="unreadCount">{{conv.unreadMessagesCount}}</span>
+        </p>
+      </md-list-item>
+      <!-- Group Conversations List End -->
+
+      <!-- Single Conversations List -->
+      <md-divider></md-divider>
+      <md-subheader class="md-no-sticky">单聊</md-subheader>
+      <md-list-item
+        ng-repeat="conv in normalConvs | orderBy: '-lastMessageAt'"
+        ng-if="conv.members.length === 2"
+        ng-click="changeTo(conv)"
+        ng-class="{'active': conv.id === currentConversation.id}">
+        <p layout="row" layout-align="center center">
+          {{getSingleConvTarget(conv.members)}}
+          <span flex></span>
+          <span ng-if="conv.unreadMessagesCount" class="unreadCount">{{conv.unreadMessagesCount}}</span>
+        </p>
+      </md-list-item>
+      <div class="empty-list-hint" layout-padding>点击任意用户 ID 开始单聊</div>
+    </md-list>
+  </div>
+  <!-- Single Conversations List End -->
+
+  <!--Personal Info-->
+  <md-divider></md-divider>
+  <div class="user" layout layout-align="center center" layout-padding>
+    <!--<img gravatar-src-once="transientEmail" gravatar-size="40">-->
+    <span flex>当前用户:{{imClient.id}}</span>
+    <md-button class="md-icon-button" aria-label="Logout" ng-click="logout()">
+      <md-icon>exit_to_app</md-icon>
+    </md-button>
+  </div>
+  <!--Personal Info End-->
+</md-sidenav>
+
+<!-- Nested Views for conversations.message -->
+<div layout flex ui-view>
+</div>

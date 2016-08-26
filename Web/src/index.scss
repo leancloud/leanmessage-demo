@@ -1,0 +1,20 @@
+.logo {
+  font:  1.5em 'radikal';
+  color: #2c97e8;
+}
+
+[layout=row] {
+  flex-direction: row;
+}
+
+.browsehappy {
+  margin: 0.2em 0;
+  background: #ccc;
+  color: #000;
+  padding: 0.2em 0;
+}
+
+[ui-view] {
+  height: 100%;
+  background-color: rgba(0,0,0,.1);
+}
