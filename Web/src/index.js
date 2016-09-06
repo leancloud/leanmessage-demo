@@ -2,7 +2,7 @@ import angular from 'angular';
 import 'angular-ui-router';
 import 'angular-material';
 import 'angular-material/angular-material.css';
-import 'leancloud-realtime';
+import {Realtime} from 'leancloud-realtime';
 import routesConfig from './routes';
 
 import './index.scss';
@@ -25,8 +25,7 @@ angular
   .config(routesConfig)
   .factory('LeanRT', () => {
     const LeanRT = {};
-    const RT = require('leancloud-realtime').Realtime;
-    const realtime = new RT({
+    const realtime = new Realtime({
       appId,
       region: 'cn' // 美国节点为 "us"
     });

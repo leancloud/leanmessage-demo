@@ -39,7 +39,9 @@ export default ($scope, LeanRT, $location, $anchorScroll, $mdDialog, $stateParam
       name: `${clientId} 和 ${$scope.imClient.id} 的对话`,
       transient: false,
       unique: true
-    }).then(() => {
+    }).then(conversation => {
+      // 跳转到刚创建好的对话中
+      $scope.switchToConv(conversation);
       // 此时 onInvited 会被调用, 在下方 onInvited 中更新 conversation list
     }).catch(console.error.bind(console));
   };
@@ -48,14 +50,13 @@ export default ($scope, LeanRT, $location, $anchorScroll, $mdDialog, $stateParam
     if ($scope.hasLoadAllMessages) {
       return;
     }
-
     return $scope.messageIterator.next().then(result => {
       if (result.done) {
         $scope.hasLoadAllMessages = true;
-      } else {
-        $scope.messages = result.value.concat($scope.messages);
-        $scope.$digest();
       }
+
+      $scope.messages = result.value.concat($scope.messages);
+      $scope.$digest();
     });
   };
 
@@ -135,9 +136,6 @@ export default ($scope, LeanRT, $location, $anchorScroll, $mdDialog, $stateParam
       }
     }
     $scope.$apply();
-    if (payload.invitedBy === $scope.imClient.id) {
-      $scope.switchToConv(conversation);
-    }
   });
 
   // 通过 url 切换 conversationId
@@ -162,12 +160,7 @@ export default ($scope, LeanRT, $location, $anchorScroll, $mdDialog, $stateParam
   }
 
   // 刚进入页面时, 展示最近 20 条消息
-  $scope.messageIterator.next().then(result => {
-    $scope.messages = result.value.concat($scope.messages);
-    $scope.$digest();
+  $scope.loadMoreMessages().then(() => {
     scrollToBottom();
-    if (result.done) {
-      $scope.hasLoadAllMessages = true;
-    }
   }).catch(console.error.bind(console));
 };

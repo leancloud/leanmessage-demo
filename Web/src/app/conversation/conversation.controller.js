@@ -16,7 +16,7 @@ export default ($scope, LeanRT, $state, $stateParams, $mdSidenav, userService) =
   };
 
   const getTransConvs = () => {
-    return $scope.imClient.getQuery().equalTo('tr', true).addDescending('lm').limit(2).find();
+    return $scope.imClient.getQuery().equalTo('tr', true).addDescending('lm').limit(1).find();
   };
 
   const getSysConvs = () => {

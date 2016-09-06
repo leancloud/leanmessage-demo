@@ -10,7 +10,6 @@ after_success:
       cd Web;
       echo "Building.";
       npm i;
-      bower i;
       gulp build;
       echo "Deploying.";
       cd dist && git init;

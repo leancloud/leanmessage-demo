@@ -1,14 +1,16 @@
 <div class="login-container" layout layout-align="center center" flex>
   <md-whiteframe class="md-whiteframe-z1 login-frame" layout layout-align="center center">
     <md-content class="loginForm" layout-align="center" layout="column" flex>
-      <div class='logo'>LeanMessage</div>
-      <div class="client-form" layout="column">
-        <md-input-container>
-          <label>ID</label>
-          <input ng-model="user.id" required>
-        </md-input-container>
-        <md-button flex ng-click="login()">开始聊天</md-button>
-      </div>
+      <form name="loginForm" ng-submit="login()" layout="column" layout-align="center" flex>
+        <div class='logo'>LeanMessage</div>
+        <div class="client-form" layout="column">
+          <md-input-container>
+            <label>ID</label>
+            <input ng-model="user.id" required>
+          </md-input-container>
+          <md-button flex ng-click="login()">开始聊天</md-button>
+        </div>
+      </form>
     </md-content>
   </md-whiteframe>
 </div>
