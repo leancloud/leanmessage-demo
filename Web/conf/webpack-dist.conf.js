@@ -52,7 +52,7 @@ module.exports = {
       name: 'vendor',
       path: path.join(__dirname, '../node_modules')
     }]),
-    new ExtractTextPlugin('/index-[contenthash].css')
+    new ExtractTextPlugin('./index-[contenthash].css')
   ],
   postcss: () => [autoprefixer],
   output: {
