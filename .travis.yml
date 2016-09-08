@@ -1,9 +1,9 @@
 language: node_js
 node_js:
-  - "0.12"
+  - "4"
 sudo: false
 before_install:
-  - npm install bower gulp -g
+  - npm install gulp -g
 script: echo "No test specificated."
 after_success:
   - if [[ "$TRAVIS_BRANCH" == "master" ]] && [[ "${TRAVIS_PULL_REQUEST}" = "false" ]]; then
