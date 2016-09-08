@@ -13,6 +13,7 @@ $arrow-size: 8px;
 
   .user {
     font-size: 80%;
+    cursor: pointer;
   }
 
   .content {
@@ -56,6 +57,13 @@ $arrow-size: 8px;
       }
     }
   }
+}
+
+.tips {
+  color: #666;
+  font-size: 50%;
+  text-align: center;
+  margin: 12px 0;
 }
 
 @keyframes fadeInOut {

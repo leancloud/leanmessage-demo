@@ -1,148 +1,102 @@
-class ConversationController {
-  constructor(
-    $scope,
-    $mdSidenav,
-    user,
-    $state,
-    $mdToast,
-    rt,
-    conversationCache,
-    defaultConversation,
-    MathBotConversation
-  ) {
-    'ngInject';
+import './conversation.scss';
 
-    this.$mdSidenav = $mdSidenav;
-    this.userService = user;
-    this.$state = $state;
-    this.conversationCache = conversationCache;
+export default ($scope, LeanRT, $state, $stateParams, $mdSidenav, userService) => {
+  'ngInject';
 
-    this.defaultConversation = defaultConversation;
-    this.MathBotConversation = MathBotConversation;
+  $scope.$mdSidenav = $mdSidenav;
+  $scope.imClient = LeanRT.imClient;
+  $scope.normalConvs = [];
+  $scope.transConvs = [];
+  $scope.sysConvs = [];
+  $scope.joinedTransConvs = [];
+  $scope.transientEmail = 'test@test.com';
 
-    this.conversations = [];
+  const getNormalConvs = () => {
+    return $scope.imClient.getQuery().containsMembers([$scope.imClient.id]).find();
+  };
 
-    this.isMenuOpen = undefined;
+  const getTransConvs = () => {
+    return $scope.imClient.getQuery().equalTo('tr', true).addDescending('lm').limit(1).find();
+  };
 
-    rt.getMyConvs().then((convs) => {
-      this.conversations = convs;
-      console.log(convs);
-      // 每次重新连接都需要加入一次暂态的默认会话
-      var joinDefaultConversationPromise = rt.conv(defaultConversation.id);
-      if (convs.length === 0) {
-        // 首次使用提示
-        joinDefaultConversationPromise.then(
-          (conv) => $mdToast.show(
-            $mdToast.simple()
-            .content(`欢迎使用 LeanMessage，自动加入默认群聊「${conv.name}」`)
-            .position('top right')
-          )
-        );
-      }
-      joinDefaultConversationPromise.then(
-        (conv) => this.conversations.push(conv)
-      );
+  const getSysConvs = () => {
+    return $scope.imClient.getQuery().equalTo('sys', true).find();
+  };
 
-      // 如果用户没有添加 MathBot 系统会话，则添加之
-      if (!convs.some((conv) => conv.id === MathBotConversation.id)) {
-        console.log('Join MathBot conv.');
-        rt.conv(MathBotConversation.id).then(
-          (conv) => this.conversations.push(conv)
-        );
-      }
-    });
-
-    rt.on('message', (message) => {
-      console.log(message);
-      // 某个对话收到消息后更新该对话的 lastMessageTime 字段
-      let conv = this.findFirstMatch(
-        this.conversations,
-        conv => conv.id === message.cid
-      );
-      if (conv) {
-        if (conv.id !== this.currentConversation.id) {
-          if (typeof conv.unreadMessagesCount !== 'number') {
-            conv.unreadMessagesCount = 0;
-          }
-          conv.unreadMessagesCount++;
-          $scope.$broadcast('unreadMessageAdd');
-        }
-      }
-    });
-    rt.on('invited', (data) => {
-      console.log(data);
-
-    });
-
-    $scope.$on('conv.created', (event, conv) => {
-      this.currentConversation = conv;
-
-      let currentConv = this.findFirstMatch(
-        this.conversations,
-        conv => conv.id === this.currentConversation.id
-      );
-      if (currentConv) {
-        currentConv.unreadMessagesCount = 0;
-      }
-      let totalUnreadMessageCount = this.conversations.reduce(
-        (previous, conv) => previous + (conv.unreadMessagesCount || 0),
-        0
-      );
-      if (totalUnreadMessageCount > 0) {
-        $scope.$broadcast('unreadMessageAdd');
-      }
-    });
-    $scope.$on('conv.messagesent', () => {
-      let currentConv = this.findFirstMatch(
-        this.conversations,
-        conv => conv.id === this.currentConversation.id
-      );
-      if (currentConv) {
-        currentConv.lastMessageTime = Date.now();
-      }
-    });
-
-  }
-
-  findFirstMatch(arr, check) {
-    if (!arr) {
-      return;
-    }
-    for (let i = 0, len = arr.length; i < len; i++) {
-      if (check(arr[i], i)) {
-        return arr[i];
-      }
-    }
-  }
-
-  getSingleConvTarget(members) {
-    if (members[0] === this.userService.user.id) {
+  $scope.getSingleConvTarget = members => {
+    if (members[0] === $scope.imClient.id) {
       return members[1];
-    } else {
-      return members[0];
     }
-  }
 
-  changeTo(clientId) {
-    this.$state.go('conversation.message', {
-      clientId: clientId
+    return members[0];
+  };
+
+  $scope.getConversations = () => {
+    return Promise.all([getSysConvs(), getTransConvs(), getNormalConvs()])
+      .then(datas => {
+        $scope.sysConvs = datas[0];
+        $scope.transConvs = datas[1];
+        $scope.normalConvs = datas[2];
+        $scope.$digest();
+      });
+  };
+
+  $scope.switchToConv = conv => {
+    $scope.currentConversation = conv;
+    LeanRT.currentConversation = conv;
+    // 将切换后的 conversation 标记为已读
+    $scope.currentConversation.markAsRead()
+      .then(() => {
+        return setTimeout(() => {
+          $state.go('conversations.message', {
+            convId: conv.id
+          });
+        }, 0);
+      })
+      .then(() => {
+        $scope.$digest();
+      }).catch(console.error.bind(console));
+  };
+
+  $scope.changeTo = conv => {
+    if (conv.tr === true) {
+      // join transiant conversation
+      if ($scope.joinedTransConvs.findIndex($scope.imClient.id) === -1) {
+        conv.join().then(conv => {
+          $scope.joinedTransConvs.push($scope.imClient.id);
+          $scope.switchToConv(conv);
+        });
+      }
+    } else {
+      // change user interface
+      $scope.switchToConv(conv);
+    }
+  };
+
+  $scope.getConversations()
+  .then(() => {
+    const initConvId = localStorage.getItem('initConvId');
+    if (initConvId) {
+      $scope.imClient.getConversation(initConvId)
+        .then(conversation => {
+          localStorage.removeItem('initConvId');
+          if (conversation) {
+            $scope.switchToConv(conversation);
+          }
+        }).catch(console.error.bind(console));
+    } else {
+      // 加入第一个暂态聊天室
+      $scope.transConvs[0].join().then(conv => {
+        $scope.joinedTransConvs.push($scope.imClient.id);
+        $scope.switchToConv(conv);
+      }).catch(console.error.bind(console));
+    }
+  }).catch(console.error.bind(console));
+
+  $scope.logout = () => {
+    userService.logout().then(() => {
+      LeanRT.imClient = null;
+      $state.go('login');
     });
-    this.close('menu');
-  }
-
-  toggle(id) {
-    this.$mdSidenav(id).toggle();
-  }
-  close(id) {
-    this.$mdSidenav(id).close();
-  }
-
-  logout() {
-    this.conversationCache.clearAll();
-    this.userService.logout();
-    this.$state.go('login');
-  }
-
-}
-
-export default ConversationController;
+  };
+};

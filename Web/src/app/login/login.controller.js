@@ -1,17 +1,15 @@
-class LoginController {
-  constructor($state, user, md5) {
-    'ngInject';
+import './login.scss';
 
-    this.$state = $state;
-    this.userService = user;
-    this.md5 = md5;
-    this.user = {};
-  }
+export default ($scope, LeanRT, $state, userService) => {
+  'ngInject';
+  $scope.user = {};
 
-  login() {
-    this.userService.login(this.user.id, this.md5(this.user.email || (Math.random() + Date.now())))
-      .then(() => this.$state.go('conversation.message'));
-  }
-}
-
-export default LoginController;
+  $scope.login = () => {
+    userService.login($scope.user.id).then(userClient => {
+      LeanRT.imClient = userClient;
+      userService.cache(userClient.id);
+      userService.connected = true;
+      $state.go('conversations');
+    }).catch(console.error.bind(console));
+  };
+};
