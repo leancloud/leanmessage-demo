@@ -2,15 +2,13 @@ language: node_js
 node_js:
   - "4"
 sudo: false
-before_install:
-  - npm install gulp -g
 script: echo "No test specificated."
 after_success:
   - if [[ "$TRAVIS_BRANCH" == "master" ]] && [[ "${TRAVIS_PULL_REQUEST}" = "false" ]]; then
       cd Web;
       echo "Building.";
       npm i;
-      gulp build;
+      npm run build;
       echo "Deploying.";
       cd dist && git init;
       git config user.name "LeanCloud";
