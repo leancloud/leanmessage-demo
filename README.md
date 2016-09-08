@@ -5,7 +5,7 @@
 
 * iOS |[iOS 官方文档](https://leancloud.cn/docs/realtime_guide-ios.html)
 * Android |[Android 官方文档](https://leancloud.cn/docs/realtime_guide-android.html)
-* Web（JavaScript）| [JavaScript 官方文档](https://leancloud.cn/docs/js_realtime.html)|[Web Demo 线上地址](http://leancloud.github.io/leanmessage-demo)
+* Web（JavaScript）| [JavaScript 官方文档](https://leancloud.cn/docs/realtime_guide-js.html)| [Web Demo 线上地址](http://leancloud.github.io/leanmessage-demo)
 
 三个版本是「互通」的，可以直接打开任意 2 个版本的 Demo 进行实时聊天。
 
