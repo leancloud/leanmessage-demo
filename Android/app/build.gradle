@@ -31,8 +31,11 @@ android {
 }
 
 dependencies {
-    compile 'cn.leancloud.android:avoscloud-sdk:v3.13.+'
-    compile ('cn.leancloud.android:avoscloud-push:v3.13.+@aar'){transitive = true}
+    // LeanCloud 基础包
+    compile ('cn.leancloud.android:avoscloud-sdk:v3.+')
+
+    // 推送与实时聊天需要的包
+    compile ('cn.leancloud.android:avoscloud-push:v3.+@aar'){transitive = true}
     compile 'com.android.support:appcompat-v7:22.2.1'
     compile 'com.android.support:cardview-v7:21.0.3'
     compile 'com.android.support:recyclerview-v7:21.0.3'
