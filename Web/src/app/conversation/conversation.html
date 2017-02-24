@@ -11,12 +11,12 @@
       <md-divider></md-divider>
       <md-subheader class="md-no-sticky">小机器人</md-subheader>
       <md-list-item
-              ng-repeat="conv in sysConvs | orderBy: '-lastMessageAt'"
+              ng-repeat="conv in sysConvs track by conv.id | orderBy: '-lastMessageAt'"
               ng-click="changeTo(conv)"
               ng-class="{'active': conv.id === currentConversation.id}">
         <p layout="row" layout-align="center center">
           {{::conv.name}}
-          <span flex></span>
+          <span class="last-message" flex>{{conv.lastMessage.text}}</span>
           <span ng-if="conv.unreadMessagesCount" class="unreadCount">{{conv.unreadMessagesCount}}</span>
         </p>
       </md-list-item>
@@ -26,12 +26,12 @@
       <md-divider></md-divider>
       <md-subheader class="md-no-sticky">临时聊天室</md-subheader>
       <md-list-item
-              ng-repeat="conv in transConvs | orderBy: '-lastMessageAt'"
+              ng-repeat="conv in transConvs track by conv.id | orderBy: '-lastMessageAt'"
               ng-click="changeTo(conv)"
               ng-class="{'active': conv.id === currentConversation.id}">
         <p layout="row" layout-align="center center">
           {{::conv.name}}
-          <span flex></span>
+          <span class="last-message" flex>{{conv.lastMessage.from}}<span ng-if="conv.lastMessage.from">: </span>{{conv.lastMessage.text}}</span>
           <span ng-if="conv.unreadMessagesCount" class="unreadCount">{{conv.unreadMessagesCount}}</span>
         </p>
       </md-list-item>
@@ -41,14 +41,13 @@
       <md-divider></md-divider>
       <md-subheader class="md-no-sticky">群聊</md-subheader>
       <md-list-item
-        ng-repeat="conv in normalConvs | orderBy: '-lastMessageAt'"
+        ng-repeat="conv in normalConvs track by conv.id | orderBy: '-lastMessageAt'"
         ng-if="(conv.members.length > 2)"
         ng-click="changeTo(conv)"
         ng-class="{'active': conv.id === currentConversation.id}">
-        <span>123</span>
         <p layout="row" layout-align="center center">
           {{conv.name || '群 ' + conv.id.slice(-4) }}
-          <span flex></span>
+          <span class="last-message" flex>{{conv.lastMessage.from}}<span ng-if="conv.lastMessage.from">: </span>{{conv.lastMessage.text}}</span>
           <span ng-if="conv.unreadMessagesCount" class="unreadCount">{{conv.unreadMessagesCount}}</span>
         </p>
       </md-list-item>
@@ -58,13 +57,13 @@
       <md-divider></md-divider>
       <md-subheader class="md-no-sticky">单聊</md-subheader>
       <md-list-item
-        ng-repeat="conv in normalConvs | orderBy: '-lastMessageAt'"
+        ng-repeat="conv in normalConvs track by conv.id | orderBy: '-lastMessageAt'"
         ng-if="conv.members.length === 2"
         ng-click="changeTo(conv)"
         ng-class="{'active': conv.id === currentConversation.id}">
         <p layout="row" layout-align="center center">
           {{getSingleConvTarget(conv.members)}}
-          <span flex></span>
+          <span class="last-message" flex>{{conv.lastMessage.text}}</span>
           <span ng-if="conv.unreadMessagesCount" class="unreadCount">{{conv.unreadMessagesCount}}</span>
         </p>
       </md-list-item>
@@ -77,7 +76,7 @@
   <md-divider></md-divider>
   <div class="user" layout layout-align="center center" layout-padding>
     <!--<img gravatar-src-once="transientEmail" gravatar-size="40">-->
-    <span flex>当前用户:{{imClient.id}}</span>
+    <span flex>当前用户：{{imClient.id}}</span>
     <md-button class="md-icon-button" aria-label="Logout" ng-click="logout()">
       <md-icon>exit_to_app</md-icon>
     </md-button>

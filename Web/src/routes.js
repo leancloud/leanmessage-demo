@@ -21,7 +21,7 @@ function routesConfig($stateProvider, $urlRouterProvider) {
       controller: 'convMsgCtrl'
     })
     .state('logging', {
-      url: '/logging',
+      url: '/logging/:redirect',
       templateUrl: 'app/login/logging.html',
       controller: 'loggingCtrl'
     });

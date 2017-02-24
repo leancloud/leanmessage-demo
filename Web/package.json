@@ -1,17 +1,16 @@
 {
   "dependencies": {
-    "angular": "^1.5.0",
-    "angular-animate": "^1.5.8",
-    "angular-aria": "^1.5.8",
+    "angular": "~1.5.0",
+    "angular-animate": "~1.5.8",
+    "angular-aria": "~1.5.8",
     "angular-material": "^1.1.0-rc.5",
     "angular-ui-router": "^0.3.1",
-    "extract-text-webpack-plugin": "^1.0.1",
     "jquery": "^3.1.0",
-    "leancloud-realtime": "^3.2.1",
-    "underscore": "^1.8.3",
-    "webpack": "^1.13.2"
+    "leancloud-realtime": "^3.2.1"
   },
   "devDependencies": {
+    "webpack": "^1.13.2",
+    "extract-text-webpack-plugin": "^1.0.1",
     "angular-mocks": "^1.5.0-beta.2",
     "gulp-angular-templatecache": "^1.8.0",
     "del": "^2.0.2",

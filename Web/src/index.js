@@ -1,3 +1,4 @@
+import 'jquery';
 import angular from 'angular';
 import 'angular-ui-router';
 import 'angular-material';
@@ -23,6 +24,12 @@ const appId = 'm7baukzusy3l5coew0b3em5uf4df5i2krky0ypbmee358yon';
 angular
   .module(app, ['ui.router', 'ngMaterial'])
   .config(routesConfig)
+  .config($mdThemingProvider => {
+    'ngInject';
+    $mdThemingProvider.theme('default')
+      .primaryPalette('blue')
+      .accentPalette('grey');
+  })
   .factory('LeanRT', () => {
     const LeanRT = {};
     const realtime = new Realtime({

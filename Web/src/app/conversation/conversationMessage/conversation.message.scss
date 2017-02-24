@@ -54,14 +54,6 @@ $toolbar-height: 64px - 1px;
   }
 }
 
-@media (max-width: 600px) {
-  #online-aside {
-    width: 100%;
-    min-width: 100%;
-    max-width: 100%;
-  }
-}
-
 .search-box {
   height: $toolbar-height;
   line-height: $toolbar-height;

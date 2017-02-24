@@ -2,30 +2,29 @@
 
   <md-toolbar>
     <div class="md-toolbar-tools">
-      <!--<md-button class="md-icon-button menu-button" aria-label="Menu" hide-gt-sm ng-click="conversationMessage.toggle('menu')">-->
-        <!--<md-icon>menu</md-icon>-->
-        <!--<span ng-if="hasUnreadMessage" class="notice"></span>-->
-      <!--</md-button>-->
+      <md-button class="md-icon-button menu-button" aria-label="Menu" hide-gt-sm ng-click="toggle('menu')">
+        <md-icon>menu</md-icon>
+        <span ng-if="hasUnreadMessage" class="notice"></span>
+      </md-button>
       <h2>
-        <span ng-if="currentConversation.members.length !== 2">{{ currentConversation.name }}</span>
+        <span ng-if="currentConversation.members.length !== 2">{{ currentConversation ? (currentConversation.name || '群 ' + currentConversation.id.slice(-4)) : '' }}</span>
         <span ng-if="currentConversation.members.length === 2">{{ getSingleConvTarget(currentConversation.members) }}</span>
       </h2>
       <span flex></span>
 
-      <!--TODO: SDK 加上 sys 字段后,通过判断 sys 字段替换掉现在的 ng-if-->
       <md-button class="md-icon-button"
                  aria-label="Add Clients"
-                 ng-if="currentConversation.members.length!= 0 || currentConversation.transient"
+                 ng-if="!currentConversation.system"
                  ng-click="showAddUserDialog($event)">
         <md-icon>add</md-icon>
       </md-button>
-      <!--<md-button ng-if="conversationMessage.isGroupConversation && conversationMessage.conv.members.length"-->
-                <!--class="md-icon-button"-->
-                <!--aria-label="Online Clients"-->
-                <!--hide-gt-md-->
-                <!--ng-click="conversationMessage.toggle('online')">-->
-        <!--<md-icon>group</md-icon>-->
-      <!--</md-button>-->
+      <md-button ng-if="currentConversation.members.length > 2"
+                class="md-icon-button"
+                aria-label="Online Clients"
+                hide-gt-md
+                ng-click="toggle('online')">
+        <md-icon>group</md-icon>
+      </md-button>
     </div>
   </md-toolbar>
 
@@ -61,8 +60,9 @@
 
 <!--members list -->
 <md-sidenav id="online-aside"
-            ng-if="currentConversation.members.length > 2"
+            ng-show="currentConversation.members.length > 2"
             class=" md-sidenav-right md-whiteframe-z2"
+            ng-class="{ 'under-mask': !conversation.isMenuOpen } "
             md-component-id="online"
             md-is-locked-open="$mdMedia('gt-md')"
             layout="column">

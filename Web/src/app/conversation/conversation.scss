@@ -13,6 +13,12 @@ $toolbar-height: 64px - 1px;
     background-color: rgba(0, 0, 0, .04);
   }
 
+  .last-message {
+    font-size: 84%;
+    color: #a0a0a0;
+    padding: 0 1em;
+  }
+
   .unreadCount {
     display: block;
     background: #F44336;
