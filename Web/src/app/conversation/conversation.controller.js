@@ -11,6 +11,9 @@ export default ($scope, LeanRT, $state, $stateParams, $mdSidenav, userService) =
   $scope.joinedTransConvs = [];
   $scope.transientEmail = 'test@test.com';
   $scope.currentConversation = null;
+  $scope.networkError = null;
+  $scope.networkErrorIcon = null;
+  $scope.networkShowRetry = false;
 
   const getNormalConvs = () => {
     return $scope.imClient.getQuery().withLastMessagesRefreshed().containsMembers([$scope.imClient.id]).find();
@@ -43,18 +46,9 @@ export default ($scope, LeanRT, $state, $stateParams, $mdSidenav, userService) =
   };
 
   $scope.switchToConv = conv => {
-    // 将切换后的 conversation 标记为已读
-    conv.read()
-      .then(() => {
-        return setTimeout(() => {
-          $state.go('conversations.message', {
-            convId: conv.id
-          });
-        }, 0);
-      })
-      .then(() => {
-        $scope.$digest();
-      }).catch(console.error.bind(console));
+    $state.go('conversations.message', {
+      convId: conv.id
+    });
   };
 
   $scope.changeTo = conv => {
@@ -71,6 +65,23 @@ export default ($scope, LeanRT, $state, $stateParams, $mdSidenav, userService) =
       // change user interface
       $scope.switchToConv(conv);
     }
+  };
+
+  $scope.createSingleConv = clientId => {
+    const targetConv = $scope.normalConvs.find(conv => (conv.members.length === 2 && $scope.getSingleConvTarget(conv.members) === clientId));
+    if (targetConv) {
+      return $scope.switchToConv(targetConv);
+    }
+    return $scope.imClient.createConversation({
+      members: [clientId],
+      name: `${clientId} 和 ${$scope.imClient.id} 的对话`,
+      transient: false,
+      unique: true
+    }).then(conversation => {
+      // 跳转到刚创建好的对话中
+      $scope.switchToConv(conversation);
+      // 此时 onInvited 会被调用, 在下方 onInvited 中更新 conversation list
+    }).catch(console.error.bind(console));
   };
 
   $scope.getConversations()
@@ -112,13 +123,60 @@ export default ($scope, LeanRT, $state, $stateParams, $mdSidenav, userService) =
     $scope.$apply();
   };
 
-  $scope.imClient.on('message', messageHandler);
-  $scope.imClient.on('invited', invitedHandler);
-  $scope.imClient.on('unreadmessagescountupdate', () => $scope.$apply());
+  const client = $scope.imClient;
+  client.on('message', messageHandler);
+  client.on('invited', invitedHandler);
+  client.on('unreadmessagescountupdate', () => $scope.$apply());
+  client.on('disconnect', () => {
+    $scope.networkError = '连接已断开';
+    $scope.networkErrorIcon = 'sync_problem';
+    $scope.$digest();
+  });
+  client.on('offline', () => {
+    $scope.networkError = '网络不可用，请检查网络设置';
+    $scope.networkErrorIcon = 'signal_wifi_off';
+    $scope.networkShowRetry = false;
+    $scope.$digest();
+  });
+  client.on('online', () => {
+    $scope.networkError = '网络已恢复';
+    $scope.$digest();
+  });
+  client.on('schedule', (attempt, time) => {
+    $scope.networkError = `${time / 1000}s 后进行第 ${attempt + 1} 次重连`;
+    $scope.networkShowRetry = true;
+    $scope.$digest();
+  });
+  client.on('retry', attempt => {
+    $scope.networkError = `正在进行 ${attempt + 1} 次重连`;
+    $scope.networkErrorIcon = 'sync';
+    $scope.networkShowRetry = false;
+    $scope.$digest();
+  });
+  client.on('reconnect', () => {
+    $scope.networkError = null;
+    $scope.$digest();
+  });
+  client.on('reconnecterror', () => {
+    $scope.networkError = '重连失败，请刷新页面重试';
+    $scope.networkErrorIcon = 'error_outline';
+    $scope.$digest();
+  });
 
   $scope.$on("$destroy", () => {
-    $scope.imClient.off('message', messageHandler);
-    $scope.imClient.off('invited', invitedHandler);
-    $scope.imClient.on('unreadmessagescountupdate');
+    client.off('message', messageHandler);
+    client.off('invited', invitedHandler);
+    [
+      'unreadmessagescountupdate',
+      'disconnect',
+      'offline',
+      'online',
+      'schedule',
+      'retry',
+      'reconnect',
+      'reconnecterror'
+    ].forEach(event => client.off(event));
   });
+
+  $scope.retry = () => setTimeout(() => LeanRT.realtime.retry());
 };

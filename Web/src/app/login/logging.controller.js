@@ -9,7 +9,6 @@ export default ($state, userService, LeanRT) => {
       userService.connected = true;
       if ($state.params && $state.params.redirect) {
         const redirect = JSON.parse($state.params.redirect);
-        console.log(redirect);
         return $state.go(redirect.name, redirect.params);
       }
       $state.go('conversations');

@@ -34,6 +34,7 @@ angular
     const LeanRT = {};
     const realtime = new Realtime({
       appId,
+      server: 'rtm51',
       region: 'cn' // 美国节点为 "us"
     });
     LeanRT.realtime = realtime;

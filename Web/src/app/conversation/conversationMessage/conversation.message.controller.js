@@ -1,11 +1,12 @@
 import './conversation.message.scss';
 import {TextMessage} from 'leancloud-realtime';
 
-export default ($scope, LeanRT, $location, $anchorScroll, $mdDialog, $mdSidenav, $stateParams) => {
+export default ($scope, LeanRT, $location, $timeout, $anchorScroll, $mdDialog, $mdSidenav, $stateParams) => {
   'ngInject';
 
   const scrollToBottom = () => {
-    setTimeout(() => {
+    $scope.$digest();
+    $timeout(() => {
       $anchorScroll('message-view-bottom');
     }, 0);
   };
@@ -36,18 +37,29 @@ export default ($scope, LeanRT, $location, $anchorScroll, $mdDialog, $mdSidenav,
       scrollToBottom();
     };
 
+    const receiptUpdateHandler = () => {
+      $scope.$digest();
+    };
+
     conversation.on('membersjoined', membersJoinedHandler);
     conversation.on('message', messageHandler);
+    conversation.on('lastdeliveredatupdate', receiptUpdateHandler);
+    conversation.on('lastreadatupdate', receiptUpdateHandler);
 
     $scope.$on("$destroy", () => {
       conversation.off('membersjoined', membersJoinedHandler);
       conversation.off('message', messageHandler);
+      conversation.off('lastdeliveredatupdate', receiptUpdateHandler);
+      conversation.off('lastreadatupdate', receiptUpdateHandler);
     });
 
     // 刚进入页面时, 展示最近 20 条消息
     $scope.loadMoreMessages().then(() => {
       scrollToBottom();
     });
+    // 标记为已读
+    conversation.read();
+
     return conversation;
   });
 
@@ -55,29 +67,20 @@ export default ($scope, LeanRT, $location, $anchorScroll, $mdDialog, $mdSidenav,
     if ($scope.draft) {
       const message = new TextMessage($scope.draft);
       $scope.draft = '';
-      $scope.messages.push(message);
       $scope.getCurrentConversation
-      .then(conversation => conversation.send(message))
+      .then(conversation => {
+        const sendPromise = conversation.send(message, {
+          receipt: conversation.members.length === 2
+        });
+        $scope.messages.push(message);
+        return sendPromise;
+      })
       .then(() => {
-        $scope.$digest();
         scrollToBottom();
       }).catch(err => {
         console.log(err);
       });
     }
-  };
-
-  $scope.toSingleConv = clientId => {
-    $scope.imClient.createConversation({
-      members: [clientId],
-      name: `${clientId} 和 ${$scope.imClient.id} 的对话`,
-      transient: false,
-      unique: true
-    }).then(conversation => {
-      // 跳转到刚创建好的对话中
-      $scope.switchToConv(conversation);
-      // 此时 onInvited 会被调用, 在下方 onInvited 中更新 conversation list
-    }).catch(console.error.bind(console));
   };
 
   $scope.loadMoreMessages = () => {
@@ -104,7 +107,6 @@ export default ($scope, LeanRT, $location, $anchorScroll, $mdDialog, $mdSidenav,
       .cancel('取消');
     $mdDialog.show(confirm).then(clientId => {
       // 添加其他成员
-      console.log($scope);
       return $scope.getCurrentConversation.then(conversation => conversation.add([clientId]));
     }).then(() => {
       // 添加成功, 在 membersjoined 事件中更新 UI

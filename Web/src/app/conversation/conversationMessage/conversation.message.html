@@ -34,10 +34,12 @@
       <!--messages-->
       <message ng-repeat="(index, message) in messages"
         message="message"
-        ng-if="message"
-        previous-message="messages[index - 1]"
-        on-name-click="toSingleConv(message.from)"
-        is-mine="message.from == imClient.id"></message>
+        previous-message="::messages[index - 1]"
+        next-message="messages[index + 1]"
+        last-delivered-at="currentConversation.lastDeliveredAt"
+        last-read-at="currentConversation.lastReadAt"
+        on-name-click="createSingleConv(message.from)"
+        is-mine="::message.from == imClient.id"></message>
       <!--messages end-->
       <div id="message-view-bottom"></div>
     </div>
@@ -79,7 +81,7 @@
     </div>
   </md-toolbar>
   <md-list class="square-clients" flex>
-    <md-list-item ng-repeat="clientId in currentConversation.members.slice(0, maxResultsAmount)" ng-click="toSingleConv(clientId)">
+    <md-list-item ng-repeat="clientId in currentConversation.members.slice(0, maxResultsAmount)" ng-click="createSingleConv(clientId)">
       <p> {{ clientId }} </p>
     </md-list-item>
     <p ng-if="currentConversation.members.length > maxResultsAmount" class="max-results-amount-hint">最多显示 {{:: maxResultsAmount }} 位成员</p>

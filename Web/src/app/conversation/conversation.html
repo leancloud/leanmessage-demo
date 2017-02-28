@@ -2,7 +2,7 @@
   ng-class="{ 'under-mask': !conversation.isMenuOpen } "
   md-component-id="menu"
   md-is-open="conversation.isMenuOpen"
-  md-is-locked-open="$mdMedia('gt-sm')">
+  md-is-locked-open="$mdMedia('gt-sm') || !currentConversation">
   <div flex layout="column" style="overflow:auto;">
     <div class='logo'>LeanMessage</div>
     <md-list flex>
@@ -11,7 +11,7 @@
       <md-divider></md-divider>
       <md-subheader class="md-no-sticky">小机器人</md-subheader>
       <md-list-item
-              ng-repeat="conv in sysConvs track by conv.id | orderBy: '-lastMessageAt'"
+              ng-repeat="conv in sysConvs | orderBy:'-lastMessageAt' track by conv.id"
               ng-click="changeTo(conv)"
               ng-class="{'active': conv.id === currentConversation.id}">
         <p layout="row" layout-align="center center">
@@ -26,7 +26,7 @@
       <md-divider></md-divider>
       <md-subheader class="md-no-sticky">临时聊天室</md-subheader>
       <md-list-item
-              ng-repeat="conv in transConvs track by conv.id | orderBy: '-lastMessageAt'"
+              ng-repeat="conv in transConvs | orderBy:'-lastMessageAt' track by conv.id"
               ng-click="changeTo(conv)"
               ng-class="{'active': conv.id === currentConversation.id}">
         <p layout="row" layout-align="center center">
@@ -41,7 +41,7 @@
       <md-divider></md-divider>
       <md-subheader class="md-no-sticky">群聊</md-subheader>
       <md-list-item
-        ng-repeat="conv in normalConvs track by conv.id | orderBy: '-lastMessageAt'"
+        ng-repeat="conv in normalConvs | orderBy:'-lastMessageAt' track by conv.id"
         ng-if="(conv.members.length > 2)"
         ng-click="changeTo(conv)"
         ng-class="{'active': conv.id === currentConversation.id}">
@@ -57,7 +57,7 @@
       <md-divider></md-divider>
       <md-subheader class="md-no-sticky">单聊</md-subheader>
       <md-list-item
-        ng-repeat="conv in normalConvs track by conv.id | orderBy: '-lastMessageAt'"
+        ng-repeat="conv in normalConvs | orderBy:'-lastMessageAt' track by conv.id"
         ng-if="conv.members.length === 2"
         ng-click="changeTo(conv)"
         ng-class="{'active': conv.id === currentConversation.id}">
@@ -86,4 +86,13 @@
 
 <!-- Nested Views for conversations.message -->
 <div layout flex ui-view>
+</div>
+
+<!-- NetWorkErrorMask -->
+<div class="network-error" layout="column" layout-align="center center" ng-if="networkError">
+  <md-icon>{{ networkErrorIcon }}</md-icon>
+  <div>
+    {{ networkError }}
+    <md-button ng-click="retry()" ng-if="networkShowRetry">立即重试</md-button>
+  </div>
 </div>

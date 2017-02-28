@@ -15,10 +15,6 @@ function runBlock($rootScope, $state, userService) {
         return;
       }
       event.preventDefault();
-      // if (toParams.convId) {
-      //   localStorage.setItem('initConvId', toParams.convId);
-      // }
-      console.log(toState, toParams);
       $state.go('logging', {
         redirect: JSON.stringify({
           name: toState.name,
