@@ -19,7 +19,7 @@ import convController from './app/conversation/conversation.controller.js';
 import convMsgController from './app/conversation/conversationMessage/conversation.message.controller.js';
 
 export const app = 'leanMessage';
-const appId = 'm7baukzusy3l5coew0b3em5uf4df5i2krky0ypbmee358yon';
+const appId = 'asMSszrbxQyW1bVa862BTB8K-gzGzoHsz';
 
 angular
   .module(app, ['ui.router', 'ngMaterial'])
