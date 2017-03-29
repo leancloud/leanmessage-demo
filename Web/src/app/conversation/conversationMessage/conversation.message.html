@@ -5,6 +5,7 @@
       <md-button class="md-icon-button menu-button" aria-label="Menu" hide-gt-sm ng-click="toggle('menu')">
         <md-icon>menu</md-icon>
         <span ng-if="hasUnreadMessage" class="notice"></span>
+        <span ng-if="totalUnreadMessagesCount" class="unreadCount">{{totalUnreadMessagesCount}}</span>
       </md-button>
       <h2>
         <span ng-if="currentConversation.members.length !== 2">{{ currentConversation ? (currentConversation.name || '群 ' + currentConversation.id.slice(-4)) : '' }}</span>

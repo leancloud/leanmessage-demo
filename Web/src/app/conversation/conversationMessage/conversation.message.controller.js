@@ -30,8 +30,10 @@ export default ($scope, LeanRT, $location, $timeout, $anchorScroll, $mdDialog, $
     };
 
     const messageHandler = msg => {
-      // 当前对话标记为已读
-      conversation.read();
+      if (!document.hidden) {
+        // 当前对话标记为已读
+        conversation.read();
+      }
       // 消息列表滚动
       $scope.messages.push(msg);
       scrollToBottom();
@@ -41,16 +43,24 @@ export default ($scope, LeanRT, $location, $timeout, $anchorScroll, $mdDialog, $
       $scope.$digest();
     };
 
+    const handleVisibilityChange = () => {
+      if (!document.hidden && conversation.unreadMessagesCount) {
+        conversation.read();
+      }
+    };
+
     conversation.on('membersjoined', membersJoinedHandler);
     conversation.on('message', messageHandler);
     conversation.on('lastdeliveredatupdate', receiptUpdateHandler);
     conversation.on('lastreadatupdate', receiptUpdateHandler);
+    document.addEventListener("visibilitychange", handleVisibilityChange);
 
     $scope.$on("$destroy", () => {
       conversation.off('membersjoined', membersJoinedHandler);
       conversation.off('message', messageHandler);
       conversation.off('lastdeliveredatupdate', receiptUpdateHandler);
       conversation.off('lastreadatupdate', receiptUpdateHandler);
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
     });
 
     // 刚进入页面时, 展示最近 20 条消息

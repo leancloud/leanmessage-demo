@@ -1,6 +1,6 @@
 import './conversation.scss';
 
-export default ($scope, LeanRT, $state, $stateParams, $mdSidenav, userService) => {
+export default ($scope, $rootScope, LeanRT, $state, $stateParams, $mdSidenav, userService) => {
   'ngInject';
 
   $scope.$mdSidenav = $mdSidenav;
@@ -35,12 +35,16 @@ export default ($scope, LeanRT, $state, $stateParams, $mdSidenav, userService) =
     return members[0];
   };
 
+  const getTotalUnreadCount = () => [...$scope.sysConvs, ...$scope.transConvs, ...$scope.normalConvs]
+    .reduce((sum, {unreadMessagesCount}) => sum + unreadMessagesCount, 0);
+
   $scope.getConversations = () => {
     return Promise.all([getSysConvs(), getTransConvs(), getNormalConvs()])
       .then(datas => {
         $scope.sysConvs = datas[0];
         $scope.transConvs = datas[1];
         $scope.normalConvs = datas[2];
+        $scope.$emit('unreadCountUpdate', getTotalUnreadCount());
         $scope.$digest();
       });
   };
@@ -111,7 +115,7 @@ export default ($scope, LeanRT, $state, $stateParams, $mdSidenav, userService) =
     if (!conv.transient && $scope.normalConvs.indexOf(conv) === -1) {
       $scope.normalConvs.push(conv);
     }
-    $scope.$apply();
+    $scope.$digest();
   };
   const invitedHandler = (payload, conversation) => {
     if (conversation.transient && $scope.transConvs.indexOf(conversation) === -1) {
@@ -120,13 +124,15 @@ export default ($scope, LeanRT, $state, $stateParams, $mdSidenav, userService) =
     } else if ($scope.normalConvs.indexOf(conversation) === -1) {
       $scope.normalConvs.push(conversation);
     }
-    $scope.$apply();
+    $scope.$digest();
   };
 
   const client = $scope.imClient;
   client.on('message', messageHandler);
   client.on('invited', invitedHandler);
-  client.on('unreadmessagescountupdate', () => $scope.$apply());
+  client.on('unreadmessagescountupdate', () => {
+    $scope.$emit('unreadCountUpdate', getTotalUnreadCount());
+  });
   client.on('disconnect', () => {
     $scope.networkError = '连接已断开';
     $scope.networkErrorIcon = 'sync_problem';

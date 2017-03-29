@@ -25,6 +25,12 @@ function runBlock($rootScope, $state, userService) {
       setTimeout(() => $state.go('login'), 0);
     }
   });
+
+  $rootScope.$on('unreadCountUpdate', (event, count) => {
+    console.log(count);
+    $rootScope.totalUnreadMessagesCount = count;
+    $rootScope.$digest();
+  });
 }
 
 export default runBlock;

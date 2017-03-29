@@ -1,4 +1,18 @@
 $toolbar-height: 64px - 1px;
+
+.unreadCount {
+  display: block;
+  background: #F44336;
+  height: 20px;
+  line-height: 20px;
+  min-width: 20px;
+  text-align: center;
+  padding: 0 4px;
+  border-radius: 10px;
+  color: white;
+  font-size: 12px;
+}
+
 .menu {
   &.under-mask {
     z-index: 58;
@@ -19,19 +33,6 @@ $toolbar-height: 64px - 1px;
     margin: 0 1em;
     white-space: nowrap;
     overflow: hidden;
-  }
-
-  .unreadCount {
-    display: block;
-    background: #F44336;
-    height: 20px;
-    line-height: 20px;
-    min-width: 20px;
-    text-align: center;
-    padding: 0 4px;
-    border-radius: 50%;
-    color: white;
-    font-size: 12px;
   }
 
   .user {
