@@ -91,9 +91,10 @@ export default ($scope, $rootScope, LeanRT, $state, $stateParams, $mdSidenav, us
   $scope.getConversations()
   .then(() => {
     // 加入第一个暂态聊天室
+    if (!$scope.transConvs[0]) return console.warn('该应用还未创建聊天室，请前往 LeanCloud 控制台创建一个暂态对话（tr 为 true 的 Conversation）。');
     return $scope.transConvs[0].join().then(() => {
       $scope.joinedTransConvs.push($scope.imClient.id);
-    }).catch(console.error.bind(console));
+    });
   }).catch(console.error.bind(console));
 
   $scope.logout = () => {

@@ -9,7 +9,7 @@
 
       <!-- Robots List-->
       <md-divider></md-divider>
-      <md-subheader class="md-no-sticky">小机器人</md-subheader>
+      <md-subheader class="md-no-sticky">机器人</md-subheader>
       <md-list-item
               ng-repeat="conv in sysConvs | orderBy:'-lastMessageAt' track by conv.id"
               ng-click="changeTo(conv)"
@@ -20,6 +20,7 @@
           <span ng-if="conv.unreadMessagesCount" class="unreadCount">{{conv.unreadMessagesCount}}</span>
         </p>
       </md-list-item>
+      <div class="empty-list-hint" layout-padding>此应用还未创建系统对话</div>
       <!-- Robots List End -->
 
       <!-- Transiant Convsations List-->
@@ -35,6 +36,7 @@
           <span ng-if="conv.unreadMessagesCount" class="unreadCount">{{conv.unreadMessagesCount}}</span>
         </p>
       </md-list-item>
+      <div class="empty-list-hint" layout-padding>此应用还未创建聊天室</div>
       <!-- Transiant Convsations List End -->
 
       <!-- Group Conversations List -->
@@ -51,6 +53,7 @@
           <span ng-if="conv.unreadMessagesCount" class="unreadCount">{{conv.unreadMessagesCount}}</span>
         </p>
       </md-list-item>
+      <div class="empty-list-hint" layout-padding>在单聊中邀请成员开始群聊</div>
       <!-- Group Conversations List End -->
 
       <!-- Single Conversations List -->
@@ -67,7 +70,7 @@
           <span ng-if="conv.unreadMessagesCount" class="unreadCount">{{conv.unreadMessagesCount}}</span>
         </p>
       </md-list-item>
-      <div class="empty-list-hint" layout-padding>点击任意用户 ID 开始单聊</div>
+      <div class="empty-list-hint" layout-padding>在聊天窗口点击任意用户 ID 开始单聊</div>
     </md-list>
   </div>
   <!-- Single Conversations List End -->
