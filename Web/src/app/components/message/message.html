@@ -1,7 +1,8 @@
-<div ng-if="displayTime" class="time">{{::message.timestamp | date:'H:mm'}}</div>
+<div ng-if="displayTime" class="time">{{::message.timestamp | date:'MM-dd HH:mm'}}</div>
 <div class="message" ng-if="::message.id" ng-class="::{mine: isMine}" layout="column">
     <div class="user" ng-if="::!isMine" ng-click="onNameClick()">{{ ::message.from }}</div>
     <div layout layout-align="start end">
+        <span class="tips" title="{{groupReadClients}}" ng-if="groupReadClients">{{ groupReadHint }}</span>
         <span class="tips" ng-if="isLastDelivered ">已送达</span>
         <span class="tips" ng-if="isLastRead">已读</span>
         <md-icon ng-if="message.status === messageStatus.SENDING">reply</md-icon>

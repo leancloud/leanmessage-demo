@@ -39,6 +39,8 @@
         next-message="messages[index + 1]"
         last-delivered-at="currentConversation.lastDeliveredAt"
         last-read-at="currentConversation.lastReadAt"
+        group-last-read-at="currentConversation.lastReadTimestamps"
+        is-group="::currentConversation.members.length > 2"
         on-name-click="createSingleConv(message.from)"
         is-mine="::message.from == imClient.id"></message>
       <!--messages end-->

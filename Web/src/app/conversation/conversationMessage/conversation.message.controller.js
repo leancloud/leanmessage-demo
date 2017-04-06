@@ -1,5 +1,5 @@
 import './conversation.message.scss';
-import {TextMessage} from 'leancloud-realtime';
+import {Message, TextMessage} from 'leancloud-realtime';
 
 export default ($scope, LeanRT, $location, $timeout, $anchorScroll, $mdDialog, $mdSidenav, $stateParams) => {
   'ngInject';
@@ -23,16 +23,29 @@ export default ($scope, LeanRT, $location, $timeout, $anchorScroll, $mdDialog, $
 
     const membersJoinedHandler = payload => {
       $scope.messages.push({
+        type: Symbol('system'),
         text: `${payload.invitedBy} 邀请 ${payload.members} 进入该对话`,
         timestamp: new Date()
       });
       $scope.$digest();
     };
 
-    const messageHandler = msg => {
-      if (!document.hidden) {
-        // 当前对话标记为已读
-        conversation.read();
+    const readMarker = msg => {
+      // 暂态消息不标记
+      if (msg.transient) {
+        return;
+      }
+      // 当前 tab 未激活不标记
+      if (document.hidden) {
+        return;
+      }
+      // 当前对话标记为已读
+      conversation.read();
+    };
+    const messageUpdater = msg => {
+      // 如果收到未知类型的暂态消息，直接丢弃
+      if (msg.transient && msg.type === Message.TYPE) {
+        return;
       }
       // 消息列表滚动
       $scope.messages.push(msg);
@@ -50,16 +63,20 @@ export default ($scope, LeanRT, $location, $timeout, $anchorScroll, $mdDialog, $
     };
 
     conversation.on('membersjoined', membersJoinedHandler);
-    conversation.on('message', messageHandler);
+    conversation.on('message', readMarker);
+    conversation.on('message', messageUpdater);
     conversation.on('lastdeliveredatupdate', receiptUpdateHandler);
     conversation.on('lastreadatupdate', receiptUpdateHandler);
+    conversation.on('lastreadtimestampsupdate', receiptUpdateHandler);
     document.addEventListener("visibilitychange", handleVisibilityChange);
 
     $scope.$on("$destroy", () => {
       conversation.off('membersjoined', membersJoinedHandler);
-      conversation.off('message', messageHandler);
+      conversation.off('message', readMarker);
+      conversation.off('message', messageUpdater);
       conversation.off('lastdeliveredatupdate', receiptUpdateHandler);
       conversation.off('lastreadatupdate', receiptUpdateHandler);
+      conversation.off('lastreadtimestampsupdate', receiptUpdateHandler);
       document.removeEventListener("visibilitychange", handleVisibilityChange);
     });
 

@@ -8,7 +8,7 @@ export default ($scope, $rootScope, LeanRT, $state, $stateParams, $mdSidenav, us
   $scope.normalConvs = [];
   $scope.transConvs = [];
   $scope.sysConvs = [];
-  $scope.joinedTransConvs = [];
+  $scope.joinedTransConv = null;
   $scope.transientEmail = 'test@test.com';
   $scope.currentConversation = null;
   $scope.networkError = null;
@@ -59,9 +59,9 @@ export default ($scope, $rootScope, LeanRT, $state, $stateParams, $mdSidenav, us
     ['online', 'menu'].map(id => $mdSidenav(id).close());
     if (conv.tr === true) {
       // join transiant conversation
-      if ($scope.joinedTransConvs.findIndex($scope.imClient.id) === -1) {
+      if ($scope.joinedTransConv !== conv) {
         conv.join().then(conv => {
-          $scope.joinedTransConvs.push($scope.imClient.id);
+          $scope.joinedTransConv = conv;
           $scope.switchToConv(conv);
         });
       }
@@ -91,9 +91,11 @@ export default ($scope, $rootScope, LeanRT, $state, $stateParams, $mdSidenav, us
   $scope.getConversations()
   .then(() => {
     // 加入第一个暂态聊天室
-    if (!$scope.transConvs[0]) return console.warn('该应用还未创建聊天室，请前往 LeanCloud 控制台创建一个暂态对话（tr 为 true 的 Conversation）。');
-    return $scope.transConvs[0].join().then(() => {
-      $scope.joinedTransConvs.push($scope.imClient.id);
+    if (!$scope.transConvs[0]) {
+      return console.warn('该应用还未创建聊天室，请前往 LeanCloud 控制台创建一个暂态对话（tr 为 true 的 Conversation）。');
+    }
+    return $scope.transConvs[0].join().then(conv => {
+      $scope.joinedTransConv = conv;
     });
   }).catch(console.error.bind(console));
 
@@ -119,9 +121,11 @@ export default ($scope, $rootScope, LeanRT, $state, $stateParams, $mdSidenav, us
     $scope.$digest();
   };
   const invitedHandler = (payload, conversation) => {
-    if (conversation.transient && $scope.transConvs.indexOf(conversation) === -1) {
+    if (conversation.transient) {
       // 暂态对话
-      $scope.transConvs.push(conversation);
+      if ($scope.transConvs.indexOf(conversation) === -1) {
+        $scope.transConvs.push(conversation);
+      }
     } else if ($scope.normalConvs.indexOf(conversation) === -1) {
       $scope.normalConvs.push(conversation);
     }
@@ -162,6 +166,9 @@ export default ($scope, $rootScope, LeanRT, $state, $stateParams, $mdSidenav, us
   });
   client.on('reconnect', () => {
     $scope.networkError = null;
+    if ($scope.joinedTransConv) {
+      $scope.joinedTransConv.join();
+    }
     $scope.$digest();
   });
   client.on('reconnecterror', () => {

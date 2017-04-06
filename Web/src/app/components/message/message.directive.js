@@ -13,11 +13,17 @@ export default () => {
       nextMessage: '=',
       lastDeliveredAt: '=',
       lastReadAt: '=',
+      groupLastReadAt: '=',
+      isGroup: '=',
       isMine: '=',
       onNameClick: '&'
     },
     link: $scope => {
       $scope.messageStatus = MessageStatus;
+      if (!$scope.message.type) {
+        $scope.message.text = '[不支持的消息类型]';
+      }
+      // 显示时间
       if (!$scope.previousMessage) {
         $scope.displayTime = true;
       } else if ($scope.previousMessage.timestamp) {
@@ -28,43 +34,61 @@ export default () => {
         }
       }
       if ($scope.isMine) {
-        $scope.unwatch = $scope.$watchGroup(['lastReadAt', 'lastDeliveredAt'], () => {
-          if ($scope.lastReadAt) {
-            if (!$scope.nextMessage) {
-              if ($scope.message.timestamp <= $scope.lastReadAt) {
-                $scope.isLastRead = true;
-              }
-            } else if ($scope.nextMessage.timestamp) {
-              if ($scope.nextMessage.timestamp > $scope.lastReadAt) {
+        if ($scope.isGroup) {
+          // 群聊已读标记
+          $scope.unwatchGroupReceipts = $scope.$watch('groupLastReadAt', () => {
+            if (!$scope.groupLastReadAt) {
+              return;
+            }
+            const clients = Object.keys($scope.groupLastReadAt);
+            const readClients = clients.filter(client => $scope.groupLastReadAt[client] >= $scope.message.timestamp);
+            $scope.groupReadHint = `${readClients.length} 人已读`;
+            $scope.groupReadClients = readClients.join(', ');
+            if (readClients.length === clients.length) {
+              $scope.groupReadHint = '全部已读';
+              $scope.unwatchGroupReceipts();
+            }
+          }, true);
+        } else {
+          // 单聊已读、已送达标记
+          $scope.unwatch = $scope.$watchGroup(['lastReadAt', 'lastDeliveredAt'], () => {
+            if ($scope.lastReadAt) {
+              if (!$scope.nextMessage) {
                 if ($scope.message.timestamp <= $scope.lastReadAt) {
                   $scope.isLastRead = true;
                 }
-              } else {
-                $scope.isLastDelivered = $scope.isLastRead = false;
-                return $scope.unwatch();
+              } else if ($scope.nextMessage.timestamp) {
+                if ($scope.nextMessage.timestamp > $scope.lastReadAt) {
+                  if ($scope.message.timestamp <= $scope.lastReadAt) {
+                    $scope.isLastRead = true;
+                  }
+                } else {
+                  $scope.isLastDelivered = $scope.isLastRead = false;
+                  return $scope.unwatch();
+                }
               }
             }
-          }
-          if ($scope.isLastRead) {
-            $scope.isLastDelivered = false;
-            return;
-          }
-          if ($scope.lastDeliveredAt) {
-            if (!$scope.nextMessage) {
-              if ($scope.message.timestamp <= $scope.lastDeliveredAt) {
-                $scope.isLastDelivered = true;
-              }
-            } else if ($scope.nextMessage.timestamp) {
-              if ($scope.nextMessage.timestamp > $scope.lastDeliveredAt) {
+            if ($scope.isLastRead) {
+              $scope.isLastDelivered = false;
+              return;
+            }
+            if ($scope.lastDeliveredAt) {
+              if (!$scope.nextMessage) {
                 if ($scope.message.timestamp <= $scope.lastDeliveredAt) {
                   $scope.isLastDelivered = true;
                 }
-              } else {
-                $scope.isLastDelivered = false;
+              } else if ($scope.nextMessage.timestamp) {
+                if ($scope.nextMessage.timestamp > $scope.lastDeliveredAt) {
+                  if ($scope.message.timestamp <= $scope.lastDeliveredAt) {
+                    $scope.isLastDelivered = true;
+                  }
+                } else {
+                  $scope.isLastDelivered = false;
+                }
               }
             }
-          }
-        });
+          });
+        }
       }
     }
   };

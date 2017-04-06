@@ -6,7 +6,8 @@
     "angular-material": "^1.1.0-rc.5",
     "angular-ui-router": "^0.3.1",
     "jquery": "^3.1.0",
-    "leancloud-realtime": "leancloud/js-realtime-sdk#dist"
+    "leancloud-realtime": "leancloud/js-realtime-sdk#dist",
+    "leancloud-realtime-plugin-groupchat-receipts": "^1.0.0"
   },
   "devDependencies": {
     "webpack": "^1.13.2",
