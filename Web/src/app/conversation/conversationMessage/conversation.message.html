@@ -48,7 +48,9 @@
     </div>
   </md-content>
   <!--infinite-list End-->
-
+  <div class="typing-indicator" ng-show="typingClients">
+    <span>{{typingClients}}</span>
+  </div>
   <md-content layout layout-align="center center" class="editor-wrapper">
     <form class="editor" ng-submit="send()" layout layout-align="center center" flex>
       <md-input-container md-no-float flex class="textarea">

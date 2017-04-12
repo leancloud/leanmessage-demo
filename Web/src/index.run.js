@@ -27,7 +27,6 @@ function runBlock($rootScope, $state, userService) {
   });
 
   $rootScope.$on('unreadCountUpdate', (event, count) => {
-    console.log(count);
     $rootScope.totalUnreadMessagesCount = count;
     $rootScope.$digest();
   });

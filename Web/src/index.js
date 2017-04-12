@@ -5,6 +5,7 @@ import 'angular-material';
 import 'angular-material/angular-material.css';
 import {Realtime} from 'leancloud-realtime';
 import {GroupchatReceiptsPlugin} from 'leancloud-realtime-plugin-groupchat-receipts';
+import {TypingIndicatorPlugin} from './typing-indicator';
 import routesConfig from './routes';
 
 import './index.scss';
@@ -35,8 +36,7 @@ angular
     const LeanRT = {};
     const realtime = new Realtime({
       appId,
-      server: 'rtm51',
-      plugins: [GroupchatReceiptsPlugin],
+      plugins: [GroupchatReceiptsPlugin, TypingIndicatorPlugin],
       region: 'cn' // 美国节点为 "us"
     });
     LeanRT.realtime = realtime;

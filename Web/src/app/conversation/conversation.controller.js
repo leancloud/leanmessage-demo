@@ -5,6 +5,7 @@ export default ($scope, $rootScope, LeanRT, $state, $stateParams, $mdSidenav, us
 
   $scope.$mdSidenav = $mdSidenav;
   $scope.imClient = LeanRT.imClient;
+  $scope.typingIndicator = LeanRT.imClient.createTypingIndicator();
   $scope.normalConvs = [];
   $scope.transConvs = [];
   $scope.sysConvs = [];
@@ -159,7 +160,7 @@ export default ($scope, $rootScope, LeanRT, $state, $stateParams, $mdSidenav, us
     $scope.$digest();
   });
   client.on('retry', attempt => {
-    $scope.networkError = `正在进行 ${attempt + 1} 次重连`;
+    $scope.networkError = `正在进行第 ${attempt + 1} 次重连`;
     $scope.networkErrorIcon = 'sync';
     $scope.networkShowRetry = false;
     $scope.$digest();

@@ -21,6 +21,21 @@ $toolbar-height: 64px - 1px;
   display: none;
 }
 
+.typing-indicator {
+  height: 0;
+
+  >span {
+    display: inline-block;
+    position: relative;
+    top: -30px;
+    line-height: 30px;
+    font-size: 14px;
+    padding: 0 6px;
+    color: white;
+    background-color: #666;
+  }
+}
+
 .editor {
   max-width: 480px;
 

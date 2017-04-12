@@ -1,5 +1,6 @@
 import './conversation.message.scss';
 import {Message, TextMessage} from 'leancloud-realtime';
+import {TypingStatusMessage} from '../../../typing-indicator';
 
 export default ($scope, LeanRT, $location, $timeout, $anchorScroll, $mdDialog, $mdSidenav, $stateParams) => {
   'ngInject';
@@ -20,6 +21,17 @@ export default ($scope, LeanRT, $location, $timeout, $anchorScroll, $mdDialog, $
   $scope.getCurrentConversation = LeanRT.imClient.getConversation($stateParams.convId).then(conversation => {
     $scope.$parent.currentConversation = conversation;
     $scope.messageIterator = conversation.createMessagesIterator({limit: 20});
+    $scope.typingIndicator = $scope.$parent.typingIndicator;
+    $scope.typingIndicator.setConversation(conversation);
+
+    $scope.typingIndicator.on('change', () => {
+      if ($scope.typingIndicator.typingClients.length) {
+        $scope.typingClients = `${$scope.typingIndicator.typingClients.join(', ')} 正在输入`;
+      } else {
+        $scope.typingClients = null;
+      }
+      $scope.$digest();
+    });
 
     const membersJoinedHandler = payload => {
       $scope.messages.push({
@@ -77,6 +89,7 @@ export default ($scope, LeanRT, $location, $timeout, $anchorScroll, $mdDialog, $
       conversation.off('lastdeliveredatupdate', receiptUpdateHandler);
       conversation.off('lastreadatupdate', receiptUpdateHandler);
       conversation.off('lastreadtimestampsupdate', receiptUpdateHandler);
+      $scope.typingIndicator.off('change');
       document.removeEventListener("visibilitychange", handleVisibilityChange);
     });
 
@@ -96,6 +109,7 @@ export default ($scope, LeanRT, $location, $timeout, $anchorScroll, $mdDialog, $
       $scope.draft = '';
       $scope.getCurrentConversation
       .then(conversation => {
+        $scope.typingIndicator.updateStatus(0);
         const sendPromise = conversation.send(message, {
           receipt: conversation.members.length === 2
         });
@@ -149,6 +163,12 @@ export default ($scope, LeanRT, $location, $timeout, $anchorScroll, $mdDialog, $
   };
 
   $scope.editorChangedHandler = event => {
+    console.log($scope.draft);
+    if ($scope.draft) {
+      $scope.typingIndicator.updateStatus(TypingStatusMessage.STATUS.TYPING);
+    } else {
+      $scope.typingIndicator.updateStatus(TypingStatusMessage.STATUS.FINISHED);
+    }
     if (event.keyCode === 13 && !event.shiftKey) {
       $scope.send();
       event.preventDefault();
