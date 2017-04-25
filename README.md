@@ -1,15 +1,21 @@
-# LeanMessage Demo 使用指南
-为了直观地展现 LeanCloud 实时消息服务的 SDK 使用方法，官方诚意推出新版的 LeanMessage Demo 给开发者使用和学习。
+# LeanMessage WebApp
 
-当前仓库里包含了 3 个版本 SDK 的演示，包含
+使用 LeanCloud 实时通讯搭建的聊天 WebApp。[Live Demo](https://leancloud.github.io/leanmessage-demo)
 
-* iOS |[iOS 官方文档](https://leancloud.cn/docs/realtime_guide-ios.html)
-* Android |[Android 官方文档](https://leancloud.cn/docs/realtime_guide-android.html)
-* Web（JavaScript）| [JavaScript 官方文档](https://leancloud.cn/docs/realtime_guide-js.html)| [Web Demo 线上地址](http://leancloud.github.io/leanmessage-demo)
+> 在找 iOS/Android Demo？试试我们全新设计的 ChatKit 吧：[iOS](https://github.com/leancloud/ChatKit-OC)、[Android](https://github.com/leancloud/LeanCloudChatKit-Android)。
 
-三个版本是「互通」的，可以直接打开任意 2 个版本的 Demo 进行实时聊天。
+### 功能
 
-以下将是各个版本的 Demo 如何使用，以及 SDK API 调用方法的相关介绍。建议对照代码进行阅读，效果更好。
+- [x] 登录
+- [x] 聊天室、单聊、群聊
+- [x] 系统对话实现的聊天机器人
+- [x] 成员管理（邀请其他成员）
+- [x] 消息送达回执与已读回执
+- [x] 未读消息
+- [x] 「正在输入」状态
+- [ ] 图片消息
+- [ ] 表情
 
+### 文档
 
-> 在深度调研 LeanMessage 之前，强烈建议您提前阅读[实时通信服务开发指南](https://leancloud.cn/docs/realtime_v2.html)，该文档详细的阐述了我们针对实时通信设计的几个重要抽象概念以及交互流程，其中包含了对话，ClientId，权限认证，系统对话（类似系统群发）等诸多解释，阅读之后再继续调研 Demo 效果更佳。
+[实时通讯 JavaScript SDK 使用文档](https://leancloud.cn/docs/realtime_guide-js.html)
