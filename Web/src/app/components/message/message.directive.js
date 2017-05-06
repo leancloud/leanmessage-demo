@@ -1,4 +1,5 @@
-import {MessageStatus} from 'leancloud-realtime';
+import {MessageStatus, TextMessage} from 'leancloud-realtime';
+import {ImageMessage} from 'leancloud-realtime-plugin-typed-messages';
 import './message.scss';
 
 export default () => {
@@ -19,7 +20,7 @@ export default () => {
       onNameClick: '&'
     },
     link: $scope => {
-      $scope.messageStatus = MessageStatus;
+      Object.assign($scope, {MessageStatus, TextMessage, ImageMessage});
       if (!$scope.message.type) {
         $scope.message.text = '[不支持的消息类型]';
       }

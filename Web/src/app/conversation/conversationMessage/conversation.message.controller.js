@@ -1,5 +1,7 @@
 import './conversation.message.scss';
 import {Message, TextMessage} from 'leancloud-realtime';
+import {ImageMessage} from 'leancloud-realtime-plugin-typed-messages';
+import AV from 'leancloud-storage';
 import {TypingStatusMessage} from '../../../typing-indicator';
 
 export default ($scope, LeanRT, $location, $timeout, $anchorScroll, $mdDialog, $mdSidenav, $stateParams) => {
@@ -103,11 +105,9 @@ export default ($scope, LeanRT, $location, $timeout, $anchorScroll, $mdDialog, $
     return conversation;
   });
 
-  $scope.send = () => {
-    if ($scope.draft) {
-      const message = new TextMessage($scope.draft);
-      $scope.draft = '';
-      $scope.getCurrentConversation
+  $scope.send = message => {
+    console.log(message);
+    return $scope.getCurrentConversation
       .then(conversation => {
         $scope.typingIndicator.updateStatus(0);
         const sendPromise = conversation.send(message, {
@@ -119,9 +119,25 @@ export default ($scope, LeanRT, $location, $timeout, $anchorScroll, $mdDialog, $
       .then(() => {
         scrollToBottom();
       }).catch(err => {
-        console.log(err);
+        console.error(err);
       });
+  };
+
+  $scope.sendText = () => {
+    if (!$scope.draft) {
+      return;
     }
+    const message = new TextMessage($scope.draft);
+    $scope.draft = '';
+    return $scope.send(message);
+  };
+
+  $scope.sendImage = event => {
+    const files = [...event.target.files];
+    event.target.form.reset(); // 否则无法连续发送相同的图片
+    return Promise.all(files.map(file =>
+      new AV.File(file.name, file).save().then(savedFile => $scope.send(new ImageMessage(savedFile)))
+    )).catch(console.error);
   };
 
   $scope.loadMoreMessages = () => {
@@ -170,7 +186,7 @@ export default ($scope, LeanRT, $location, $timeout, $anchorScroll, $mdDialog, $
       $scope.typingIndicator.updateStatus(TypingStatusMessage.STATUS.FINISHED);
     }
     if (event.keyCode === 13 && !event.shiftKey) {
-      $scope.send();
+      $scope.sendText();
       event.preventDefault();
       return false;
     }

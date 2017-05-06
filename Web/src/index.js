@@ -4,6 +4,8 @@ import 'angular-ui-router';
 import 'angular-material';
 import 'angular-material/angular-material.css';
 import {Realtime} from 'leancloud-realtime';
+import AV from 'leancloud-storage';
+import {TypedMessagesPlugin} from 'leancloud-realtime-plugin-typed-messages';
 import {GroupchatReceiptsPlugin} from 'leancloud-realtime-plugin-groupchat-receipts';
 import {TypingIndicatorPlugin} from './typing-indicator';
 import routesConfig from './routes';
@@ -22,6 +24,9 @@ import convMsgController from './app/conversation/conversationMessage/conversati
 
 export const app = 'leanMessage';
 const appId = 'm7baukzusy3l5coew0b3em5uf4df5i2krky0ypbmee358yon';
+const appKey = '2e46velw0mqrq3hl2a047yjtpxn32frm0m253k258xo63ft9';
+
+AV.init({appId, appKey});
 
 angular
   .module(app, ['ui.router', 'ngMaterial'])
@@ -36,7 +41,7 @@ angular
     const LeanRT = {};
     const realtime = new Realtime({
       appId,
-      plugins: [GroupchatReceiptsPlugin, TypingIndicatorPlugin],
+      plugins: [TypedMessagesPlugin, GroupchatReceiptsPlugin, TypingIndicatorPlugin],
       region: 'cn' // 美国节点为 "us"
     });
     LeanRT.realtime = realtime;
@@ -48,6 +53,19 @@ angular
   .run(runBlock)
   .directive('infiniteList', reverseInfiniteListDirective)
   .directive('message', messageDirective)
+  .directive('ngUploadChange', () => ({
+    scope: {
+      ngUploadChange: "&"
+    },
+    link: ($scope, $element) => {
+      $element.on("change", event => {
+        $scope.ngUploadChange({$event: event});
+      });
+      $scope.$on("$destroy", () => {
+        $element.off();
+      });
+    }
+  }))
   .controller('loginCtrl', loginController)
   .controller('loggingCtrl', loggingController)
   .controller('convCtrl', convController)

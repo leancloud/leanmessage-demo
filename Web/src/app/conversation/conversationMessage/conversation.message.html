@@ -52,13 +52,17 @@
     <span>{{typingClients}}</span>
   </div>
   <md-content layout layout-align="center center" class="editor-wrapper">
-    <form class="editor" ng-submit="send()" layout layout-align="center center" flex>
+    <form>
+      <input class="ng-hide" id="file-image" multiple type="file" accept="image/*" ng-upload-change="sendImage($event)" />
+      <label for="file-image" class="md-button md-icon-button" aria-label="Image" ><md-icon>image</md-icon></label>
+    </form>
+    <form class="editor" ng-submit="sendText()" layout layout-align="center center" flex>
       <md-input-container md-no-float flex class="textarea">
         <textarea ng-model="draft"
                   placeholder="说点什么……"
                   ng-keypress="editorChangedHandler($event)"></textarea>
       </md-input-container>
-      <md-button class="md-icon-button" aria-label="Send" ng-click="send()">
+      <md-button class="md-icon-button" aria-label="Send" ng-click="sendText()">
         <md-icon>send</md-icon>
       </md-button>
     </form>

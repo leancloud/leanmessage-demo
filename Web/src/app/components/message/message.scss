@@ -16,6 +16,10 @@ $arrow-size: 8px;
     cursor: pointer;
   }
 
+  .image {
+    margin: 10px 0;
+  }
+
   .content {
     position: relative;
     max-width: 240px;
@@ -41,7 +45,7 @@ $arrow-size: 8px;
     align-items: flex-end;
 
     .content {
-      margin: 8px 0 12px 12px;
+      margin: 8px 0 12px 0;
       color: white;
       $background: #2c97e8;
       background: $background;
@@ -63,7 +67,7 @@ $arrow-size: 8px;
   color: #666;
   font-size: 50%;
   text-align: center;
-  margin: 12px 0;
+  margin: 12px 12px 12px 0;
 }
 
 @keyframes fadeInOut {

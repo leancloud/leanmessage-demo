@@ -5,9 +5,14 @@
         <span class="tips" title="{{groupReadClients}}" ng-if="groupReadClients">{{ groupReadHint }}</span>
         <span class="tips" ng-if="isLastDelivered ">已送达</span>
         <span class="tips" ng-if="isLastRead">已读</span>
-        <md-icon ng-if="message.status === messageStatus.SENDING">reply</md-icon>
-        <md-icon ng-if="message.status === messageStatus.FAILED">error</md-icon>
-        <div class="content">{{ ::message.text }}</div>
+        <md-icon ng-if="message.status === MessageStatus.SENDING">reply</md-icon>
+        <md-icon ng-if="message.status === MessageStatus.FAILED">error</md-icon>
+        <div class="image" ng-if="::message.type === ImageMessage.TYPE">
+            <a ng-href="{{ ::message.getFile().url() }}" target="_blank">
+                <img ng-src="{{ ::message.getFile().thumbnailURL(260, 360) }}"/>
+            </a>
+        </div>
+        <div class="content" ng-if="::message.text">{{ ::message.text }}</div>
     </div>
 </div>
 
