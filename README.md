@@ -1,6 +1,6 @@
 # LeanMessage WebApp
 
-使用 LeanCloud 实时通讯搭建的聊天 WebApp。[Live Demo](https://leancloud.github.io/leanmessage-demo)
+使用 LeanCloud 实时通讯搭建的聊天 WebApp。[Live Demo](https://leanmessage.leanapp.cn/)
 
 > 在找 iOS/Android Demo？试试我们全新设计的 ChatKit 吧：[iOS](https://github.com/leancloud/ChatKit-OC)、[Android](https://github.com/leancloud/LeanCloudChatKit-Android)。
 
@@ -13,7 +13,7 @@
 - [x] 消息送达回执与已读回执
 - [x] 未读消息
 - [x] 「正在输入」状态
-- [ ] 图片消息
+- [x] 图片消息
 - [ ] 表情
 
 ### 文档
