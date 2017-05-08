@@ -15,5 +15,8 @@
     "mathjs": "^2.4.0",
     "request": "^2.65.0",
     "workerpool": "^1.0.0"
+  },
+  "engines": {
+    "node": "4.x"
   }
 }

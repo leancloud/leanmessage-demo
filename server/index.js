@@ -22,11 +22,13 @@ app.post('/webhook', function (req, res) {
   var messages = req.body;
   console.log('messages recieved: ' + JSON.stringify(messages));
 
-  messages.forEach(function (message) {
+  messages.filter(message => !message.noPersist).forEach(function (message) {
     var convId = message.conv.objectId;
     var peerId = message.from;
     Promise.resolve().then(function () {
-        var expr = JSON.parse(message.data)._lctext;
+        const data = JSON.parse(message.data);
+        if (data._lctype !== -1) throw new TypeError('不支持的消息类型');
+        var expr = data._lctext;
         return expr;
       }).then(function (expr) {
         return pool.exec('evaluate', [expr]).timeout(TIMEOUT);
