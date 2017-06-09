@@ -5,7 +5,7 @@ export default ($scope, LeanRT, $state, userService) => {
   $scope.user = {};
 
   $scope.login = () => {
-    userService.login($scope.user.id).then(userClient => {
+    userService.login($scope.user.id || 'Guest').then(userClient => {
       LeanRT.imClient = userClient;
       userService.cache(userClient.id);
       userService.connected = true;
