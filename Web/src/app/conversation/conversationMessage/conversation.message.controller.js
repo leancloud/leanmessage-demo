@@ -14,6 +14,11 @@ export default ($scope, LeanRT, $location, $timeout, $anchorScroll, $mdDialog, $
     }, 0);
   };
 
+  const replaceRecalledMessage = recalledMessage => {
+    $scope.messages = $scope.messages.map(message => (message.id === recalledMessage.id ? recalledMessage : message));
+    $scope.$digest();
+  };
+
   $scope.messages = [];
   $scope.imClient = LeanRT.imClient;
   $scope.hasLoadAllMessages = false;
@@ -46,7 +51,8 @@ export default ($scope, LeanRT, $location, $timeout, $anchorScroll, $mdDialog, $
 
     const readMarker = msg => {
       // 暂态消息不标记
-      if (msg.transient) {
+      // 特殊情况：暂态对话的所有消息都是暂态的，因此暂态对话收到消息全部标记
+      if (msg.transient && !conversation.transient) {
         return;
       }
       // 当前 tab 未激活不标记
@@ -76,12 +82,14 @@ export default ($scope, LeanRT, $location, $timeout, $anchorScroll, $mdDialog, $
       }
     };
 
+
     conversation.on('membersjoined', membersJoinedHandler);
     conversation.on('message', readMarker);
     conversation.on('message', messageUpdater);
     conversation.on('lastdeliveredatupdate', receiptUpdateHandler);
     conversation.on('lastreadatupdate', receiptUpdateHandler);
     conversation.on('lastreadtimestampsupdate', receiptUpdateHandler);
+    conversation.on('messagerecall', replaceRecalledMessage);
     document.addEventListener("visibilitychange", handleVisibilityChange);
 
     $scope.$on("$destroy", () => {
@@ -91,6 +99,7 @@ export default ($scope, LeanRT, $location, $timeout, $anchorScroll, $mdDialog, $
       conversation.off('lastdeliveredatupdate', receiptUpdateHandler);
       conversation.off('lastreadatupdate', receiptUpdateHandler);
       conversation.off('lastreadtimestampsupdate', receiptUpdateHandler);
+      conversation.off('messagerecall', replaceRecalledMessage);
       $scope.typingIndicator.off('change');
       document.removeEventListener("visibilitychange", handleVisibilityChange);
     });
@@ -190,5 +199,17 @@ export default ($scope, LeanRT, $location, $timeout, $anchorScroll, $mdDialog, $
       event.preventDefault();
       return false;
     }
+  };
+
+  $scope.recall = message => {
+    console.log('recall', message);
+    return $scope.getCurrentConversation
+      .then(conversation => conversation.recall(message))
+      .then(recalledMessage => {
+        console.log(recalledMessage);
+        replaceRecalledMessage(recalledMessage);
+      }).catch(err => {
+        console.error(err);
+      });
   };
 };

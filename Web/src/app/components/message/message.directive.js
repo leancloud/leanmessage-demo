@@ -1,4 +1,4 @@
-import {MessageStatus, TextMessage} from 'leancloud-realtime';
+import {MessageStatus, TextMessage, RecalledMessage} from 'leancloud-realtime';
 import {ImageMessage} from 'leancloud-realtime-plugin-typed-messages';
 import './message.scss';
 
@@ -17,10 +17,11 @@ export default () => {
       groupLastReadAt: '=',
       isGroup: '=',
       isMine: '=',
+      onRecallClick: '&',
       onNameClick: '&'
     },
     link: $scope => {
-      Object.assign($scope, {MessageStatus, TextMessage, ImageMessage});
+      Object.assign($scope, {MessageStatus, TextMessage, ImageMessage, RecalledMessage});
       if (!$scope.message.type) {
         $scope.message.text = '[不支持的消息类型]';
       }
@@ -33,6 +34,10 @@ export default () => {
         if (thisMinute !== previousMinute) {
           $scope.displayTime = true;
         }
+      }
+      // 显示 clientId
+      if (!($scope.isMine || !$scope.displayTime && $scope.previousMessage.from === $scope.message.from)) {
+        $scope.displayClientId = true;
       }
       if ($scope.isMine) {
         if ($scope.isGroup) {

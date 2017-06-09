@@ -8,23 +8,21 @@ $arrow-size: 8px;
 }
 
 .message {
-  padding: 6px 8px;
+  padding: 0 6px;
   align-items: flex-start;
+  margin: 16px 0;
 
   .user {
     font-size: 80%;
     cursor: pointer;
-  }
-
-  .image {
-    margin: 10px 0;
+    margin: 0 0 8px;
   }
 
   .content {
     position: relative;
     max-width: 240px;
     padding: 10px;
-    margin: 12px 0 8px;
+    margin: 6px 0 0;
     $background: #f6f6f6;
     background: $background;
     word-wrap: break-word;
@@ -45,7 +43,7 @@ $arrow-size: 8px;
     align-items: flex-end;
 
     .content {
-      margin: 8px 0 12px 0;
+      margin: 0 0 6px;
       color: white;
       $background: #2c97e8;
       background: $background;
@@ -60,14 +58,32 @@ $arrow-size: 8px;
         border-top-color: $background;
       }
     }
+
+    .operations {
+      position: relative;
+      left: 10px;
+      top: -8px;
+      transition: all .2s ease-in;
+    }
+    &:not(:hover) .operations {
+      opacity: 0;
+      left: 20px;      
+    }
   }
+}
+
+.action-message {
+  color: #666;
+  font-size: 14px;
+  background: #bbb;
+  padding: 6px;
 }
 
 .tips {
   color: #666;
   font-size: 12px;
   text-align: center;
-  margin: 12px 12px 12px 0;
+  margin: -14px 12px 4px 0;
 }
 
 @keyframes fadeInOut {

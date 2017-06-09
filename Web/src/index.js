@@ -41,6 +41,7 @@ angular
     const LeanRT = {};
     const realtime = new Realtime({
       appId,
+      server: 'rtm51',
       plugins: [TypedMessagesPlugin, GroupchatReceiptsPlugin, TypingIndicatorPlugin],
       region: 'cn' // 美国节点为 "us"
     });

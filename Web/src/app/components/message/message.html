@@ -1,12 +1,27 @@
 <div ng-if="displayTime" class="time">{{::message.timestamp | date:'MM-dd HH:mm'}}</div>
 <div class="message" ng-if="::message.id" ng-class="::{mine: isMine}" layout="column">
-    <div class="user" ng-if="::!isMine" ng-click="onNameClick()">{{ ::message.from }}</div>
-    <div layout layout-align="start end">
-        <span class="tips" title="{{groupReadClients}}" ng-if="groupReadClients">{{ groupReadHint }}</span>
-        <span class="tips" ng-if="isLastDelivered ">已送达</span>
-        <span class="tips" ng-if="isLastRead">已读</span>
-        <md-icon ng-if="message.status === MessageStatus.SENDING">reply</md-icon>
-        <md-icon ng-if="message.status === MessageStatus.FAILED">error</md-icon>
+    <div class="user" ng-if="displayClientId" ng-click="onNameClick()">{{ ::message.from }}</div>
+    <div ng-if="::message.type === RecalledMessage.TYPE" class="action-message">
+        该消息已撤回
+    </div>
+    <div ng-if="::message.type !== RecalledMessage.TYPE" layout layout-align="start">
+        <div layout="column" layout-align="space-between start">
+            <div class="operations">
+                <md-button class="md-icon-button"
+                    ng-if="::isMine"
+                    aria-label="Recall"
+                    ng-click="onRecallClick()">
+                    <md-icon>delete</md-icon>
+                </md-button>
+            </div>
+            <div layout layout-align="start end">
+                <span class="tips" title="{{groupReadClients}}" ng-if="groupReadClients">{{ groupReadHint }}</span>
+                <span class="tips" ng-if="isLastDelivered ">已送达</span>
+                <span class="tips" ng-if="isLastRead">已读</span>
+                <md-icon ng-if="message.status === MessageStatus.SENDING">reply</md-icon>
+                <md-icon ng-if="message.status === MessageStatus.FAILED">error</md-icon>
+            </div>
+        </div>
         <div class="image" ng-if="::message.type === ImageMessage.TYPE">
             <a ng-href="{{ ::message.getFile().url() }}" target="_blank">
                 <img ng-src="{{ ::message.getFile().thumbnailURL(260, 360) }}"/>
@@ -16,4 +31,4 @@
     </div>
 </div>
 
-<div class="tips" ng-if="::!message.id">{{ message.text }}</div>
+<div ng-if="::!message.id" layout layout-align="center"><div class="action-message">{{ message.text }}</div></div>

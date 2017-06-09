@@ -42,6 +42,7 @@
         group-last-read-at="currentConversation.lastReadTimestamps"
         is-group="::currentConversation.members.length > 2"
         on-name-click="createSingleConv(message.from)"
+        on-recall-click="recall(message)"
         is-mine="::message.from == imClient.id"></message>
       <!--messages end-->
       <div id="message-view-bottom"></div>
