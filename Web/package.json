@@ -7,10 +7,10 @@
     "angular-ui-router": "^0.3.1",
     "eventemitter3": "^2.0.3",
     "jquery": "^3.1.0",
-    "leancloud-realtime": "^3.4.1",
+    "leancloud-realtime": "^3.5.0",
     "leancloud-realtime-plugin-groupchat-receipts": "^1.0.0",
-    "leancloud-realtime-plugin-typed-messages": "^1.0.0",
-    "leancloud-storage": "^1.5.5"
+    "leancloud-realtime-plugin-typed-messages": "^2.0.0",
+    "leancloud-storage": "^3.0.0"
   },
   "devDependencies": {
     "angular-mocks": "^1.5.0-beta.2",

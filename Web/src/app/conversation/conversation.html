@@ -16,7 +16,7 @@
               ng-class="{'active': conv.id === currentConversation.id}">
         <p layout="row" layout-align="center center">
           {{::conv.name}}
-          <span class="last-message" flex>{{conv.lastMessage.text}}</span>
+          <span class="last-message" flex>{{conv.lastMessage.summary}}</span>
           <span ng-if="conv.unreadMessagesCount" class="unreadCount">{{conv.unreadMessagesCount}}</span>
         </p>
       </md-list-item>
@@ -32,7 +32,7 @@
               ng-class="{'active': conv.id === currentConversation.id}">
         <p layout="row" layout-align="center center">
           {{::conv.name}}
-          <span class="last-message" flex>{{conv.lastMessage.from}}<span ng-if="conv.lastMessage.from">: </span>{{conv.lastMessage.text}}</span>
+          <span class="last-message" flex>{{conv.lastMessage.from}}<span ng-if="conv.lastMessage.from">: </span>{{conv.lastMessage.summary}}</span>
           <span ng-if="conv.unreadMessagesCount" class="unreadCount">{{conv.unreadMessagesCount}}</span>
         </p>
       </md-list-item>
@@ -49,7 +49,7 @@
         ng-class="{'active': conv.id === currentConversation.id}">
         <p layout="row" layout-align="center center">
           {{conv.name || '群 ' + conv.id.slice(-4) }}
-          <span class="last-message" flex>{{conv.lastMessage.from}}<span ng-if="conv.lastMessage.from">: </span>{{conv.lastMessage.text}}</span>
+          <span class="last-message" flex>{{conv.lastMessage.from}}<span ng-if="conv.lastMessage.from">: </span>{{conv.lastMessage.summary}}</span>
           <span ng-if="conv.unreadMessagesCount" class="unreadCount">{{conv.unreadMessagesCount}}</span>
         </p>
       </md-list-item>
@@ -66,7 +66,7 @@
         ng-class="{'active': conv.id === currentConversation.id}">
         <p layout="row" layout-align="center center">
           {{getSingleConvTarget(conv.members)}}
-          <span class="last-message" flex>{{conv.lastMessage.text}}</span>
+          <span class="last-message" flex>{{conv.lastMessage.summary}}</span>
           <span ng-if="conv.unreadMessagesCount" class="unreadCount">{{conv.unreadMessagesCount}}</span>
         </p>
       </md-list-item>

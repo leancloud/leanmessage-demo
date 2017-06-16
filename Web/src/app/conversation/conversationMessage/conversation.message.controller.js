@@ -82,7 +82,6 @@ export default ($scope, LeanRT, $location, $timeout, $anchorScroll, $mdDialog, $
       }
     };
 
-
     conversation.on('membersjoined', membersJoinedHandler);
     conversation.on('message', readMarker);
     conversation.on('message', messageUpdater);
