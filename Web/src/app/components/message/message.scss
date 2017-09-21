@@ -70,6 +70,17 @@ $arrow-size: 8px;
       left: 20px;      
     }
   }
+
+  &.mentioned {
+    .content {
+      $background: #fffdcb;
+      background: $background;
+
+      &:after {
+        border-bottom-color: $background;
+      }
+    }
+  }
 }
 
 .action-message {

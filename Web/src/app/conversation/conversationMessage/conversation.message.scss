@@ -36,11 +36,26 @@ $toolbar-height: 64px - 1px;
   }
 }
 
+.mention-suggestion {
+  position: absolute;
+  bottom: 100%;
+  margin-bottom: 6px;
+  width: 100%;
+  background-color: rgb(250,250,250);
+  padding: 0;
+  box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.2);
+  
+  > md-list-item.active {
+    background-color: rgba(0, 0, 0, 0.1);
+  }
+}
+
 .editor {
   max-width: 480px;
 
   &-wrapper {
     min-height: 58px;
+    background-color: rgb(250,250,250);
   }
 
   .textarea {

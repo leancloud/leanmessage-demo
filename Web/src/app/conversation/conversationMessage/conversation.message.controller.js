@@ -4,7 +4,15 @@ import {ImageMessage} from 'leancloud-realtime-plugin-typed-messages';
 import AV from 'leancloud-storage';
 import {TypingStatusMessage} from '../../../typing-indicator';
 
-export default ($scope, LeanRT, $location, $timeout, $anchorScroll, $mdDialog, $mdSidenav, $stateParams) => {
+const getMentionPrefix = (text, position) => {
+  const result = text.slice(0, position).match(/(^|\s)@(\S*)$/);
+  if (result) {
+    return result[2].toLowerCase();
+  }
+  return null;
+};
+
+export default ($scope, LeanRT, $location, $timeout, $anchorScroll, $mdDialog, $mdSidenav, $stateParams, $element) => {
   'ngInject';
 
   const scrollToBottom = () => {
@@ -132,11 +140,25 @@ export default ($scope, LeanRT, $location, $timeout, $anchorScroll, $mdDialog, $
   };
 
   $scope.sendText = () => {
-    if (!$scope.draft) {
+    const {draft} = $scope;
+    if (!draft) {
       return;
     }
-    const message = new TextMessage($scope.draft);
+    const message = new TextMessage(draft);
+    // 匹配出所有的 @
+    const results = draft.match(/(^|\s)@(\S*)/g);
+    if (results) {
+      const mentionMatchResults = new Set(results.map(match => match.trim().slice(1)));
+      console.log(mentionMatchResults);
+      // 找出 @all
+      if (mentionMatchResults.has('all')) {
+        message.mentionAll();
+        mentionMatchResults.delete('all');
+      }
+      message.setMentionList(Array.from(mentionMatchResults));
+    }
     $scope.draft = '';
+
     return $scope.send(message);
   };
 
@@ -186,6 +208,81 @@ export default ($scope, LeanRT, $location, $timeout, $anchorScroll, $mdDialog, $
     $mdSidenav(id).toggle();
   };
 
+  const MAX_SUGGESTION = 5;
+  $scope.updateMentionSuggestion = name => {
+    $scope.getCurrentConversation.then(conversation => {
+      const clients = conversation.transient ?
+        $scope.messages.map(message => message.from) :
+        conversation.members;
+      const set = new Set(clients);
+      set.add('all');
+      set.delete($scope.imClient.id);
+      return set;
+    }).then(clients => {
+      const matchedClients = [];
+      let matchedExactly = [];
+      clients.forEach(client => {
+        const index = client.indexOf(name);
+        if (index === 0) {
+          if (client.length === name.length) {
+            matchedExactly = [name];
+            return;
+          }
+          return matchedClients.push(client);
+        } else if (index > 0 && matchedExactly.length + matchedClients.length < MAX_SUGGESTION) {
+          matchedClients.unshift(client);
+        }
+      });
+      return [...matchedClients, ...matchedExactly].slice(-MAX_SUGGESTION);
+    }).then(matchedClients => {
+      $scope.matchedClients = matchedClients;
+      $scope.suggestionActive = matchedClients.length - 1;
+      $scope.$digest();
+    });
+  };
+  $scope.hideMentionSuggestion = () => {
+    $scope.matchedClients = [];
+  };
+  let _prefix = null;
+  $scope.replaceSelectedMentionedClient = (index = $scope.suggestionActive) => {
+    const textarea = $element.find('textarea')[0];
+    const currentPosition = textarea.selectionStart;
+    const arr = $scope.draft.slice(0, currentPosition).split('@');
+    arr.pop();
+    arr.push(`${$scope.matchedClients[index]} ${$scope.draft.slice(currentPosition, $scope.draft.length)}`);
+    $scope.draft = arr.join('@');
+    $timeout(() => {
+      const newPosition = currentPosition - _prefix.length + $scope.matchedClients[index].length + 1;
+      textarea.setSelectionRange(newPosition, newPosition);
+    }, 1);
+  };
+  $scope.editorCursorPositionCheck = event => {
+    const prefix = getMentionPrefix($scope.draft, event.target.selectionStart);
+    if (prefix === _prefix) {
+      return;
+    }
+    _prefix = prefix;
+    if (prefix === null) {
+      $scope.hideMentionSuggestion();
+    } else {
+      $scope.updateMentionSuggestion(prefix);
+    }
+  };
+  $scope.editorKeydownHandler = event => {
+    const {matchedClients} = $scope;
+    if (matchedClients && matchedClients.length) { // 提及补全模式
+      const {keyCode} = event;
+      if (keyCode === 38 || keyCode === 40) {
+        event.preventDefault();
+        $scope.suggestionActive = (matchedClients.length + $scope.suggestionActive + keyCode - 39) % matchedClients.length;
+        return false;
+      }
+      if (event.keyCode === 27) {
+        return $scope.hideMentionSuggestion();
+      }
+    }
+  };
+
   $scope.editorChangedHandler = event => {
     console.log($scope.draft);
     if ($scope.draft) {
@@ -193,10 +290,17 @@ export default ($scope, LeanRT, $location, $timeout, $anchorScroll, $mdDialog, $
     } else {
       $scope.typingIndicator.updateStatus(TypingStatusMessage.STATUS.FINISHED);
     }
-    if (event.keyCode === 13 && !event.shiftKey) {
-      $scope.sendText();
-      event.preventDefault();
-      return false;
+    if (event.keyCode === 13) {
+      if ($scope.matchedClients && $scope.matchedClients.length) { // 提及补全模式
+        $scope.replaceSelectedMentionedClient();
+        event.preventDefault();
+        return false;
+      }
+      if (!event.shiftKey) {
+        $scope.sendText();
+        event.preventDefault();
+        return false;
+      }
     }
   };
 

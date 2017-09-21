@@ -1,5 +1,5 @@
 <div ng-if="displayTime" class="time">{{::message.timestamp | date:'MM-dd HH:mm'}}</div>
-<div class="message" ng-if="::message.id" ng-class="::{mine: isMine}" layout="column">
+<div class="message" ng-if="::message.id" ng-class="::{mine: isMine, mentioned: message.mentioned}" layout="column">
     <div class="user" ng-if="displayClientId" ng-click="onNameClick()">{{ ::message.from }}</div>
     <div ng-if="::message.type === RecalledMessage.TYPE" class="action-message">
         该消息已撤回

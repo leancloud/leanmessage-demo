@@ -49,6 +49,10 @@ $toolbar-height: 64px - 1px;
   .md-subheader + .empty-list-hint {
     display: block;
   }
+
+  .mentioned {
+    color: #F44336;
+  }
 }
 
 .network-error {
