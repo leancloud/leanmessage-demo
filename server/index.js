@@ -16,7 +16,11 @@ var APP_ID = process.env.LC_APP_ID; // your app id
 var APP_KEY = process.env.LC_APP_KEY; // your app key
 var MASTER_KEY = process.env.LC_APP_MASTER_KEY; // your app master key
 
-AV.initialize(APP_ID, APP_KEY, MASTER_KEY);
+AV.init({
+  'appId': APP_ID,
+  'appKey': APP_KEY,
+  'masterKey': MASTER_KEY
+});
 
 app.post('/webhook', function (req, res) {
   var messages = req.body;
@@ -92,7 +96,7 @@ process.on('uncaughtException', function (err) {
 });
 
 // leanengine health checker
-app.use(AV.Cloud);
+app.use(AV.express());
 
 // start the server
 var PORT = process.env.LC_APP_PORT | process.env.PORT || 8080;
