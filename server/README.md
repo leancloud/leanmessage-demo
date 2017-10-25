@@ -12,3 +12,26 @@ MathBot 是一个自动回复机器人，能响应实时通讯服务的系统消
 3. 在控制台的「消息」-「实时消息设置」-「消息回调设置」中填入 LeanEngine 提供服务的地址：http://yourdomain.avosapps.com/webhook
 
 接下来就可以加入刚才创建的系统对话，给 MathBot 发消息测试了。
+
+一个名为 jerry 的 client 给 MathBot 发消息的示例：
+```
+realtime.createIMClient('Jerry').then(function(jerry) {
+  // 监听 MathBot 发过来的消息
+  jerry.on('message', function(message, conversation) {
+    console.log('Message received: ' + message.text);
+  });
+  return jerry.getConversation('系统对话的ID');
+}).then(function(conversation) {
+  // 发送消息
+  return conversation.send(new AV.TextMessage('1+1'));
+}).then(function(message) {
+  console.log('发送成功！');
+}).catch(console.error);
+```
+更多使用方式可参考 [JavaScript SDK](https://leancloud.cn/docs/realtime_guide-js.html).
+
+### 说明
+
+在本示例中，核心代码为 [sendMessage](index.js#L50) 方法，它针对 client 端发过来的消息，进行响应，发消息时的 `from_peer: 'MathBot'` 指定了系统所使用的用户名，开发者可以根据需要指定。
+
+除了本示例所演示的 MathBot 机器人外，开发者可以利用系统对话，实现类似 App 内系统通知，微信公众号群发消息的功能。
