@@ -3,8 +3,8 @@
 var express = require('express');
 var workerpool = require('workerpool');
 var bodyParser = require('body-parser');
-var request = require('request');
 var AV = require('leanengine');
+var TextMessage = require('leancloud-realtime').TextMessage;
 
 var app = express();
 app.use(bodyParser.json());
@@ -22,14 +22,19 @@ AV.init({
   'masterKey': MASTER_KEY
 });
 
+var MATH_CONV_ID = process.env.MATH_CONV_ID;
 app.post('/webhook', function (req, res) {
   var messages = req.body;
   console.log('messages recieved: ' + JSON.stringify(messages));
 
-  messages.filter(message => !message.noPersist).forEach(function (message) {
-    var convId = message.conv.objectId;
-    var peerId = message.from;
-    Promise.resolve().then(function () {
+  // 过滤掉暂态消息与非通过 MathBot 对话发过来的消息
+  messages
+    .filter(message => !message.noPersist)
+    .filter(message => message.conv.objectId === MATH_CONV_ID)
+    .forEach(function (message) {
+      var convId = message.conv.objectId;
+      var peerId = message.from;
+      Promise.resolve().then(function () {
         const data = JSON.parse(message.data);
         if (data._lctype !== -1) throw new TypeError('不支持的消息类型');
         var expr = data._lctext;
@@ -42,37 +47,19 @@ app.post('/webhook', function (req, res) {
       .catch(function (err) {
         sendMessage(formatError(err), peerId, convId);
       });
-  });
+    });
 
   res.send('');
 });
 
 function sendMessage(content, peerId, convId) {
   console.log('sending message [' + content + '] to peer [' + peerId + ']');
-  request.post({
-    url: 'https://leancloud.cn/1.1/rtm/messages',
-    headers: {
-      'X-LC-Id': APP_ID,
-      'X-LC-Key': MASTER_KEY + ',master'
-    },
-    json:true,
-    body: {
-      'from_peer': 'MathBot',
-      'message': JSON.stringify({
-        '_lctext': content,
-        '_lctype': -1
-      }),
-      'conv_id': convId,
-      'to_peers': [peerId],
-      'transient': false
-    }
-  }, function (error, response, body) {
-    if (!error && response.statusCode == 200) {
-      console.log('sended: ' + JSON.stringify(body));
-    }
-    else {
-      console.log('send message error: ' + response.statusCode + JSON.stringify(body));
-    }
+  var message = new TextMessage(content);
+  var conversation = AV.Object.createWithoutData('_Conversation', convId);
+  return conversation.send('MathBot', message, { toClients: [peerId] }, { useMasterKey: true }).then(function() {
+    console.log('sended: ' + JSON.stringify(message));
+  }, function(error) {
+    console.error('send message error: ' + error.message);      
   });
 }
 
@@ -88,6 +75,21 @@ function formatError(err) {
     return err.toString();
   }
 }
+
+// 整点报时
+var CHIME_CONV_ID = process.env.CHIME_CONV_ID;
+AV.Cloud.define('chime', function() {
+  if (!CHIME_CONV_ID) return console.warn('CHIME_CONV_ID not set, skip chiming');
+  console.log('chime');
+  var hours = Math.round((Date.now() / 3600000  + 8) % 24);
+  var message = new TextMessage('北京时间 ' + hours + ' 点整');
+  var conversation = AV.Object.createWithoutData('_Conversation', CHIME_CONV_ID);
+  return conversation.broadcast('LeanObservatory', message, { validTill: Date.now() }, { useMasterKey: true }).then(function() {
+    console.log('chimed');
+  }, function(error) {
+    console.error('broadcast message error: ' + error.message);      
+  });
+});
 
 // handle uncaught exceptions so the application cannot crash
 process.on('uncaughtException', function (err) {

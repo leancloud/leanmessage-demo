@@ -11,10 +11,10 @@
   "dependencies": {
     "body-parser": "^1.14.1",
     "express": "^4.13.3",
+    "leancloud-realtime": "^3.5.7",
     "leancloud-storage": "^3.3.0",
     "leanengine": "^3.0.2",
-    "mathjs": "^2.4.0",
-    "request": "^2.65.0",
+    "mathjs": "^3.16.5",
     "workerpool": "^1.0.0"
   },
   "engines": {
