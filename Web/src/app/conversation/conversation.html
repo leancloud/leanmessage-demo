@@ -9,7 +9,7 @@
 
       <!-- Robots List-->
       <md-divider></md-divider>
-      <md-subheader class="md-no-sticky">机器人</md-subheader>
+      <md-subheader class="md-no-sticky">服务号</md-subheader>
       <md-list-item
               ng-repeat="conv in sysConvs | orderBy:'-lastMessageAt' track by conv.id"
               ng-click="changeTo(conv)"
@@ -25,7 +25,7 @@
 
       <!-- Transiant Convsations List-->
       <md-divider></md-divider>
-      <md-subheader class="md-no-sticky">临时聊天室</md-subheader>
+      <md-subheader class="md-no-sticky">聊天室</md-subheader>
       <md-list-item
               ng-repeat="conv in transConvs | orderBy:'-lastMessageAt' track by conv.id"
               ng-click="changeTo(conv)"
