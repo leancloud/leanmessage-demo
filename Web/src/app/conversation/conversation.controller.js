@@ -21,7 +21,7 @@ export default ($scope, $rootScope, LeanRT, $state, $stateParams, $mdSidenav, us
   };
 
   const getTransConvs = () => {
-    return $scope.imClient.getQuery().withLastMessagesRefreshed().equalTo('tr', true).addDescending('lm').limit(1).find();
+    return $scope.imClient.getQuery().withLastMessagesRefreshed().equalTo('tr', true).addAscending('createdAt').limit(1).find();
   };
 
   const getSysConvs = () => {

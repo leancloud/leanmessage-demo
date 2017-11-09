@@ -746,9 +746,9 @@ balanced-match@^0.4.1, balanced-match@^0.4.2:
   version "0.4.2"
   resolved "https://registry.yarnpkg.com/balanced-match/-/balanced-match-0.4.2.tgz#cb3f3e3c732dc0f01ee70b403f302e61d7709838"
 
-base64-arraybuffer@0.1.5:
+base64-arraybuffer@0.1.5, base64-arraybuffer@^0.1.5:
   version "0.1.5"
-  resolved "https://registry.yarnpkg.com/base64-arraybuffer/-/base64-arraybuffer-0.1.5.tgz#73926771923b5a19747ad666aa5cd4bf9c6e9ce8"
+  resolved "http://registry.npm.taobao.org/base64-arraybuffer/download/base64-arraybuffer-0.1.5.tgz#73926771923b5a19747ad666aa5cd4bf9c6e9ce8"
 
 base64-js@^1.0.2:
   version "1.2.0"
@@ -1571,6 +1571,12 @@ debug@^2.1.1, debug@^2.2.0, debug@^2.4.4, debug@^2.4.5:
   resolved "https://registry.yarnpkg.com/debug/-/debug-2.6.6.tgz#a9fa6fbe9ca43cf1e79f73b75c0189cbb7d6db5a"
   dependencies:
     ms "0.7.3"
+
+debug@^3.0.0:
+  version "3.1.0"
+  resolved "http://registry.npm.taobao.org/debug/download/debug-3.1.0.tgz#5bb5a0672628b64149566ba16819e61518c67261"
+  dependencies:
+    ms "2.0.0"
 
 decamelize@^1.0.0, decamelize@^1.1.1, decamelize@^1.1.2:
   version "1.2.0"
@@ -3588,9 +3594,24 @@ leancloud-realtime@^3.5.0:
     uuid "^3.0.0"
     ws "^3.0.0"
 
-leancloud-storage@^3.0.0:
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/leancloud-storage/-/leancloud-storage-3.0.0.tgz#fafff0f61723098fa7da27efe04d45e5ad77e4eb"
+leancloud-realtime@^4.0.0-alpha.1:
+  version "4.0.0-alpha.3"
+  resolved "http://registry.npm.taobao.org/leancloud-realtime/download/leancloud-realtime-4.0.0-alpha.3.tgz#7e0f97f8f4ee92f9139f6aa72a220a9d62e08b18"
+  dependencies:
+    axios "^0.16.1"
+    babel-runtime "^6.6.1"
+    base64-arraybuffer "^0.1.5"
+    debug "^3.0.0"
+    eventemitter3 "^2.0.0"
+    javascript-state-machine "^2.3.5"
+    lodash "^4.6.0"
+    protobufjs "^5.0.1"
+    uuid "^3.0.0"
+    ws "^3.0.0"
+
+leancloud-storage@^3.3.1:
+  version "3.3.1"
+  resolved "http://registry.npm.taobao.org/leancloud-storage/download/leancloud-storage-3.3.1.tgz#5c488a3f7c0b2d8684268eacd1b4c35439ab8622"
   dependencies:
     debug "^2.2.0"
     es6-promise "^4.0.5"
@@ -4110,6 +4131,10 @@ ms@0.7.2:
 ms@0.7.3:
   version "0.7.3"
   resolved "https://registry.yarnpkg.com/ms/-/ms-0.7.3.tgz#708155a5e44e33f5fd0fc53e81d0d40a91be1fff"
+
+ms@2.0.0:
+  version "2.0.0"
+  resolved "http://registry.npm.taobao.org/ms/download/ms-2.0.0.tgz#5608aeadfc00be6c2901df5f9861788de0d597c8"
 
 multimatch@^2.0.0:
   version "2.1.0"
