@@ -74,31 +74,31 @@ amdefine@>=0.0.4:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/amdefine/-/amdefine-1.0.1.tgz#4a5282ac164729e93619bcfd3ad151f817ce91f5"
 
-angular-animate@~1.5.8:
-  version "1.5.11"
-  resolved "https://registry.yarnpkg.com/angular-animate/-/angular-animate-1.5.11.tgz#1baa43c303d1b93c4e6aa89453b39114b7a1c669"
+angular-animate@^1.6.8:
+  version "1.6.8"
+  resolved "http://registry.npm.taobao.org/angular-animate/download/angular-animate-1.6.8.tgz#f38554c9c68770c9588b39c49920bc24e0d6f98a"
 
-angular-aria@~1.5.8:
-  version "1.5.11"
-  resolved "https://registry.yarnpkg.com/angular-aria/-/angular-aria-1.5.11.tgz#26963ac336891ced7b199e59afd7e9b25e53d6a6"
+angular-aria@^1.6.8:
+  version "1.6.8"
+  resolved "http://registry.npm.taobao.org/angular-aria/download/angular-aria-1.6.8.tgz#f5dfcdd69c0dddcb8b691749285613caa7e6cca5"
 
-angular-material@^1.1.0-rc.5:
-  version "1.1.4"
-  resolved "https://registry.yarnpkg.com/angular-material/-/angular-material-1.1.4.tgz#27de35646f54ccd320080af0c708e1b438af87f6"
+angular-material@^1.1.6:
+  version "1.1.6"
+  resolved "http://registry.npm.taobao.org/angular-material/download/angular-material-1.1.6.tgz#ec8c55423f4da2eb06c91f44af3cf50f867fbe59"
 
-angular-mocks@^1.5.0-beta.2:
-  version "1.6.4"
-  resolved "https://registry.yarnpkg.com/angular-mocks/-/angular-mocks-1.6.4.tgz#47fdf50921cf24fb489f100a8cf2ad99d0538f40"
+angular-mocks@^1.6.8:
+  version "1.6.8"
+  resolved "http://registry.npm.taobao.org/angular-mocks/download/angular-mocks-1.6.8.tgz#ba2120057b4edaa56492d8789ddfbc8f18afa3c5"
 
-angular-ui-router@^0.3.1:
-  version "0.3.2"
-  resolved "https://registry.yarnpkg.com/angular-ui-router/-/angular-ui-router-0.3.2.tgz#c27e0496309c99218d5655985b164a096ab520a9"
+angular-ui-router@^0.4.3:
+  version "0.4.3"
+  resolved "http://registry.npm.taobao.org/angular-ui-router/download/angular-ui-router-0.4.3.tgz#6c29546fe50b8d2f74614dcb8660d6fc40d6e167"
   dependencies:
     angular "^1.0.8"
 
-angular@^1.0.8, angular@~1.5.0:
-  version "1.5.11"
-  resolved "https://registry.yarnpkg.com/angular/-/angular-1.5.11.tgz#8c5ba7386f15965c9acf3429f6881553aada30d6"
+angular@^1.0.8, angular@^1.6.8:
+  version "1.6.8"
+  resolved "http://registry.npm.taobao.org/angular/download/angular-1.6.8.tgz#5be378a58be91a5489e78b59c4518cd9fd273ffb"
 
 ansi-escapes@^1.1.0:
   version "1.4.0"
@@ -2089,6 +2089,10 @@ eventemitter3@^2.0.0, eventemitter3@^2.0.3:
   version "2.0.3"
   resolved "https://registry.yarnpkg.com/eventemitter3/-/eventemitter3-2.0.3.tgz#b5e1079b59fb5e1ba2771c0a993be060a58c99ba"
 
+eventemitter3@^3.0.0:
+  version "3.0.0"
+  resolved "http://registry.npm.taobao.org/eventemitter3/download/eventemitter3-3.0.0.tgz#fc29ecf233bd19fbd527bb4089bbf665dc90c1e3"
+
 events@^1.0.0:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/events/-/events-1.1.1.tgz#9ebdb7635ad099c70dcc4c2a1f5004288e8bd924"
@@ -3356,9 +3360,9 @@ jodid25519@^1.0.0:
   dependencies:
     jsbn "~0.1.0"
 
-jquery@^3.1.0:
-  version "3.2.1"
-  resolved "https://registry.yarnpkg.com/jquery/-/jquery-3.2.1.tgz#5c4d9de652af6cd0a770154a631bba12b015c787"
+jquery@^3.3.1:
+  version "3.3.1"
+  resolved "http://registry.npm.taobao.org/jquery/download/jquery-3.3.1.tgz#958ce29e81c9790f31be7792df5d4d95fc57fbca"
 
 js-base64@^2.1.8, js-base64@^2.1.9:
   version "2.1.9"
@@ -3576,9 +3580,9 @@ leancloud-realtime-plugin-live-query@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/leancloud-realtime-plugin-live-query/-/leancloud-realtime-plugin-live-query-1.0.0.tgz#2910d96b66c0cf1782bd7eb1c18f1bd95561968e"
 
-leancloud-realtime-plugin-typed-messages@^2.0.0:
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/leancloud-realtime-plugin-typed-messages/-/leancloud-realtime-plugin-typed-messages-2.0.0.tgz#d15010a0165eabbb4eb5eca2ab01e26c6b970643"
+leancloud-realtime-plugin-typed-messages@^3.0.0:
+  version "3.0.0"
+  resolved "http://registry.npm.taobao.org/leancloud-realtime-plugin-typed-messages/download/leancloud-realtime-plugin-typed-messages-3.0.0.tgz#191adc85821e9ae25052a377b0230524f91a1124"
 
 leancloud-realtime@^3.5.0:
   version "3.5.0"
@@ -3594,9 +3598,9 @@ leancloud-realtime@^3.5.0:
     uuid "^3.0.0"
     ws "^3.0.0"
 
-leancloud-realtime@^4.0.0-alpha.1:
-  version "4.0.0-alpha.3"
-  resolved "http://registry.npm.taobao.org/leancloud-realtime/download/leancloud-realtime-4.0.0-alpha.3.tgz#7e0f97f8f4ee92f9139f6aa72a220a9d62e08b18"
+leancloud-realtime@^4.0.0-beta.3:
+  version "4.0.0-beta.3"
+  resolved "http://registry.npm.taobao.org/leancloud-realtime/download/leancloud-realtime-4.0.0-beta.3.tgz#33fd1bf57192db2e7068042539cfcc46e6e46c4b"
   dependencies:
     axios "^0.16.1"
     babel-runtime "^6.6.1"
