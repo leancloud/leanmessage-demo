@@ -8,6 +8,7 @@ import AV from 'leancloud-storage';
 import {TypedMessagesPlugin} from 'leancloud-realtime-plugin-typed-messages';
 import {GroupchatReceiptsPlugin} from 'leancloud-realtime-plugin-groupchat-receipts';
 import {TypingIndicatorPlugin} from './typing-indicator';
+import StickerMessage from './sticker-message';
 import routesConfig from './routes';
 
 import './index.scss';
@@ -35,7 +36,7 @@ angular
     'ngInject';
     $mdThemingProvider.theme('default')
       .primaryPalette('blue')
-      .accentPalette('grey');
+      .accentPalette('blue-grey');
   })
   .factory('LeanRT', () => {
     const LeanRT = {};
@@ -46,6 +47,7 @@ angular
       plugins: [TypedMessagesPlugin, GroupchatReceiptsPlugin, TypingIndicatorPlugin],
       region: 'cn' // 美国节点为 "us"
     });
+    realtime.register([StickerMessage]);
     LeanRT.realtime = realtime;
     LeanRT.imClient = null;
     LeanRT.currentConversation = null;

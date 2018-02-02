@@ -1,6 +1,14 @@
 import {MessageStatus, TextMessage, RecalledMessage} from 'leancloud-realtime';
 import {ImageMessage} from 'leancloud-realtime-plugin-typed-messages';
+import StickerMessage from '../../../sticker-message';
+import {stickers as stickerArrayConfigs} from '../../../configs';
 import './message.scss';
+
+const stickers = stickerArrayConfigs.reduce((groupMap, group) => Object.assign(groupMap, {
+  [group[0]]: group[1].reduce((stickerMap, sticker) => Object.assign(stickerMap, {
+    [sticker[0]]: sticker[1]
+  }), {})
+}), {});
 
 export default () => {
   'ngInject';
@@ -21,7 +29,14 @@ export default () => {
       onNameClick: '&'
     },
     link: $scope => {
-      Object.assign($scope, {MessageStatus, TextMessage, ImageMessage, RecalledMessage});
+      Object.assign($scope, {
+        MessageStatus,
+        TextMessage,
+        ImageMessage,
+        RecalledMessage,
+        StickerMessage,
+        stickers
+      });
       if (!$scope.message.type) {
         $scope.message.text = '[不支持的消息类型]';
       }

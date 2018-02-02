@@ -27,6 +27,9 @@
                 <img ng-src="{{ ::message.getFile().thumbnailURL(260, 360) }}"/>
             </a>
         </div>
+        <div class="sticker" ng-if="::message.type === StickerMessage.TYPE">
+            <img ng-src="{{::stickers[message.group][message.sticker]}}" alt="{{::message.sticker}}" width="100"/>
+        </div>
         <div class="content" ng-if="::message.text">{{ ::message.text }}</div>
     </div>
 </div>

@@ -49,6 +49,28 @@
     </div>
   </md-content>
   <!--infinite-list End-->
+  <md-content class="smileys-selector" ng-if="smileysInited" ng-show="smileysShow">
+    <md-tabs md-dynamic-height md-border-bottom md-enable-disconnect>
+      <md-tab label="Smiley">
+        <md-content class="smileys">
+          <md-button 
+            ng-repeat="smiley in smileys"
+            ng-click="insertSmiley(smiley)"
+            class="smiley md-button md-icon-button">{{smiley}}</md-button>
+        </md-content>
+      </md-tab>
+      <md-tab ng-repeat="group in stickers" label="{{group[0]}}">
+        <md-content class="smileys">
+          <md-button 
+            ng-repeat="sticker in group[1]"
+            ng-click="sendStickers(group[0], sticker[0])"
+            class="smiley sticker md-button"><img ng-src="{{sticker[1]}}" aria-label="{{sticker[0]}}"/></md-button>
+          <p class="note" ng-show="group[2]"><a class="link" ng-href="{{group[2][1]}}" target="_blank">{{group[2][0]}}</a></p>
+        </md-content>
+      </md-tab>
+    </md-tabs>
+  </md-content>
+
   <div class="typing-indicator" ng-show="typingClients">
     <span>{{typingClients}}</span>
   </div>
@@ -58,6 +80,9 @@
       <label for="file-image" class="md-button md-icon-button" aria-label="Image" ><md-icon>image</md-icon></label>
     </form>
     <form class="editor" ng-submit="sendText()" layout layout-align="center center" flex>
+      <md-button class="md-icon-button" aria-label="Smileys" ng-click="toggleSmileysSelector()">
+        <md-icon>&#xE420;</md-icon>
+      </md-button>
       <md-input-container md-no-float flex class="textarea">
         <md-list class="mention-suggestion" ng-show="matchedClients.length">
           <md-list-item ng-repeat="(index, client) in matchedClients" ng-class="{active: index === suggestionActive}"  ng-click="replaceSelectedMentionedClient(index)">
@@ -73,10 +98,10 @@
                   ng-keyup="editorCursorPositionCheck($event)"
                   ng-keypress="editorChangedHandler($event)"></textarea>
       </md-input-container>
-      <md-button class="md-icon-button" aria-label="Send" ng-click="sendText()">
-        <md-icon>send</md-icon>
-      </md-button>
     </form>
+    <md-button class="md-icon-button" aria-label="Send" ng-click="sendText()">
+      <md-icon>send</md-icon>
+    </md-button>
   </div>
 </div>
 

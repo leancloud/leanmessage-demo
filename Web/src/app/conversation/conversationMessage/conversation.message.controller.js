@@ -3,6 +3,8 @@ import {Message, TextMessage} from 'leancloud-realtime';
 import {ImageMessage} from 'leancloud-realtime-plugin-typed-messages';
 import AV from 'leancloud-storage';
 import {TypingStatusMessage} from '../../../typing-indicator';
+import {smileys, stickers} from '../../../configs';
+import StickerMessage from '../../../sticker-message';
 
 const getMentionPrefix = (text, position) => {
   const result = text.slice(0, position).match(/(^|\s)@(\S*)$/);
@@ -32,6 +34,17 @@ export default ($scope, LeanRT, $location, $timeout, $anchorScroll, $mdDialog, $
   $scope.hasLoadAllMessages = false;
   $scope.maxResultsAmount = 50;
   $scope.draft = '';
+
+  $scope.smileysInited = false;
+  $scope.smileysShow = false;
+  $scope.toggleSmileysSelector = () => {
+    if (!$scope.smileysInited) {
+      $scope.smileysInited = true;
+    }
+    $scope.smileysShow = !$scope.smileysShow;
+  };
+  $scope.smileys = smileys;
+  $scope.stickers = stickers;
 
   $scope.getCurrentConversation = LeanRT.imClient.getConversation($stateParams.convId).then(conversation => {
     $scope.$parent.currentConversation = conversation;
@@ -168,6 +181,21 @@ export default ($scope, LeanRT, $location, $timeout, $anchorScroll, $mdDialog, $
     return Promise.all(files.map(file =>
       new AV.File(file.name, file).save().then(savedFile => $scope.send(new ImageMessage(savedFile)))
     )).catch(console.error);
+  };
+
+  $scope.sendStickers = (groupName, stickerName) => {
+    const message = new StickerMessage(groupName, stickerName);
+    return $scope.send(message).catch(console.error);
+  };
+
+  $scope.insertSmiley = smiley => {
+    const textarea = $element.find('textarea')[0];
+    const currentPosition = textarea.selectionStart;
+    $scope.draft = $scope.draft.slice(0, currentPosition) + smiley + $scope.draft.slice(textarea.selectionEnd);
+    $timeout(() => {
+      const newPosition = currentPosition + smiley.length;
+      textarea.setSelectionRange(newPosition, newPosition);
+    }, 1);
   };
 
   $scope.loadMoreMessages = () => {
