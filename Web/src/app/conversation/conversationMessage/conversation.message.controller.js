@@ -171,6 +171,7 @@ export default ($scope, LeanRT, $location, $timeout, $anchorScroll, $mdDialog, $
       message.setMentionList(Array.from(mentionMatchResults));
     }
     $scope.draft = '';
+    $scope.smileysShow = false;
 
     return $scope.send(message);
   };

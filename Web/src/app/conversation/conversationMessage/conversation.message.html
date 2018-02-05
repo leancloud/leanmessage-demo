@@ -80,7 +80,7 @@
       <label for="file-image" class="md-button md-icon-button" aria-label="Image" ><md-icon>image</md-icon></label>
     </form>
     <form class="editor" ng-submit="sendText()" layout layout-align="center center" flex>
-      <md-button class="md-icon-button" aria-label="Smileys" ng-click="toggleSmileysSelector()">
+      <md-button class="md-icon-button" ng-class="{'md-primary': smileysShow}" aria-label="Smileys" ng-click="toggleSmileysSelector()">
         <md-icon>&#xE420;</md-icon>
       </md-button>
       <md-input-container md-no-float flex class="textarea">
