@@ -3,6 +3,7 @@ $toolbar-height: 64px - 1px;
 .unreadCount {
   display: block;
   background: #F44336;
+  margin-left: .8em;
   height: 20px;
   line-height: 20px;
   min-width: 20px;
@@ -30,7 +31,7 @@ $toolbar-height: 64px - 1px;
   .last-message {
     font-size: 84%;
     color: #a0a0a0;
-    margin: 0 1em;
+    margin-left: .8em;
     white-space: nowrap;
     overflow: hidden;
   }

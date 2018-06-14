@@ -53,7 +53,7 @@
         <p layout="row" layout-align="center center">
           {{conv.name || '群 ' + conv.id.slice(-4) }}
           <span class="last-message" flex>
-            <span ng-if="conv.mentioned" class="mentioned">有人@你</span>
+            <span ng-if="conv.unreadMessagesMentioned" class="mentioned">有人@你</span>
             {{conv.lastMessage.from}}<span ng-if="conv.lastMessage.from">: </span>{{conv.lastMessage.summary}}
           </span>
           <span ng-if="conv.unreadMessagesCount" class="unreadCount">{{conv.unreadMessagesCount}}</span>
