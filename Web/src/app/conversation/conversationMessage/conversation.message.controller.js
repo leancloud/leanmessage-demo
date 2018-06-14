@@ -196,6 +196,7 @@ export default ($scope, LeanRT, $location, $timeout, $anchorScroll, $mdDialog, $
     $timeout(() => {
       const newPosition = currentPosition + smiley.length;
       textarea.setSelectionRange(newPosition, newPosition);
+      textarea.focus();
     }, 1);
   };
 
