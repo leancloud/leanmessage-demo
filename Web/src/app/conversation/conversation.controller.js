@@ -1,4 +1,5 @@
 import './conversation.scss';
+import {ServiceConversation, ChatRoom} from 'leancloud-realtime';
 
 export default ($scope, $rootScope, LeanRT, $state, $stateParams, $mdSidenav, userService) => {
   'ngInject';
@@ -109,14 +110,18 @@ export default ($scope, $rootScope, LeanRT, $state, $stateParams, $mdSidenav, us
 
   const messageHandler = (msg, conv) => {
     // 更新左侧对话列表
-    // 暂态对话
-    if (conv.transient && $scope.transConvs.indexOf(conv) === -1) {
-      $scope.transConvs.push(conv);
-    }
-    // TODO: 暂时无法判断系统对话, 目前需求上也只需要一个系统对话, 因此跳过更新系统对话列表的逻辑
-
-    // 普通对话
-    if (!conv.transient && $scope.normalConvs.indexOf(conv) === -1) {
+    if (conv instanceof ChatRoom) {
+      // 暂态对话
+      if ($scope.transConvs.indexOf(conv) === -1) {
+        $scope.transConvs.push(conv);
+      }
+    } else if (conv instanceof ServiceConversation) {
+      // 系统对话
+      if ($scope.sysConvs.indexOf(conv) === -1) {
+        $scope.sysConvs.push(conv);
+      }
+    } else if ($scope.normalConvs.indexOf(conv) === -1) {
+      // 普通对话
       $scope.normalConvs.push(conv);
     }
     $scope.$digest();
