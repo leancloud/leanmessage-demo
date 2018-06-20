@@ -1,5 +1,5 @@
 import './conversation.scss';
-import {ServiceConversation, ChatRoom} from 'leancloud-realtime';
+import {ServiceConversation, ChatRoom, Event} from 'leancloud-realtime';
 
 export default ($scope, $rootScope, LeanRT, $state, $stateParams, $mdSidenav, userService) => {
   'ngInject';
@@ -139,62 +139,62 @@ export default ($scope, $rootScope, LeanRT, $state, $stateParams, $mdSidenav, us
   };
 
   const client = $scope.imClient;
-  client.on('message', messageHandler);
-  client.on('invited', invitedHandler);
-  client.on('unreadmessagescountupdate', () => {
+  client.on(Event.MESSAGE, messageHandler);
+  client.on(Event.INVITED, invitedHandler);
+  client.on(Event.UNREAD_MESSAGES_COUNT_UPDATE, () => {
     $scope.$emit('unreadCountUpdate', getTotalUnreadCount());
   });
-  client.on('disconnect', () => {
+  client.on(Event.DISCONNECT, () => {
     $scope.networkError = '连接已断开';
     $scope.networkErrorIcon = 'sync_problem';
     $scope.$digest();
   });
-  client.on('offline', () => {
+  client.on(Event.OFFLINE, () => {
     $scope.networkError = '网络不可用，请检查网络设置';
     $scope.networkErrorIcon = 'signal_wifi_off';
     $scope.networkShowRetry = false;
     $scope.$digest();
   });
-  client.on('online', () => {
+  client.on(Event.ONLINE, () => {
     $scope.networkError = '网络已恢复';
     $scope.$digest();
   });
-  client.on('schedule', (attempt, time) => {
+  client.on(Event.SCHEDULE, (attempt, time) => {
     $scope.networkError = `${time / 1000}s 后进行第 ${attempt + 1} 次重连`;
     $scope.networkShowRetry = true;
     $scope.$digest();
   });
-  client.on('retry', attempt => {
+  client.on(Event.RETRY, attempt => {
     $scope.networkError = `正在进行第 ${attempt + 1} 次重连`;
     $scope.networkErrorIcon = 'sync';
     $scope.networkShowRetry = false;
     $scope.$digest();
   });
-  client.on('reconnect', () => {
+  client.on(Event.RECONNECT, () => {
     $scope.networkError = null;
     if ($scope.joinedTransConv) {
       $scope.joinedTransConv.join();
     }
     $scope.$digest();
   });
-  client.on('reconnecterror', () => {
+  client.on(Event.RECONNECT_ERROR, () => {
     $scope.networkError = '重连失败，请刷新页面重试';
     $scope.networkErrorIcon = 'error_outline';
     $scope.$digest();
   });
 
   $scope.$on("$destroy", () => {
-    client.off('message', messageHandler);
-    client.off('invited', invitedHandler);
+    client.off(Event.MESSAGE, messageHandler);
+    client.off(Event.INVITED, invitedHandler);
     [
-      'unreadmessagescountupdate',
-      'disconnect',
-      'offline',
-      'online',
-      'schedule',
-      'retry',
-      'reconnect',
-      'reconnecterror'
+      Event.UNREAD_MESSAGES_COUNT_UPDATE,
+      Event.DISCONNECT,
+      Event.OFFLINE,
+      Event.ONLINE,
+      Event.SCHEDULE,
+      Event.RETRY,
+      Event.RECONNECT,
+      Event.RECONNECT_ERROR
     ].forEach(event => client.off(event));
   });
 

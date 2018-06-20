@@ -118,25 +118,25 @@ export default ($scope, LeanRT, $location, $timeout, $anchorScroll, $mdDialog, $
       }
     };
 
-    conversation.on('membersjoined', membersJoinedHandler);
+    conversation.on(Event.MEMBERS_JOINED, membersJoinedHandler);
     conversation.on(Event.MEMBER_INFO_UPDATED, memberInfoUpdateHandler);
-    conversation.on('message', readMarker);
-    conversation.on('message', messageUpdater);
-    conversation.on('lastdeliveredatupdate', receiptUpdateHandler);
-    conversation.on('lastreadatupdate', receiptUpdateHandler);
+    conversation.on(Event.MESSAGE, readMarker);
+    conversation.on(Event.MESSAGE, messageUpdater);
+    conversation.on(Event.LAST_DELIVERED_AT_UPDATE, receiptUpdateHandler);
+    conversation.on(Event.LAST_READ_AT_UPDATE, receiptUpdateHandler);
     conversation.on('lastreadtimestampsupdate', receiptUpdateHandler);
-    conversation.on('messagerecall', replaceRecalledMessage);
+    conversation.on(Event.MESSAGE_RECALL, replaceRecalledMessage);
     document.addEventListener("visibilitychange", handleVisibilityChange);
 
     $scope.$on("$destroy", () => {
-      conversation.off('membersjoined', membersJoinedHandler);
+      conversation.off(Event.MEMBERS_JOINED, membersJoinedHandler);
       conversation.off(Event.MEMBER_INFO_UPDATED, memberInfoUpdateHandler);
-      conversation.off('message', readMarker);
-      conversation.off('message', messageUpdater);
-      conversation.off('lastdeliveredatupdate', receiptUpdateHandler);
-      conversation.off('lastreadatupdate', receiptUpdateHandler);
+      conversation.off(Event.MESSAGE, readMarker);
+      conversation.off(Event.MESSAGE, messageUpdater);
+      conversation.off(Event.LAST_DELIVERED_AT_UPDATE, receiptUpdateHandler);
+      conversation.off(Event.LAST_READ_AT_UPDATE, receiptUpdateHandler);
       conversation.off('lastreadtimestampsupdate', receiptUpdateHandler);
-      conversation.off('messagerecall', replaceRecalledMessage);
+      conversation.off(Event.MESSAGE_RECALL, replaceRecalledMessage);
       $scope.typingIndicator.off('change');
       document.removeEventListener("visibilitychange", handleVisibilityChange);
     });
