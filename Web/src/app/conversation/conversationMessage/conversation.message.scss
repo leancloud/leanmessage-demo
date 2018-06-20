@@ -9,8 +9,26 @@ $toolbar-height: 64px - 1px;
   }
 }
 
-.md-toolbar-tools {
-  background-color: rgb(33, 150, 243);
+.member-info-disabled-warning {
+  background: rgba(0, 0, 0, 0.1);
+}
+
+.client-info {
+  color: white;
+  background: #666;
+  border: 1px solid #2196f3;
+  font-size: 12px;
+  padding: 2px 4px;
+  margin-left: 6px;
+
+  &.owner {
+    background: #2196f3;
+  }
+
+  &.manager {
+    background: transparent;
+    color: #2196f3;
+  }
 }
 
 .md-errors-spacer:empty {
@@ -139,6 +157,10 @@ md-list.result,
 md-list.square-clients {
   overflow: auto;
   -webkit-overflow-scrolling: touch;
+
+  .client-actions-menu {
+    margin-right: -8px;
+  }
 }
 
 .result-item {

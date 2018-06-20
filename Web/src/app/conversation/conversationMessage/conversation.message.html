@@ -15,15 +15,15 @@
 
       <md-button class="md-icon-button"
                  aria-label="Add Clients"
-                 ng-if="!currentConversation.system"
+                 ng-if="!currentConversation.system && currentConversation.members.length <= 2"
                  ng-click="showAddUserDialog($event)">
-        <md-icon>add</md-icon>
+        <md-icon>person_add</md-icon>
       </md-button>
       <md-button ng-if="currentConversation.members.length > 2"
                 class="md-icon-button"
                 aria-label="Online Clients"
                 hide-gt-md
-                ng-click="toggle('online')">
+                ng-click="showMembersList()">
         <md-icon>group</md-icon>
       </md-button>
     </div>
@@ -111,7 +111,6 @@
             class=" md-sidenav-right md-whiteframe-z2"
             ng-class="{ 'under-mask': !conversation.isMenuOpen } "
             md-component-id="online"
-            md-is-locked-open="$mdMedia('gt-md')"
             layout="column">
   <md-toolbar>
     <div class="md-toolbar-tools">
@@ -123,11 +122,51 @@
       <!--<md-button class="md-icon-button" aria-label="Search" ng-click="conversationMessage.toggle('online-search')">-->
         <!--<md-icon>search</md-icon>-->
       <!--</md-button>-->
+      <md-button class="md-icon-button"
+            aria-label="Add Clients"
+            ng-click="showAddUserDialog($event)">
+        <md-icon>person_add</md-icon>
+      </md-button> 
+
     </div>
   </md-toolbar>
+  <md-content layout-padding class="md-body-1 member-info-disabled-warning" ng-if="memberInfoError">
+    应用未开启「成员角色管理」功能，部分功能不可用。
+  </md-content>
   <md-list class="square-clients" flex>
-    <md-list-item ng-repeat="clientId in currentConversation.members.slice(0, maxResultsAmount)" ng-click="createSingleConv(clientId)">
-      <p> {{ clientId }} </p>
+    <md-list-item ng-repeat="memberInfo in memberInfos.slice(0, maxResultsAmount)">
+      <p layout="row" layout-align="left center">
+        {{ memberInfo.memberId }}
+        <span class="client-info owner" ng-show="memberInfo.isOwner">群主</span>
+        <span class="client-info manager" ng-show="isManager(memberInfo)">管理员</span>
+      </p>
+
+      <md-menu class="md-secondary client-actions-menu">
+        <md-button class="md-icon-button">
+          <i class="material-icons">more_horiz</i>
+        </md-button>
+        <md-menu-content width="4">
+          <md-menu-item>
+            <md-button ng-click="createSingleConv(memberInfo.memberId)" ng-disabled="memberInfo === currentClientInfo">
+              <md-icon md-menu-align-target>message</md-icon>
+              单聊
+            </md-button>
+          </md-menu-item>
+          <md-menu-item ng-show="currentClientInfo.isOwner && !isAuthed(memberInfo)">
+            <md-button ng-click="updateRole(memberInfo.memberId, MemberRole.MANAGER)">
+              <md-icon md-menu-align-target>arrow_upward</md-icon>
+              升为管理员
+            </md-button>
+          </md-menu-item>
+          <md-menu-item ng-show="currentClientInfo.isOwner && isManager(memberInfo)">
+            <md-button ng-click="updateRole(memberInfo.memberId, MemberRole.MEMBER)">
+              <md-icon md-menu-align-target>arrow_downward</md-icon>
+              取消管理员
+            </md-button>
+          </md-menu-item>
+        </md-menu-content>
+      </md-menu>
+
     </md-list-item>
     <p ng-if="currentConversation.members.length > maxResultsAmount" class="max-results-amount-hint">最多显示 {{:: maxResultsAmount }} 位成员</p>
   </md-list>

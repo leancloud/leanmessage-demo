@@ -1,5 +1,5 @@
 import './conversation.message.scss';
-import {Message, TextMessage} from 'leancloud-realtime';
+import {Message, TextMessage, Event, ConversationMemberRole} from 'leancloud-realtime';
 import {ImageMessage} from 'leancloud-realtime-plugin-typed-messages';
 import AV from 'leancloud-storage';
 import {TypingStatusMessage} from '../../../typing-indicator';
@@ -31,6 +31,8 @@ export default ($scope, LeanRT, $location, $timeout, $anchorScroll, $mdDialog, $
 
   $scope.messages = [];
   $scope.imClient = LeanRT.imClient;
+  $scope.memberInfos = [];
+  $scope.memberInfoError = null;
   $scope.hasLoadAllMessages = false;
   $scope.maxResultsAmount = 50;
   $scope.draft = '';
@@ -70,6 +72,19 @@ export default ($scope, LeanRT, $location, $timeout, $anchorScroll, $mdDialog, $
       $scope.$digest();
     };
 
+    const memberInfoUpdateHandler = ({
+      member,
+      memberInfo,
+      updatedBy
+    }) => {
+      $scope.messages.push({
+        type: Symbol('system'),
+        text: `${updatedBy} 将 ${member} 设为 ${memberInfo.role}`,
+        timestamp: new Date()
+      });
+      $scope.$digest();
+    };
+
     const readMarker = msg => {
       // 暂态消息不标记
       // 特殊情况：暂态对话的所有消息都是暂态的，因此暂态对话收到消息全部标记
@@ -104,6 +119,7 @@ export default ($scope, LeanRT, $location, $timeout, $anchorScroll, $mdDialog, $
     };
 
     conversation.on('membersjoined', membersJoinedHandler);
+    conversation.on(Event.MEMBER_INFO_UPDATED, memberInfoUpdateHandler);
     conversation.on('message', readMarker);
     conversation.on('message', messageUpdater);
     conversation.on('lastdeliveredatupdate', receiptUpdateHandler);
@@ -114,6 +130,7 @@ export default ($scope, LeanRT, $location, $timeout, $anchorScroll, $mdDialog, $
 
     $scope.$on("$destroy", () => {
       conversation.off('membersjoined', membersJoinedHandler);
+      conversation.off(Event.MEMBER_INFO_UPDATED, memberInfoUpdateHandler);
       conversation.off('message', readMarker);
       conversation.off('message', messageUpdater);
       conversation.off('lastdeliveredatupdate', receiptUpdateHandler);
@@ -236,6 +253,37 @@ export default ($scope, LeanRT, $location, $timeout, $anchorScroll, $mdDialog, $
 
   $scope.toggle = id => {
     $mdSidenav(id).toggle();
+  };
+
+  $scope.MemberRole = ConversationMemberRole;
+  $scope.showMembersList = () => {
+    $mdSidenav('online').open();
+    $scope.getCurrentConversation.then(conversation => {
+      // 应用未开启「成员角色管理」功能，不再尝试获取。
+      if ($scope.memberInfoError && $scope.memberInfoError.code === 119) {
+        return;
+      }
+      // 在首次查询到成员信息之前，用 mock 的 MemberInfo 显示用户 id
+      $scope.memberInfos = $scope.memberInfos.length ? $scope.memberInfos : conversation.members.map(memberId => ({
+        memberId
+      }));
+      conversation.getAllMemberInfo().then(memberInfos => {
+        $scope.memberInfos = memberInfos;
+        return conversation.getMemberInfo($scope.imClient.id).then(info => {
+          $scope.currentClientInfo = info;
+        });
+      }).catch(e => {
+        console.error(e);
+        $scope.memberInfoError = e;
+      }).then(() => $scope.$digest());
+    });
+  };
+
+  $scope.isManager = memberInfo => memberInfo.role === ConversationMemberRole.MANAGER && !memberInfo.isOwner;
+  $scope.isAuthed = memberInfo => memberInfo.role === ConversationMemberRole.MANAGER || memberInfo.isOwner;
+
+  $scope.updateRole = (id, role) => {
+    return $scope.$parent.currentConversation.updateMemberRole(id, role).then(() => $scope.$digest());
   };
 
   const MAX_SUGGESTION = 5;
