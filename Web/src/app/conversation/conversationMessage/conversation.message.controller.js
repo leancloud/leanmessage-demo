@@ -95,6 +95,21 @@ export default ($scope, LeanRT, $location, $timeout, $anchorScroll, $mdDialog, $
       $scope.$digest();
     };
 
+    const infoUpdatedHandler = ({
+      attributes,
+      updatedBy
+    }) => {
+      if (attributes && attributes.name) {
+        $scope.messages.push({
+          type: system,
+          text: `${updatedBy} 将群名称修改为 ${attributes.name}`,
+          timestamp: new Date()
+        });
+        $scope.refreshMemberInfo();
+        $scope.$digest();
+      }
+    };
+
     const memberInfoUpdateHandler = ({
       member,
       memberInfo,
@@ -145,6 +160,7 @@ export default ($scope, LeanRT, $location, $timeout, $anchorScroll, $mdDialog, $
     conversation.on(Event.MEMBERS_JOINED, membersJoinedHandler);
     conversation.on(Event.MEMBERS_LEFT, membersLeftHandler);
     conversation.on(Event.KICKED, kickedHandler);
+    conversation.on(Event.INFO_UPDATED, infoUpdatedHandler);
     conversation.on(Event.MEMBER_INFO_UPDATED, memberInfoUpdateHandler);
     conversation.on(Event.MESSAGE, readMarker);
     conversation.on(Event.MESSAGE, messageUpdater);
@@ -158,6 +174,7 @@ export default ($scope, LeanRT, $location, $timeout, $anchorScroll, $mdDialog, $
       conversation.off(Event.MEMBERS_JOINED, membersJoinedHandler);
       conversation.off(Event.MEMBERS_LEFT, membersLeftHandler);
       conversation.off(Event.KICKED, kickedHandler);
+      conversation.off(Event.INFO_UPDATED, infoUpdatedHandler);
       conversation.off(Event.MEMBER_INFO_UPDATED, memberInfoUpdateHandler);
       conversation.off(Event.MESSAGE, readMarker);
       conversation.off(Event.MESSAGE, messageUpdater);
@@ -273,6 +290,26 @@ export default ($scope, LeanRT, $location, $timeout, $anchorScroll, $mdDialog, $
       return $scope.getCurrentConversation.then(conversation => conversation.add([clientId]));
     }).then(() => {
       // 添加成功, 在 membersjoined 事件中更新 UI
+    }).catch(err => {
+      if (err) {
+        console.log(err);
+      }
+    });
+  };
+
+  $scope.showEditNameDialog = ev => {
+    const confirm = $mdDialog.prompt()
+      .title('修改群名称')
+      .placeholder('群名称')
+      .ariaLabel('群名称')
+      .initialValue($scope.$parent.currentConversation.name)
+      .targetEvent(ev)
+      .required(true)
+      .ok('修改')
+      .cancel('取消');
+    $mdDialog.show(confirm).then(name => {
+      // 添加其他成员
+      return $scope.$parent.currentConversation.set('name', name).save();
     }).catch(err => {
       if (err) {
         console.log(err);

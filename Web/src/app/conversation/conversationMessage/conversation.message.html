@@ -8,7 +8,7 @@
         <span ng-if="totalUnreadMessagesCount" class="unreadCount">{{totalUnreadMessagesCount}}</span>
       </md-button>
       <h2>
-        <span ng-if="currentConversation.members.length !== 2">{{ currentConversation ? (currentConversation.name || '群 ' + currentConversation.id.slice(-4)) : '' }}</span>
+        <span ng-if="currentConversation && currentConversation.members.length !== 2">{{ currentConversation.name || '群 ' + currentConversation.id.slice(-4) }} ({{currentConversation.members.length}})</span>
         <span ng-if="currentConversation.members.length === 2">{{ getSingleConvTarget(currentConversation.members) }}</span>
       </h2>
       <span flex></span>
@@ -117,7 +117,12 @@
       <!--<md-button class="md-icon-button" aria-label="Back" hide-gt-sm ng-click="conversationMessage.close('online')">-->
         <!--<md-icon>arrow_back</md-icon>-->
       <!--</md-button>-->
-      <h2>群聊成员 ({{currentConversation.members.length}})</h2>
+      <h2 ng-show="currentConversation">{{ currentConversation.name || '群 ' + currentConversation.id.slice(-4) }}</h2>
+      <md-button class="md-icon-button"
+            aria-label="Edit name"
+            ng-click="showEditNameDialog($event)">
+        <md-icon>edit</md-icon>
+      </md-button> 
       <span flex></span>
       <!--<md-button class="md-icon-button" aria-label="Search" ng-click="conversationMessage.toggle('online-search')">-->
         <!--<md-icon>search</md-icon>-->
