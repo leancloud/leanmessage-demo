@@ -14,6 +14,8 @@ const getMentionPrefix = (text, position) => {
   return null;
 };
 
+const system = Symbol('system');
+
 export default ($scope, LeanRT, $location, $timeout, $anchorScroll, $mdDialog, $mdSidenav, $stateParams, $element) => {
   'ngInject';
 
@@ -65,10 +67,31 @@ export default ($scope, LeanRT, $location, $timeout, $anchorScroll, $mdDialog, $
 
     const membersJoinedHandler = payload => {
       $scope.messages.push({
-        type: Symbol('system'),
-        text: `${payload.invitedBy} 邀请 ${payload.members} 进入该对话`,
+        type: system,
+        text: `${payload.invitedBy} 邀请 ${payload.members} 加入对话`,
         timestamp: new Date()
       });
+      $scope.refreshMemberInfo();
+      $scope.$digest();
+    };
+
+    const membersLeftHandler = payload => {
+      $scope.messages.push({
+        type: system,
+        text: `${payload.kickedBy} 将 ${payload.members} 移出对话`,
+        timestamp: new Date()
+      });
+      $scope.refreshMemberInfo();
+      $scope.$digest();
+    };
+
+    const kickedHandler = payload => {
+      $scope.messages.push({
+        type: system,
+        text: `${payload.kickedBy} 将你移出对话`,
+        timestamp: new Date()
+      });
+      $scope.refreshMemberInfo();
       $scope.$digest();
     };
 
@@ -78,10 +101,11 @@ export default ($scope, LeanRT, $location, $timeout, $anchorScroll, $mdDialog, $
       updatedBy
     }) => {
       $scope.messages.push({
-        type: Symbol('system'),
+        type: system,
         text: `${updatedBy} 将 ${member} 设为 ${memberInfo.role}`,
         timestamp: new Date()
       });
+      $scope.refreshMemberInfo();
       $scope.$digest();
     };
 
@@ -119,6 +143,8 @@ export default ($scope, LeanRT, $location, $timeout, $anchorScroll, $mdDialog, $
     };
 
     conversation.on(Event.MEMBERS_JOINED, membersJoinedHandler);
+    conversation.on(Event.MEMBERS_LEFT, membersLeftHandler);
+    conversation.on(Event.KICKED, kickedHandler);
     conversation.on(Event.MEMBER_INFO_UPDATED, memberInfoUpdateHandler);
     conversation.on(Event.MESSAGE, readMarker);
     conversation.on(Event.MESSAGE, messageUpdater);
@@ -130,6 +156,8 @@ export default ($scope, LeanRT, $location, $timeout, $anchorScroll, $mdDialog, $
 
     $scope.$on("$destroy", () => {
       conversation.off(Event.MEMBERS_JOINED, membersJoinedHandler);
+      conversation.off(Event.MEMBERS_LEFT, membersLeftHandler);
+      conversation.off(Event.KICKED, kickedHandler);
       conversation.off(Event.MEMBER_INFO_UPDATED, memberInfoUpdateHandler);
       conversation.off(Event.MESSAGE, readMarker);
       conversation.off(Event.MESSAGE, messageUpdater);
@@ -237,6 +265,7 @@ export default ($scope, LeanRT, $location, $timeout, $anchorScroll, $mdDialog, $
       .placeholder('用户 ID')
       .ariaLabel('用户 ID')
       .targetEvent(ev)
+      .required(true)
       .ok('邀请')
       .cancel('取消');
     $mdDialog.show(confirm).then(clientId => {
@@ -251,11 +280,33 @@ export default ($scope, LeanRT, $location, $timeout, $anchorScroll, $mdDialog, $
     });
   };
 
+  $scope.remove = id => $scope.getCurrentConversation
+      .then(conversation => conversation.remove([id]))
+      .catch(err => {
+        if (err) {
+          console.log(err);
+        }
+      });
+
   $scope.toggle = id => {
     $mdSidenav(id).toggle();
   };
 
   $scope.MemberRole = ConversationMemberRole;
+  $scope.refreshMemberInfo = () =>
+    $scope.getCurrentConversation
+      .then(conversation => conversation.getAllMemberInfo()
+        .then(memberInfos => {
+          $scope.memberInfos = memberInfos;
+          return conversation.getMemberInfo($scope.imClient.id).then(info => {
+            $scope.currentClientInfo = info;
+          });
+        }))
+      .catch(e => {
+        console.error(e);
+        $scope.memberInfoError = e;
+      }).then(() => $scope.$digest());
+
   $scope.showMembersList = () => {
     $mdSidenav('online').open();
     $scope.getCurrentConversation.then(conversation => {
@@ -267,15 +318,7 @@ export default ($scope, LeanRT, $location, $timeout, $anchorScroll, $mdDialog, $
       $scope.memberInfos = $scope.memberInfos.length ? $scope.memberInfos : conversation.members.map(memberId => ({
         memberId
       }));
-      conversation.getAllMemberInfo().then(memberInfos => {
-        $scope.memberInfos = memberInfos;
-        return conversation.getMemberInfo($scope.imClient.id).then(info => {
-          $scope.currentClientInfo = info;
-        });
-      }).catch(e => {
-        console.error(e);
-        $scope.memberInfoError = e;
-      }).then(() => $scope.$digest());
+      return $scope.refreshMemberInfo();
     });
   };
 

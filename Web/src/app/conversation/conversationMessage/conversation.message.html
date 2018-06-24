@@ -164,6 +164,18 @@
               取消管理员
             </md-button>
           </md-menu-item>
+          <md-menu-item ng-show="isAuthed(currentClientInfo) && !isAuthed(memberInfo)">
+            <md-button ng-click="remove(memberInfo.memberId)">
+              <md-icon md-menu-align-target>remove</md-icon>
+              移出对话
+            </md-button>
+          </md-menu-item>
+          <md-menu-item ng-show="memberInfo === currentClientInfo">
+            <md-button ng-click="remove(memberInfo.memberId)" ng-disabled="currentClientInfo.isOwner">
+              <md-icon md-menu-align-target>remove</md-icon>
+              离开对话
+            </md-button>
+          </md-menu-item>
         </md-menu-content>
       </md-menu>
 
