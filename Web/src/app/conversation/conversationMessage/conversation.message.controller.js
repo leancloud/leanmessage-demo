@@ -279,8 +279,8 @@ export default ($scope, LeanRT, $location, $timeout, $anchorScroll, $mdDialog, $
     });
   };
 
-  $scope.isManager = memberInfo => memberInfo.role === ConversationMemberRole.MANAGER && !memberInfo.isOwner;
-  $scope.isAuthed = memberInfo => memberInfo.role === ConversationMemberRole.MANAGER || memberInfo.isOwner;
+  $scope.isManager = memberInfo => memberInfo && memberInfo.role === ConversationMemberRole.MANAGER;
+  $scope.isAuthed = memberInfo => memberInfo && memberInfo.isOwner || $scope.isManager(memberInfo);
 
   $scope.updateRole = (id, role) => {
     return $scope.$parent.currentConversation.updateMemberRole(id, role).then(() => $scope.$digest());

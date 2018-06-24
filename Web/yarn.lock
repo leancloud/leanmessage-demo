@@ -251,6 +251,10 @@ async-foreach@^0.1.3:
   version "0.1.3"
   resolved "https://registry.yarnpkg.com/async-foreach/-/async-foreach-0.1.3.tgz#36121f845c0578172de419a97dbeb1d16ec34542"
 
+async-limiter@~1.0.0:
+  version "1.0.0"
+  resolved "http://registry.npm.taobao.org/async-limiter/download/async-limiter-1.0.0.tgz#78faed8c3d074ab81f22b4e985d79e8738f720f8"
+
 async-settle@^0.2.1:
   version "0.2.1"
   resolved "https://registry.yarnpkg.com/async-settle/-/async-settle-0.2.1.tgz#767462d5738008dc75eac4246223528f21371396"
@@ -292,11 +296,11 @@ aws4@^1.2.1:
   version "1.6.0"
   resolved "https://registry.yarnpkg.com/aws4/-/aws4-1.6.0.tgz#83ef5ca860b2b32e4a0deedee8c771b9db57471e"
 
-axios@^0.16.1:
-  version "0.16.2"
-  resolved "https://registry.yarnpkg.com/axios/-/axios-0.16.2.tgz#ba4f92f17167dfbab40983785454b9ac149c3c6d"
+axios@^0.18.0:
+  version "0.18.0"
+  resolved "http://registry.npm.taobao.org/axios/download/axios-0.18.0.tgz#32d53e4851efdc0a11993b6cd000789d70c05102"
   dependencies:
-    follow-redirects "^1.2.3"
+    follow-redirects "^1.3.0"
     is-buffer "^1.1.5"
 
 babel-code-frame@^6.22.0:
@@ -1566,13 +1570,13 @@ debug@2.6.1:
   dependencies:
     ms "0.7.2"
 
-debug@^2.1.1, debug@^2.2.0, debug@^2.4.4, debug@^2.4.5:
+debug@^2.1.1, debug@^2.2.0:
   version "2.6.6"
   resolved "https://registry.yarnpkg.com/debug/-/debug-2.6.6.tgz#a9fa6fbe9ca43cf1e79f73b75c0189cbb7d6db5a"
   dependencies:
     ms "0.7.3"
 
-debug@^3.0.0:
+debug@^3.0.0, debug@^3.1.0:
   version "3.1.0"
   resolved "http://registry.npm.taobao.org/debug/download/debug-3.1.0.tgz#5bb5a0672628b64149566ba16819e61518c67261"
   dependencies:
@@ -1887,7 +1891,11 @@ es6-map@^0.1.3:
     es6-symbol "~3.1.1"
     event-emitter "~0.3.5"
 
-es6-promise@^4.0.5, es6-promise@~4.0.3:
+es6-promise@4.2.3:
+  version "4.2.3"
+  resolved "http://registry.npm.taobao.org/es6-promise/download/es6-promise-4.2.3.tgz#29454b8db21b73fbef1df070c35dc09b7fd606c4"
+
+es6-promise@~4.0.3:
   version "4.0.5"
   resolved "https://registry.yarnpkg.com/es6-promise/-/es6-promise-4.0.5.tgz#7882f30adde5b240ccfa7f7d78c548330951ae42"
 
@@ -2085,7 +2093,7 @@ eventemitter3@1.x.x:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/eventemitter3/-/eventemitter3-1.2.0.tgz#1c86991d816ad1e504750e73874224ecf3bec508"
 
-eventemitter3@^2.0.0, eventemitter3@^2.0.3:
+eventemitter3@^2.0.3:
   version "2.0.3"
   resolved "https://registry.yarnpkg.com/eventemitter3/-/eventemitter3-2.0.3.tgz#b5e1079b59fb5e1ba2771c0a993be060a58c99ba"
 
@@ -2306,11 +2314,11 @@ flatten@^1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/flatten/-/flatten-1.0.2.tgz#dae46a9d78fbe25292258cc1e780a41d95c03782"
 
-follow-redirects@^1.2.3:
-  version "1.2.3"
-  resolved "https://registry.yarnpkg.com/follow-redirects/-/follow-redirects-1.2.3.tgz#01abaeca85e3609837d9fcda3167a7e42fdaca21"
+follow-redirects@^1.3.0:
+  version "1.5.0"
+  resolved "http://registry.npm.taobao.org/follow-redirects/download/follow-redirects-1.5.0.tgz#234f49cf770b7f35b40e790f636ceba0c3a0ab77"
   dependencies:
-    debug "^2.4.5"
+    debug "^3.1.0"
 
 for-in@^1.0.1:
   version "1.0.2"
@@ -3576,52 +3584,38 @@ leancloud-realtime-plugin-groupchat-receipts@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/leancloud-realtime-plugin-groupchat-receipts/-/leancloud-realtime-plugin-groupchat-receipts-1.0.0.tgz#7d111a0f13b646896397c9e78335b34e9863aaa7"
 
-leancloud-realtime-plugin-live-query@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/leancloud-realtime-plugin-live-query/-/leancloud-realtime-plugin-live-query-1.0.0.tgz#2910d96b66c0cf1782bd7eb1c18f1bd95561968e"
+leancloud-realtime-plugin-live-query@^1.1.1:
+  version "1.1.1"
+  resolved "http://registry.npm.taobao.org/leancloud-realtime-plugin-live-query/download/leancloud-realtime-plugin-live-query-1.1.1.tgz#8f553fa3ff54a13a1a280f62dfe82330c0b2f2d4"
 
 leancloud-realtime-plugin-typed-messages@^3.0.0:
   version "3.0.0"
   resolved "http://registry.npm.taobao.org/leancloud-realtime-plugin-typed-messages/download/leancloud-realtime-plugin-typed-messages-3.0.0.tgz#191adc85821e9ae25052a377b0230524f91a1124"
 
-leancloud-realtime@^3.5.0:
-  version "3.5.0"
-  resolved "https://registry.yarnpkg.com/leancloud-realtime/-/leancloud-realtime-3.5.0.tgz#27b618d77a8c97cac23ffe07c3b9f1ecd5da7930"
+leancloud-realtime@^4.0.0-beta.5, leancloud-realtime@^4.1.0:
+  version "4.1.0"
+  resolved "http://registry.npm.taobao.org/leancloud-realtime/download/leancloud-realtime-4.1.0.tgz#ce652ba2df5811d71500917a8f7b6f4a1a2709bf"
   dependencies:
-    axios "^0.16.1"
-    babel-runtime "^6.6.1"
-    debug "^2.4.4"
-    eventemitter3 "^2.0.0"
-    javascript-state-machine "^2.3.5"
-    lodash "^4.6.0"
-    protobufjs "^5.0.1"
-    uuid "^3.0.0"
-    ws "^3.0.0"
-
-leancloud-realtime@^4.0.0-beta.3:
-  version "4.0.0-beta.3"
-  resolved "http://registry.npm.taobao.org/leancloud-realtime/download/leancloud-realtime-4.0.0-beta.3.tgz#33fd1bf57192db2e7068042539cfcc46e6e46c4b"
-  dependencies:
-    axios "^0.16.1"
+    axios "^0.18.0"
     babel-runtime "^6.6.1"
     base64-arraybuffer "^0.1.5"
     debug "^3.0.0"
-    eventemitter3 "^2.0.0"
+    eventemitter3 "^3.0.0"
     javascript-state-machine "^2.3.5"
     lodash "^4.6.0"
     protobufjs "^5.0.1"
     uuid "^3.0.0"
-    ws "^3.0.0"
+    ws "^4.0.0"
 
-leancloud-storage@^3.3.1:
-  version "3.3.1"
-  resolved "http://registry.npm.taobao.org/leancloud-storage/download/leancloud-storage-3.3.1.tgz#5c488a3f7c0b2d8684268eacd1b4c35439ab8622"
+leancloud-storage@^3.7.3:
+  version "3.7.3"
+  resolved "http://registry.npm.taobao.org/leancloud-storage/download/leancloud-storage-3.7.3.tgz#4cd3b9b116e4c36ab3529652dbe6736dd635ba60"
   dependencies:
-    debug "^2.2.0"
-    es6-promise "^4.0.5"
+    debug "^3.1.0"
+    es6-promise "4.2.3"
     eventemitter3 "^2.0.3"
-    leancloud-realtime "^3.5.0"
-    leancloud-realtime-plugin-live-query "^1.0.0"
+    leancloud-realtime "^4.0.0-beta.5"
+    leancloud-realtime-plugin-live-query "^1.1.1"
     localstorage-memory "^1.0.1"
     md5 "^2.0.0"
     superagent "^3.3.1"
@@ -5445,9 +5439,13 @@ rx@4.1.0:
   version "4.1.0"
   resolved "https://registry.yarnpkg.com/rx/-/rx-4.1.0.tgz#a5f13ff79ef3b740fe30aa803fb09f98805d4782"
 
-safe-buffer@^5.0.1, safe-buffer@~5.0.1:
+safe-buffer@^5.0.1:
   version "5.0.1"
   resolved "https://registry.yarnpkg.com/safe-buffer/-/safe-buffer-5.0.1.tgz#d263ca54696cd8a306b5ca6551e92de57918fbe7"
+
+safe-buffer@~5.1.0:
+  version "5.1.2"
+  resolved "http://registry.npm.taobao.org/safe-buffer/download/safe-buffer-5.1.2.tgz#991ec69d296e0313747d59bdfd2b745c35f8828d"
 
 sass-graph@^2.1.1:
   version "2.2.2"
@@ -6157,10 +6155,6 @@ ultron@1.0.x:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/ultron/-/ultron-1.0.2.tgz#ace116ab557cd197386a4e88f4685378c8b2e4fa"
 
-ultron@~1.1.0:
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/ultron/-/ultron-1.1.0.tgz#b07a2e6a541a815fc6a34ccd4533baec307ca864"
-
 unc-path-regex@^0.1.0:
   version "0.1.2"
   resolved "https://registry.yarnpkg.com/unc-path-regex/-/unc-path-regex-0.1.2.tgz#e73dd3d7b0d7c5ed86fbac6b0ae7d8c6a69d50fa"
@@ -6512,12 +6506,12 @@ ws@1.1.1:
     options ">=0.0.5"
     ultron "1.0.x"
 
-ws@^3.0.0:
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/ws/-/ws-3.0.0.tgz#98ddb00056c8390cb751e7788788497f99103b6c"
+ws@^4.0.0:
+  version "4.1.0"
+  resolved "http://registry.npm.taobao.org/ws/download/ws-4.1.0.tgz#a979b5d7d4da68bf54efe0408967c324869a7289"
   dependencies:
-    safe-buffer "~5.0.1"
-    ultron "~1.1.0"
+    async-limiter "~1.0.0"
+    safe-buffer "~5.1.0"
 
 wtf-8@1.0.0:
   version "1.0.0"
