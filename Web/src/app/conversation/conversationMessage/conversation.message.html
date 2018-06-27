@@ -8,7 +8,7 @@
         <span ng-if="totalUnreadMessagesCount" class="unreadCount">{{totalUnreadMessagesCount}}</span>
       </md-button>
       <h2>
-        <span ng-if="currentConversation && currentConversation.members.length !== 2">{{ currentConversation.name || '群 ' + currentConversation.id.slice(-4) }} ({{currentConversation.members.length}})</span>
+        <span ng-if="currentConversation.members.length !== 2">{{ currentConversation.name || '群 ' + currentConversation.id.slice(-4) }}</span> <span ng-show="currentConversation.members.length > 2">({{currentConversation.members.length}})</span>
         <span ng-if="currentConversation.members.length === 2">{{ getSingleConvTarget(currentConversation.members) }}</span>
       </h2>
       <span flex></span>
