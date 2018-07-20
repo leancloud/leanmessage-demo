@@ -1,0 +1,4 @@
+runtime: static
+static:
+  publicDir: dist
+  buildCmd: npm run build
