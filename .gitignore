@@ -1,29 +1,6 @@
-# Android
-.idea
-.gradle
-*.iml
-build
-local.properties
-
-# Xcode
-.DS_Store
-build/
-*.pbxuser
-!default.pbxuser
-*.mode1v3
-!default.mode1v3
-*.mode2v3
-!default.mode2v3
-*.perspectivev3
-!default.perspectivev3
-!default.xcworkspace
-xcuserdata
-*.moved-aside
-*.mobileprovision
-DerivedData
-Pods
-Podfile.lock
-gradle.properties
-
-# Server
-node_modules
+.tmp/
+coverage/
+dist/
+node_modules/
+jspm_packages/
+bower_components/
