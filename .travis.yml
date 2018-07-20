@@ -5,12 +5,10 @@ sudo: false
 script: echo "No test specificated."
 after_success:
   - if [[ "$TRAVIS_BRANCH" == "master" ]] && [[ "${TRAVIS_PULL_REQUEST}" = "false" ]]; then
-      cd Web &&
       echo "Building." &&
       npm i &&
       npm run build &&
       echo "Deploying." &&
-      cp _package.json dist/package.json &&
       cd dist && git init &&
       git config user.name "LeanCloud" &&
       git config user.email "ci@leancloud.rocks" &&
