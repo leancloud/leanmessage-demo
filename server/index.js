@@ -111,7 +111,7 @@ process.on('uncaughtException', function (err) {
 app.use(AV.express());
 
 // start the server
-var PORT = process.env.LC_APP_PORT | process.env.PORT || 8080;
+var PORT = process.env.LEANCLOUD_APP_PORT || process.env.PORT || 8080;
 app.listen(PORT, function () {
   console.log('Listening at http://localhost:' + PORT);
 });
