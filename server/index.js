@@ -91,6 +91,16 @@ AV.Cloud.define('chime', function() {
   });
 });
 
+// 清理图片
+AV.Cloud.define('cleanup-files', function() {
+  console.log('cleanup-files');
+  return new AV.Query(AV.File).limit(999).destroyAll({ useMasterKey: true }).then(function() {
+    console.log('Files deleted');
+  }, function(error) {
+    console.error('cleanup files error: ' + error.message);      
+  });
+});
+
 // handle uncaught exceptions so the application cannot crash
 process.on('uncaughtException', function (err) {
   console.log('Caught exception: ' + err);
