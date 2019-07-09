@@ -4,7 +4,9 @@
   "description": "Math robot for LeanMessage system conversation demo.",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js"
+    "start": "node index.js",
+    "snyk-protect": "snyk protect",
+    "prepare": "npm run snyk-protect"
   },
   "author": "",
   "license": "MIT",
@@ -15,9 +17,11 @@
     "leancloud-storage": "^3.3.0",
     "leanengine": "^3.0.2",
     "mathjs": "^3.18.0",
-    "workerpool": "^1.0.0"
+    "workerpool": "^1.0.0",
+    "snyk": "^1.192.4"
   },
   "engines": {
     "node": "4.x"
-  }
+  },
+  "snyk": true
 }
