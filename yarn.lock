@@ -120,9 +120,10 @@ angular-aria@^1.6.8:
   version "1.6.8"
   resolved "http://registry.npm.taobao.org/angular-aria/download/angular-aria-1.6.8.tgz#f5dfcdd69c0dddcb8b691749285613caa7e6cca5"
 
-angular-material@^1.1.9:
-  version "1.1.9"
-  resolved "http://registry.npm.taobao.org/angular-material/download/angular-material-1.1.9.tgz#840574f8701629fc39eadfea7fd8e235cc5d97c6"
+angular-material@^1.1.21:
+  version "1.1.21"
+  resolved "https://registry.npm.taobao.org/angular-material/download/angular-material-1.1.21.tgz#a3dac5e7d1bdc4b20aaf26315ef00f4a561068cc"
+  integrity sha1-o9rF59G9xLIKryYxXvAPSlYQaMw=
 
 angular-mocks@^1.6.8:
   version "1.6.8"
