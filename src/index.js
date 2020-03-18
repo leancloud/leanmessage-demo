@@ -26,8 +26,9 @@ import convMsgController from './app/conversation/conversationMessage/conversati
 export const app = 'leanMessage';
 const appId = 'm7baukzusy3l5coew0b3em5uf4df5i2krky0ypbmee358yon';
 const appKey = '2e46velw0mqrq3hl2a047yjtpxn32frm0m253k258xo63ft9';
+const server = 'https://leanmessage.jishuq.com';
 
-AV.init({appId, appKey});
+AV.init({appId, appKey, serverURL: server});
 
 angular
   .module(app, ['ui.router', 'ngMaterial'])
@@ -43,9 +44,8 @@ angular
     const realtime = new Realtime({
       appId,
       appKey,
-      // server: 'rtm51',
-      plugins: [TypedMessagesPlugin, GroupchatReceiptsPlugin, TypingIndicatorPlugin],
-      region: 'cn' // 美国节点为 "us"
+      server,
+      plugins: [TypedMessagesPlugin, GroupchatReceiptsPlugin, TypingIndicatorPlugin]
     });
     realtime.register([StickerMessage]);
     LeanRT.realtime = realtime;
