@@ -11,7 +11,7 @@
   "dependencies": {
     "body-parser": "^1.14.1",
     "express": "^4.13.3",
-    "leancloud-realtime": "^3.5.7",
+    "leancloud-realtime": "^4.0.0",
     "leancloud-storage": "^3.3.0",
     "leanengine": "^3.0.2",
     "mathjs": "^3.18.0",
