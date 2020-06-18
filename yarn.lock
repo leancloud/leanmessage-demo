@@ -135,9 +135,10 @@ angular-ui-router@^0.4.3:
   dependencies:
     angular "^1.0.8"
 
-angular@^1.0.8, angular@^1.6.8:
-  version "1.6.8"
-  resolved "http://registry.npm.taobao.org/angular/download/angular-1.6.8.tgz#5be378a58be91a5489e78b59c4518cd9fd273ffb"
+angular@^1.0.8, angular@^1.8.0:
+  version "1.8.0"
+  resolved "https://registry.yarnpkg.com/angular/-/angular-1.8.0.tgz#b1ec179887869215cab6dfd0df2e42caa65b1b51"
+  integrity sha512-VdaMx+Qk0Skla7B5gw77a8hzlcOakwF8mjlW13DpIWIDlfqwAbSSLfd8N/qZnzEmQF4jC4iofInd3gE7vL8ZZg==
 
 ansi-escapes@^1.1.0:
   version "1.4.0"
