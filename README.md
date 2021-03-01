@@ -3,7 +3,7 @@ LeanMessage WebApp
 
 使用 LeanCloud 实时通讯搭建的聊天 WebApp。[Live Demo](https://leanmessage.leanapp.cn/)
 
-> 在找 iOS/Android Demo？试试我们全新设计的 ChatKit 吧：[iOS](https://github.com/leancloud/ChatKit-OC)、[Android](https://github.com/leancloud/LeanCloudChatKit-Android)。
+> 在找 iOS/Android Demo？[iOS](https://github.com/leancloud/swift-sdk-demo)、[Android](https://github.com/leancloud/LeanCloudChatKit-Android)。
 
 ### 功能
 
@@ -26,7 +26,7 @@ LeanMessage WebApp
 
 ### 文档
 
-[实时通讯 JavaScript SDK 使用文档](https://leancloud.cn/docs/realtime_guide-js.html)
+[即时通讯开发指南](https://leancloud.cn/docs/realtime_v2.html)
 
 ### 本地开发、调试
 
