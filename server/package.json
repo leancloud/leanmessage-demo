@@ -14,7 +14,7 @@
     "leancloud-realtime": "^3.5.7",
     "leancloud-storage": "^3.3.0",
     "leanengine": "^3.0.2",
-    "mathjs": "^3.18.0",
+    "mathjs": "^7.5.1",
     "workerpool": "^1.0.0"
   },
   "engines": {
