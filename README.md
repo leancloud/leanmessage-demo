@@ -31,14 +31,14 @@ LeanMessage WebApp
 ### 本地开发、调试
 
 
-1. `npm install`
-2. `npm run serve`
+1. `yarn`
+2. `yarn serve`
 3. `open http://localhost:3000/`
 
 ### 部署
 
 
-1. 运行 `npm run build` 生成 dist 目录
+1. 运行 `yarn build` 生成 dist 目录
 2. 将 dist 目录作为静态资源部署
 
 实时通讯服务是通过校验 origin 来保证安全的，项目中默认的 AppID 是 LeanCloud 提供的测试 App 的 ID，仅允许 localhost:3000 来源的访问，当你需要在另外的域名上部署 LeanMessage WebApp 时，需要将 src/index.js 中的 appId 改为你的 LeanCloud 项目的 App ID，并且确认设置了你的域名为该项目的「安全域名」，更多关于安全方面的信息请参考 [Web 安全域名](https://leancloud.cn/docs/data_security.html#Web_安全域名)。
