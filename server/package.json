@@ -10,7 +10,7 @@
   "license": "MIT",
   "dependencies": {
     "body-parser": "^1.14.1",
-    "express": "^4.13.3",
+    "express": "^4.17.3",
     "leancloud-realtime": "^3.5.7",
     "leancloud-storage": "^3.3.0",
     "leanengine": "^3.0.2",
